@@ -1,0 +1,29 @@
+UNIVERSAL TODO:
+- Login/Register (
+    age,
+    berat,
+    tinggi,
+    gender,
+    Level (??)
+) [perlu pake login google ga?]
+- Home
+    * Fav workout??
+    * Body profile
+    * Tombol workout recommended
+        [dibikin menu "Our recommendation", pas pencet baru muncul hasil predict model]
+        (disimpen di akun lokal?)
+    * History workout terakhir yang dilakui
+        (1 aja ato mungkin 5?)
+    * Update workout list
+        (kalo dipencet, update lokal)
+- Workout
+    * search engine (all gender) (filter by type, gender, level)
+    * Ilustrasi
+    * deskripsi
+    * muscle target
+    * tipe workout
+- Report
+    * Nutrition recommender
+    * Weekly history (kapan aja workout)
+    * weight tracker
+    * BMI score (yang kaya chart loading screen tapi dibagi per angka healthy dll
