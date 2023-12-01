@@ -4,16 +4,18 @@ const checkAuth = require('../middlewares/checkAuth');
 
 const router = express.Router();
 
-const getMeController = require('../controllers/me/getMe');
-const patchMeController = require('../controllers/me/patchMe');
-const getBMIsController = require('../controllers/me/getBMIs');
-const addBMIController = require('../controllers/me/addBMI');
+const getController = require('../controllers/me/get');
+const patchController = require('../controllers/me/patch');
+const bmisGetAllController = require('../controllers/me/bmisGetAll');
+const bmisGetOneController = require('../controllers/me/bmisGetOne');
+const bmisAddController = require('../controllers/me/bmisAdd');
 
 router.use(checkAuth);
 
-router.get('/', ...getMeController);
-router.patch('/', ...patchMeController);
-router.get('/bmis', ...getBMIsController);
-router.post('/bmis', ...addBMIController);
+router.get('/', getController);
+router.patch('/', patchController);
+router.get('/bmis', bmisGetAllController);
+router.get('/bmis/:id', bmisGetOneController);
+router.post('/bmis', bmisAddController);
 
 module.exports = router;

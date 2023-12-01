@@ -10,16 +10,16 @@ const refreshTokenController = require('../controllers/auth/refreshToken');
 const forgotPasswordRequestController = require('../controllers/auth/forgotPasswordRequest');
 const forgotPasswordOTPController = require('../controllers/auth/forgotPasswordOTP');
 const forgotPasswordChangeController = require('../controllers/auth/forgotPasswordChange');
-const refreshOTPController = require('../controllers/auth/refreshOTP');
+const otpRefreshController = require('../controllers/auth/otpRefresh');
 
-router.post('/register', ...registerController);
-router.post('/register/otp', ...registerOTPController);
-router.post('/login', ...loginController);
-router.post('/logout', ...logoutController);
-router.post('/refresh-token', ...refreshTokenController);
-router.post('/forgot-password/request', ...forgotPasswordRequestController);
-router.post('/forgot-password/otp', ...forgotPasswordOTPController);
-router.post('/forgot-password/change', ...forgotPasswordChangeController);
-router.post('/otp/refresh', ...refreshOTPController);
+router.post('/register', registerController);
+router.post('/register/otp', registerOTPController);
+router.post('/login', loginController);
+router.post('/logout', logoutController);
+router.post('/refresh-token', refreshTokenController);
+router.post('/forgot-password/request', forgotPasswordRequestController);
+router.post('/forgot-password/otp', forgotPasswordOTPController);
+router.post('/forgot-password/change', forgotPasswordChangeController);
+router.post('/otp/refresh', otpRefreshController);
 
 module.exports = router;

@@ -6,19 +6,19 @@ const { generateOTPCode } = require('../../helpers/otp');
 
 const validations = [
   body('userId')
-    .notEmpty()
-    .withMessage('User id required.')
+    .exists()
+    .withMessage('User id is required.')
     .custom(async (id) => {
       const user = await db.users.findByPk(id);
       if (!user) {
-        throw new Error("Can't find user.");
+        throw new Error('User not found.');
       } else {
         return true;
       }
     }),
 ];
 
-async function refreshOTP(req, res) {
+async function otpRefreshController(req, res) {
   const user = await db.users.findByPk(req.body.userId);
   const otp = await user.getOTP();
 
@@ -45,4 +45,4 @@ async function refreshOTP(req, res) {
   });
 }
 
-module.exports = [validate(validations), refreshOTP];
+module.exports = [validate(validations), otpRefreshController];

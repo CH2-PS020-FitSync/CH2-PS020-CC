@@ -1,4 +1,4 @@
-function getMeController(req, res) {
+function getController(req, res) {
   const { password, ...filteredUser } = req.user.toJSON();
 
   return res.status(200).json({
@@ -10,4 +10,4 @@ function getMeController(req, res) {
   });
 }
 
-module.exports = [getMeController];
+module.exports = [getController];

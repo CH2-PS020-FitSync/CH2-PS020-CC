@@ -4,18 +4,18 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   body('height')
-    .notEmpty()
+    .exists()
     .withMessage('Height is required.')
     .isFloat()
     .withMessage('Height should be float.'),
   body('weight')
-    .notEmpty()
+    .exists()
     .withMessage('Weight is required.')
     .isFloat()
     .withMessage('Weight should be float.'),
 ];
 
-async function addBMIController(req, res) {
+async function bmisAddController(req, res) {
   const newBMI = await req.user.createBMI(req.matchedData);
   const { UserId, ...filteredNewBMI } = newBMI.toJSON();
 
@@ -31,4 +31,4 @@ async function addBMIController(req, res) {
   });
 }
 
-module.exports = [validate(validations), addBMIController];
+module.exports = [validate(validations), bmisAddController];

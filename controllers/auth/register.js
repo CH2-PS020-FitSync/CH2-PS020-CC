@@ -1,5 +1,5 @@
-const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
+const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
@@ -7,6 +7,8 @@ const { generateOTPCode } = require('../../helpers/otp');
 
 const validations = [
   body('email')
+    .exists()
+    .withMessage('Email is required')
     .isEmail()
     .withMessage('Email is invalid.')
     .custom(async (email) => {
@@ -18,15 +20,20 @@ const validations = [
       }
     }),
   body('password')
+    .exists()
+    .withMessage('Password is required')
     .isLength({ min: 8 })
     .withMessage('Password should have a minimum of 8 characters.'),
-  body('passwordConfirmation').custom((passwordConfirmation, { req }) => {
-    if (passwordConfirmation !== req.body.password) {
-      throw new Error('Password confirmation is not matches.');
-    } else {
-      return true;
-    }
-  }),
+  body('passwordConfirmation')
+    .exists()
+    .withMessage('Password confirmation is required')
+    .custom((passwordConfirmation, { req }) => {
+      if (passwordConfirmation !== req.body.password) {
+        throw new Error('Password confirmation is not matched.');
+      } else {
+        return true;
+      }
+    }),
   body('name').optional(),
   body('gender')
     .optional()
@@ -53,7 +60,7 @@ const validations = [
     .isFloat()
     .withMessage('Height should be float.')
     .custom((height, { req }) => {
-      if (req.weight) {
+      if (!req.body.weight) {
         throw new Error('Height should paired with weight.');
       } else {
         return true;
@@ -64,7 +71,7 @@ const validations = [
     .isFloat()
     .withMessage('Weight should be float.')
     .custom((weight, { req }) => {
-      if (req.height) {
+      if (!req.body.height) {
         throw new Error('Weight should paired with height.');
       } else {
         return true;
@@ -72,7 +79,7 @@ const validations = [
     }),
 ];
 
-async function registerUser(req, res) {
+async function registerController(req, res) {
   const plainPassword = req.matchedData.password;
   const saltRounds = 10;
   const encryptedPassword = await bcrypt.hash(plainPassword, saltRounds);
@@ -131,4 +138,4 @@ async function registerUser(req, res) {
   });
 }
 
-module.exports = [validate(validations), registerUser];
+module.exports = [validate(validations), registerController];

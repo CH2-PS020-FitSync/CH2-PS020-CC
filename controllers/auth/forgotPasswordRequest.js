@@ -5,13 +5,15 @@ const validate = require('../../middlewares/validate');
 const { generateOTPCode } = require('../../helpers/otp');
 
 const validations = [
-  body('userId')
-    .notEmpty()
-    .withMessage('User id required.')
-    .custom(async (id) => {
-      const user = await db.users.findByPk(id);
+  body('email')
+    .exists()
+    .withMessage('Email is required.')
+    .isEmail()
+    .withMessage('Email is invalid.')
+    .custom(async (email) => {
+      const user = await db.users.findOne({ where: { email } });
       if (!user) {
-        throw new Error("Can't find user.");
+        throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {
@@ -21,7 +23,9 @@ const validations = [
 ];
 
 async function forgotPasswordRequest(req, res) {
-  const user = await db.users.findByPk(req.matchedData.userId);
+  const user = await db.users.findOne({
+    where: { email: req.matchedData.email },
+  });
   const otp = await user.getOTP();
 
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();

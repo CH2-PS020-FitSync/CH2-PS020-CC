@@ -6,6 +6,8 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   body('refreshToken')
+    .exists()
+    .withMessage('Refresh token is required.')
     .isJWT()
     .withMessage('Refresh token should be JWT.')
     .custom(async (refreshToken) => {
@@ -13,7 +15,7 @@ const validations = [
         where: { token: refreshToken },
       });
       if (!token) {
-        throw new Error('Refresh token is not found.');
+        throw new Error('Refresh token not found.');
       } else {
         return true;
       }
@@ -48,7 +50,7 @@ async function refreshTokenController(req, res) {
     return res.status(400).json({
       status: 'fail',
       message: "Can't create access token.",
-      errors: error,
+      error,
     });
   }
 }

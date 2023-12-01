@@ -1,17 +1,17 @@
-const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
+const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
   body('userId')
-    .notEmpty()
-    .withMessage('User id required.')
+    .exists()
+    .withMessage('User id is required.')
     .custom(async (id) => {
       const user = await db.users.findByPk(id);
       if (!user) {
-        throw new Error("Can't find user.");
+        throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {
@@ -19,15 +19,20 @@ const validations = [
       }
     }),
   body('password')
+    .exists()
+    .withMessage('Password is required.')
     .isLength({ min: 8 })
     .withMessage('Password should have a minimum of 8 characters.'),
-  body('passwordConfirmation').custom((passwordConfirmation, { req }) => {
-    if (passwordConfirmation !== req.body.password) {
-      throw new Error('Password confirmation is not matches.');
-    } else {
-      return true;
-    }
-  }),
+  body('passwordConfirmation')
+    .exists()
+    .withMessage('Password confirmation is required.')
+    .custom((passwordConfirmation, { req }) => {
+      if (passwordConfirmation !== req.body.password) {
+        throw new Error('Password confirmation is not matches.');
+      } else {
+        return true;
+      }
+    }),
 ];
 
 async function forgotPasswordChange(req, res) {

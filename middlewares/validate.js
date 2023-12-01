@@ -11,14 +11,14 @@ function validate(validations) {
 
     if (errors.isEmpty()) {
       req.matchedData = matchedData(req);
-      next();
-    } else {
-      res.status(400).json({
-        status: 'fail',
-        message: 'Validation error.',
-        errors: errors.array(),
-      });
+      return next();
     }
+
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Validation error.',
+      errors: errors.array(),
+    });
   };
 }
 

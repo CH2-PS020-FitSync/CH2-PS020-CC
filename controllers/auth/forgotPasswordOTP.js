@@ -1,5 +1,5 @@
-const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
+const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
@@ -7,12 +7,12 @@ const { isOTPCodeExpired } = require('../../helpers/otp');
 
 const validations = [
   body('userId')
-    .notEmpty()
-    .withMessage('User id required.')
+    .exists()
+    .withMessage('User id is required.')
     .custom(async (id) => {
       const user = await db.users.findByPk(id);
       if (!user) {
-        throw new Error("Can't find user.");
+        throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {

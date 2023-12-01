@@ -14,12 +14,12 @@ async function generateOTPCode(length = 4, saltRounds = 10) {
   return [plainOTPCode, encryptedOTPCode];
 }
 
-function isOTPCodeExpired(startDate, seconds = 120) {
+function isOTPCodeExpired(startDate, maxSeconds = 120) {
   const startSecond = Math.round(startDate.getTime() / 1000);
   const currentSecond = Math.round(new Date().getTime() / 1000);
   const diffSecond = currentSecond - startSecond;
 
-  if (diffSecond > seconds) {
+  if (diffSecond > maxSeconds) {
     return true;
   }
 

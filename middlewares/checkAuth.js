@@ -6,7 +6,7 @@ async function checkAuth(req, res, next) {
   if (!req.headers.authorization) {
     return res.status(401).json({
       status: 'fail',
-      message: 'Unauthorized.',
+      message: 'Unauthorized. Need access token.',
     });
   }
 
@@ -19,13 +19,27 @@ async function checkAuth(req, res, next) {
     );
 
     const user = await db.users.findByPk(decodedAccessToken.userId);
+
+    if (!user) {
+      throw new Error('User not found.');
+    }
+
     req.user = user;
 
     return next();
   } catch (error) {
+    let message;
+
+    if (error instanceof jwt.TokenExpiredError) {
+      message = 'Access token expired. Please refresh it.';
+    } else {
+      message = 'Unauthorized.';
+    }
+
     return res.status(401).json({
       status: 'fail',
-      message: 'Unauthorized.',
+      message,
+      error: error.message,
     });
   }
 }

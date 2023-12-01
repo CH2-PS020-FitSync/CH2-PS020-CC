@@ -27,7 +27,7 @@ const validations = [
     .withMessage('Goal weight should be float'),
 ];
 
-async function patchMeController(req, res) {
+async function patchController(req, res) {
   await db.users.update(req.matchedData, {
     where: { id: req.user.id },
   });
@@ -44,4 +44,4 @@ async function patchMeController(req, res) {
   });
 }
 
-module.exports = [validate(validations), patchMeController];
+module.exports = [validate(validations), patchController];

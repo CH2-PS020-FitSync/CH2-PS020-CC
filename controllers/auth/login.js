@@ -7,34 +7,27 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   body('email')
+    .exists()
+    .withMessage('Email is required.')
     .isEmail()
-    .withMessage('Email is invalid')
+    .withMessage('Email is invalid.')
     .custom(async (email) => {
       const user = await db.users.findOne({ where: { email } });
       if (!user) {
-        throw new Error('Email is not found.');
+        throw new Error('Email not found.');
       } else if (!user?.isVerified) {
-        throw new Error('User is not verified.');
+        throw new Error('User not verified.');
       } else {
         return true;
       }
     }),
-  body('password').notEmpty().withMessage('Password is required.'),
+  body('password').exists().withMessage('Password is required.'),
 ];
 
 async function loginController(req, res) {
   const user = await db.users.findOne({
     where: { email: req.matchedData.email },
   });
-
-  const existedRefreshToken = await user.getRefreshToken();
-
-  if (existedRefreshToken) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'User already logged in.',
-    });
-  }
 
   const isPasswordMatched = await bcrypt.compare(
     req.matchedData.password,
@@ -44,9 +37,11 @@ async function loginController(req, res) {
   if (!isPasswordMatched) {
     return res.status(400).json({
       status: 'fail',
-      message: 'Password is wrong.',
+      message: 'Password is incorrect.',
     });
   }
+
+  const existedRefreshToken = await user.getRefreshToken();
 
   const jwtOptions = {
     issuer: 'FitSync',
@@ -57,17 +52,23 @@ async function loginController(req, res) {
     process.env.ACCESS_TOKEN_PRIVATE_KEY,
     { ...jwtOptions, expiresIn: '10m' }
   );
-  const refreshToken = jwt.sign(
-    { userId: user.id },
-    process.env.REFRESH_TOKEN_PRIVATE_KEY,
-    { ...jwtOptions }
-  );
+  let refreshToken;
 
-  await user.createRefreshToken({ token: refreshToken });
+  if (existedRefreshToken) {
+    refreshToken = existedRefreshToken.token;
+  } else {
+    refreshToken = jwt.sign(
+      { userId: user.id },
+      process.env.REFRESH_TOKEN_PRIVATE_KEY,
+      { ...jwtOptions }
+    );
+    await user.createRefreshToken({ token: refreshToken });
+  }
 
   return res.status(201).json({
     status: 'success',
-    message: 'Access token and refresh token successfully created.',
+    message:
+      'User successfully logged in. Access token and refresh token created.',
     data: {
       user: {
         id: user.id,

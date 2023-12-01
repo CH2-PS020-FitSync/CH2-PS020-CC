@@ -1,5 +1,5 @@
-const { body } = require('express-validator');
 const bcrypt = require('bcrypt');
+const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
@@ -7,12 +7,12 @@ const { isOTPCodeExpired } = require('../../helpers/otp');
 
 const validations = [
   body('userId')
-    .notEmpty()
-    .withMessage('User id required.')
+    .exists()
+    .withMessage('User id is required.')
     .custom(async (id) => {
       const user = await db.users.findByPk(id);
       if (!user) {
-        throw new Error("Can't find user.");
+        throw new Error('User not found.');
       } else if (user?.isVerified) {
         throw new Error('User already verified.');
       } else {
@@ -20,11 +20,13 @@ const validations = [
       }
     }),
   body('code')
+    .exists()
+    .withMessage('OTP code is required.')
     .isLength({ min: 4, max: 4 })
     .withMessage('OTP code should be 4 characters.'),
 ];
 
-async function inputOTP(req, res) {
+async function registerOTPController(req, res) {
   const user = await db.users.findByPk(req.matchedData.userId);
   const otp = await user.getOTP();
 
@@ -64,4 +66,4 @@ async function inputOTP(req, res) {
   });
 }
 
-module.exports = [validate(validations), inputOTP];
+module.exports = [validate(validations), registerOTPController];
