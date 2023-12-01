@@ -8,7 +8,7 @@ const { generateOTPCode } = require('../../helpers/otp');
 const validations = [
   body('email')
     .exists()
-    .withMessage('Email is required')
+    .withMessage('Email is required.')
     .isEmail()
     .withMessage('Email is invalid.')
     .custom(async (email) => {
@@ -21,12 +21,12 @@ const validations = [
     }),
   body('password')
     .exists()
-    .withMessage('Password is required')
+    .withMessage('Password is required.')
     .isLength({ min: 8 })
     .withMessage('Password should have a minimum of 8 characters.'),
   body('passwordConfirmation')
     .exists()
-    .withMessage('Password confirmation is required')
+    .withMessage('Password confirmation is required.')
     .custom((passwordConfirmation, { req }) => {
       if (passwordConfirmation !== req.body.password) {
         throw new Error('Password confirmation is not matched.');
@@ -54,7 +54,7 @@ const validations = [
   body('goalWeight')
     .optional()
     .isFloat()
-    .withMessage('Goal weight should be float'),
+    .withMessage('Goal weight should be float.'),
   body('height')
     .optional()
     .isFloat()
