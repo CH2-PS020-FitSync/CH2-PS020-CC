@@ -9,6 +9,7 @@ const patchController = require('../controllers/me/patch');
 const bmisGetAllController = require('../controllers/me/bmisGetAll');
 const bmisGetOneController = require('../controllers/me/bmisGetOne');
 const bmisAddController = require('../controllers/me/bmisAdd');
+const photoAddController = require('../controllers/me/photoAddController');
 
 router.use(checkAuth);
 
@@ -17,5 +18,6 @@ router.patch('/', patchController);
 router.get('/bmis', bmisGetAllController);
 router.get('/bmis/:id', bmisGetOneController);
 router.post('/bmis', bmisAddController);
+router.put('/photo', photoAddController);
 
 module.exports = router;
