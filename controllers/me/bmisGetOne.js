@@ -16,19 +16,20 @@ const validations = [
 
 async function bmisGetOneController(req, res) {
   const bmi = await db.bmis.findByPk(req.matchedData.id);
-  const { UserId, ...filteredBMI } = bmi.toJSON();
   const user = await bmi.getUser();
 
   if (user.id !== req.user.id) {
     return res.status(403).json({
       status: 'fail',
-      message: 'Forbidden',
+      message: 'Forbidden.',
     });
   }
 
+  const { UserId, ...filteredBMI } = bmi.toJSON();
+
   return res.status(200).json({
     status: 'success',
-    message: 'BMI successfully retrieved',
+    message: 'BMI successfully retrieved.',
     data: {
       user: {
         id: user.id,

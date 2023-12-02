@@ -19,6 +19,7 @@ db.users = require('./User')(sequelize);
 db.otps = require('./OTP')(sequelize);
 db.refreshTokens = require('./RefreshToken')(sequelize);
 db.bmis = require('./BMI')(sequelize);
+db.workouts = require('./Workout')(sequelize);
 
 db.users.hasOne(db.otps, {
   onDelete: 'CASCADE',
@@ -37,5 +38,11 @@ db.users.hasMany(db.bmis, {
   onUpdate: 'NO ACTION',
 });
 db.bmis.belongsTo(db.users);
+
+db.users.hasMany(db.workouts, {
+  onDelete: 'RESTRICT',
+  onUpdate: 'NO ACTION',
+});
+db.workouts.belongsTo(db.users);
 
 module.exports = db;

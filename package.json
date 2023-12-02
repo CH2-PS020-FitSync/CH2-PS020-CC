@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
+    "start-force": "nodemon server.js --force-db",
+    "start-alter": "nodemon server.js --alter-db",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

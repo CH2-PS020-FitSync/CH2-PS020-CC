@@ -31,7 +31,7 @@ const validations = [
     .toInt(),
 ];
 
-async function bmisGetAll(req, res) {
+async function workoutsGetAll(req, res) {
   const {
     order = 'desc',
     from: dateFrom,
@@ -66,7 +66,7 @@ async function bmisGetAll(req, res) {
   const queryOptions = {
     where: filters,
     attributes: {
-      exclude: ['UserId'],
+      include: ['id', ['ExerciseId', 'exerciseId'], 'updatedAt', 'createdAt'],
     },
     order: [['createdAt', order]],
   };
@@ -79,18 +79,18 @@ async function bmisGetAll(req, res) {
     queryOptions.offset = offset;
   }
 
-  const userBMIs = await db.bmis.findAll(queryOptions);
+  const userWorkouts = await db.workouts.findAll(queryOptions);
 
   return res.status(200).json({
     status: 'success',
-    message: 'User BMIs successfully retrieved.',
+    message: 'User workouts successfully retrieved.',
     data: {
       user: {
         id: req.user.id,
-        bmis: userBMIs,
+        workouts: userWorkouts,
       },
     },
   });
 }
 
-module.exports = [validate(validations), bmisGetAll];
+module.exports = [validate(validations), workoutsGetAll];

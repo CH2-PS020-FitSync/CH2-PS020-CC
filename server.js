@@ -26,9 +26,14 @@ app.use(require('./middlewares/errorHandler'));
       chalk.green('Database connection has been established succesfully.')
     );
 
-    await db.sequelize.sync();
-    // await db.sequelize.sync({ force: true });
-    // await db.sequelize.sync({ alter: true });
+    if (process.argv.includes('--force-db')) {
+      await db.sequelize.sync({ force: true });
+    } else if (process.argv.includes('--alter-db')) {
+      await db.sequelize.sync({ alter: true });
+    } else {
+      await db.sequelize.sync();
+    }
+
     console.log(
       chalk.blue('All database models were synchronized successfully.')
     );
