@@ -18,7 +18,6 @@ const upload = multer({
 const uploadFile = promisify(upload);
 
 async function photoAddController(req, res) {
-  console.log(__dirname);
   try {
     await uploadFile(req, res);
 

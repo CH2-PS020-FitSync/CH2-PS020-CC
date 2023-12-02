@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
-const { generateOTPCode } = require('../../helpers/otp');
+const { generateOTPCode, sendOTPToEmail } = require('../../helpers/otp');
 
 const validations = [
   body('email')
@@ -84,9 +84,6 @@ async function registerController(req, res) {
   const saltRounds = 10;
   const encryptedPassword = await bcrypt.hash(plainPassword, saltRounds);
 
-  const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
-  console.log(plainOTPCode);
-
   const userData = {
     email: req.matchedData.email,
     password: encryptedPassword,
@@ -96,6 +93,15 @@ async function registerController(req, res) {
     level: req.matchedData.level || null,
     goalWeight: req.matchedData.goalWeight || null,
   };
+
+  const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
+  await sendOTPToEmail({
+    type: 'register',
+    otpCode: plainOTPCode,
+    to: userData.email,
+    name: userData.name,
+    smtpOptions: req.smtpOptions,
+  });
 
   const bmiData = {
     height: req.matchedData.height,

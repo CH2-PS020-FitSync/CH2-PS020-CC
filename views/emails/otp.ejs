@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= locals.title %></title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        background-color: #efefef;
+      }
+
+      table {
+        border-spacing: 0;
+      }
+
+      td {
+        padding: 0;
+      }
+
+      img {
+        max-width: 100%;
+        border: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .wrapper {
+        width: 100%;
+        table-layout: fixed;
+        background-color: #efefef;
+      }
+
+      @media screen and (min-width: 600px) {
+        .wrapper {
+          padding: 32px 0;
+        }
+      }
+
+      .main {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-spacing: 0;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.25;
+        color: #333333;
+      }
+
+      .top-border,
+      .bottom-border {
+        height: 8px;
+        background-color: #7b0009;
+      }
+
+      .header-wrapper {
+        padding: 24px 8px 8px 8px;
+        text-align: center;
+      }
+
+      .content-wrapper {
+        padding: 32px 16px;
+        text-align: center;
+      }
+
+      .content {
+        width: 100%;
+      }
+
+      .greeting-wrapper {
+        padding: 8px 0;
+      }
+
+      .greeting {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .opening-wrapper,
+      .closing-wrapper {
+        padding: 16px 0;
+      }
+
+      .opening {
+        text-align: center;
+      }
+
+      .otp-code-wrapper {
+        padding: 20px 0;
+      }
+
+      .otp-code {
+        font-size: 32px;
+        font-weight: bold;
+        letter-spacing: 8px;
+        text-align: center;
+      }
+
+      .closing {
+        font-style: italic;
+        text-align: center;
+      }
+
+      .footer-wrapper {
+        padding: 24px 8px;
+        background-color: #fff1f2;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #555555;
+      }
+
+      .footer-text {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <center class="wrapper">
+      <table class="main" width="100%">
+        <tr>
+          <td class="top-border"></td>
+        </tr>
+        <tr>
+          <td class="header-wrapper">
+            <img
+              src="https://storage.googleapis.com/fitsync-static-assets/fitsync-logo.png"
+              alt="FitSync"
+              height="50"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td class="content-wrapper">
+            <table class="content" width="100%">
+              <tr>
+                <td class="greeting-wrapper">
+                  <p class="greeting">
+                    Hello, <%= locals.name || 'there' %>! 👋
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="opening-wrapper">
+                  <p class="opening">
+                    <%= locals.opening %> The code will be expired in
+                    <b>5 minutes</b>.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="otp-code-wrapper">
+                  <p class="otp-code"><%= locals.otpCode %></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="closing-wrapper">
+                  <p class="closing"><%= locals.closing %></p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="footer-wrapper">
+            <p class="footer-text">FitSync &copy; 2023</p>
+            <p class="footer-text">All rights reserved.</p>
+          </td>
+        </tr>
+        <tr>
+          <td class="bottom-border"></td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

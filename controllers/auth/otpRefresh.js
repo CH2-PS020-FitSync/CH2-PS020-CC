@@ -2,7 +2,7 @@ const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
-const { generateOTPCode } = require('../../helpers/otp');
+const { generateOTPCode, sendOTPToEmail } = require('../../helpers/otp');
 
 const validations = [
   body('userId')
@@ -30,7 +30,13 @@ async function otpRefreshController(req, res) {
   }
 
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
-  console.log(plainOTPCode);
+  await sendOTPToEmail({
+    type: user.isVerified ? 'forgot-password' : 'register',
+    otpCode: plainOTPCode,
+    to: user.email,
+    name: user.name,
+    smtpOptions: req.smtpOptions,
+  });
 
   await db.otps.update({ code: encryptedOTPCode }, { where: { id: otp.id } });
 
