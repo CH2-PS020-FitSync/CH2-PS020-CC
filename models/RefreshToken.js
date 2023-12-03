@@ -10,6 +10,11 @@ module.exports = (sequelize) => {
         unique: true,
         allowNull: false,
       },
+      lastAccessedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
     },
     { sequelize }
   );
