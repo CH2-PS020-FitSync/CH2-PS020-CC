@@ -50,7 +50,10 @@ async function loginController(req, res) {
   const accessToken = jwt.sign(
     { userId: user.id },
     process.env.ACCESS_TOKEN_PRIVATE_KEY,
-    { ...jwtOptions, expiresIn: '10m' }
+    {
+      ...jwtOptions,
+      expiresIn: process.env.ENVIRONMENT === 'production' ? '15m' : '24h',
+    }
   );
   let refreshToken;
 

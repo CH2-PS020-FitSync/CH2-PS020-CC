@@ -45,7 +45,10 @@ async function refreshTokenController(req, res) {
     const newAccessToken = jwt.sign(
       { userId: decodedRefreshToken.userId },
       process.env.ACCESS_TOKEN_PRIVATE_KEY,
-      { issuer: 'FitSync', expiresIn: '10m' }
+      {
+        issuer: 'FitSync',
+        expiresIn: process.env.ENVIRONMENT === 'production' ? '15m' : '24h',
+      }
     );
 
     const refreshToken = await db.refreshTokens.findOne({
