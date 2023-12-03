@@ -6,6 +6,8 @@ Cloud Computing part of FitSync.
 
 ### General
 
+- ENVIRONMENT [development, production]
+- IS_LOCAL [true, false]
 - API_KEY
 - PORT
 
