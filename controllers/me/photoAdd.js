@@ -6,7 +6,7 @@ const db = require('../../models');
 
 let storage;
 
-if (process.env.IS_LOCAL) {
+if (process.env.IS_LOCAL === 'true') {
   storage = new Storage({
     keyFilename: 'keys/storage-object-admin.json',
   });
