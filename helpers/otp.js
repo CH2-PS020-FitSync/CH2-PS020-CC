@@ -18,9 +18,9 @@ async function generateOTPCode(length = 4, saltRounds = 10) {
 }
 
 function isOTPCodeExpired(startDate, maxSeconds = 300) {
-  const startSecond = Math.round(startDate.getTime() / 1000);
-  const currentSecond = Math.round(new Date().getTime() / 1000);
-  const diffSecond = currentSecond - startSecond;
+  const startSeconds = Math.round(startDate.getTime() / 1000);
+  const currentSeconds = Math.round(new Date().getTime() / 1000);
+  const diffSecond = currentSeconds - startSeconds;
 
   if (diffSecond > maxSeconds) {
     return true;
