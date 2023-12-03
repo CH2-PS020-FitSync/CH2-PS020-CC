@@ -4,9 +4,16 @@ const multer = require('multer');
 
 const db = require('../../models');
 
-const storage = new Storage({
-  keyFilename: 'keys/storage-object-admin.json',
-});
+let storage;
+
+if (process.env.IS_LOCAL) {
+  storage = new Storage({
+    keyFilename: 'keys/storage-object-admin.json',
+  });
+} else {
+  storage = new Storage();
+}
+
 const bucket = storage.bucket('fitsync-user-photos');
 
 const maxSize = 2 * 1024 * 1024; // 2MB
