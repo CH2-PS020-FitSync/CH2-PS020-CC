@@ -14,10 +14,23 @@ const validations = [
       const token = await db.refreshTokens.findOne({
         where: { token: refreshToken },
       });
+
       if (!token) {
         throw new Error('Refresh token not found.');
       } else {
-        return true;
+        const expiredDaysInSeconds = 90 * 24 * 60 * 60; // 90 days;
+        const lastAccessedSeconds = Math.round(
+          new Date(token.lastAccessedAt).getTime() / 1000
+        );
+        const currentSeconds = Math.round(new Date().getTime() / 1000);
+
+        if (currentSeconds - lastAccessedSeconds > expiredDaysInSeconds) {
+          await token.destroy();
+
+          throw new Error('Refresh token expired.');
+        } else {
+          return true;
+        }
       }
     }),
 ];
@@ -34,6 +47,11 @@ async function refreshTokenController(req, res) {
       process.env.ACCESS_TOKEN_PRIVATE_KEY,
       { issuer: 'FitSync', expiresIn: '10m' }
     );
+
+    const refreshToken = await db.refreshTokens.findOne({
+      where: { token: req.matchedData.refreshToken },
+    });
+    await refreshToken.update({ lastAccessedAt: new Date() });
 
     return res.status(201).json({
       status: 'success',
