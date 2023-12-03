@@ -9,6 +9,15 @@ const dbDialect = process.env.DB_DIALECT;
 const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
   host: dbHost,
   dialect: dbDialect,
+  dialectOptions: {
+    typeCast: (field, next) => {
+      if (field.type === 'DATETIME') {
+        return field.string();
+      }
+      return next();
+    },
+  },
+  timezone: '+07:00',
 });
 
 const db = {};
