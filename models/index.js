@@ -6,7 +6,7 @@ const dbPassword = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 const dbDialect = process.env.DB_DIALECT;
 
-const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
+const options = {
   host: dbHost,
   dialect: dbDialect,
   dialectOptions: {
@@ -18,7 +18,13 @@ const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
     },
   },
   timezone: '+07:00',
-});
+};
+
+if (process.env.IS_LOCAL === 'false') {
+  options.dialectOptions.socketPath = dbHost;
+}
+
+const sequelize = new Sequelize(dbName, dbUsername, dbPassword, options);
 
 const db = {};
 
