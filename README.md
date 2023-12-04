@@ -67,16 +67,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "fail",
   "message": "Validation error.",
-  "data": {
-    "errors": [
-      {
-        "type": "<string>",
-        "msg": "<string>",
-        "path": "<string>",
-        "location": "<string>"
-      }
-    ]
-  }
+  "validationErrors": [
+    {
+      "type": "<string>",
+      "msg": "<string>",
+      "path": "<string>",
+      "location": "<string>"
+    }
+  ]
 }
 ```
 
@@ -125,10 +123,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User registered successfully. OTP code sent.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -152,10 +148,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User sucessfully verified.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -207,10 +201,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User successfully logged in. Access token and refresh token created.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
+  "user": {
+    "id": "<string>",
     "accessToken": "<string>",
     "refreshToken": "<string>"
   }
@@ -243,10 +235,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User successfully logged out. Refresh token destroyed.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -286,10 +276,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "Access token updated.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
+  "user": {
+    "id": "<string>",
     "accessToken": "<string>",
     "refreshToken": "<string>"
   }
@@ -302,9 +290,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "fail",
   "message": "Can't create access token.",
-  "data": {
-    "error": "<string>"
-  }
+  "error": "<string>"
 }
 ```
 
@@ -327,10 +313,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "OTP code successfully sent.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -355,10 +339,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "Verification success. User ready to change their password.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -412,10 +394,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User password successfully changed.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -437,10 +417,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "OTP code successfully refreshed and sent.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    }
+  "user": {
+    "id": "<string>"
   }
 }
 ```
@@ -488,26 +466,24 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User data found.",
-  "data": {
-    "user": {
-      "id": "<string>",
-      "email": "<string>",
-      "isVerified": "<boolean>",
-      "name": "<string>",
-      "gender": "<string>",
-      "birthDate": "<string>",
-      "level": "<string>",
-      "goalWeight": "<string>",
-      "photoUrl": "<string>",
+  "user": {
+    "id": "<string>",
+    "email": "<string>",
+    "isVerified": "<boolean>",
+    "name": "<string>",
+    "gender": "<string>",
+    "birthDate": "<string>",
+    "level": "<string>",
+    "goalWeight": "<string>",
+    "photoUrl": "<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>",
+    "latestBMI": {
+      "id": "<integer>",
+      "height": "<integer>/<float>/<string>",
+      "weight": "<integer>/<float>/<string>",
       "createdAt": "<string>",
-      "updatedAt": "<string>",
-      "latestBMI": {
-        "id": "<integer>",
-        "height": "<integer>/<float>/<string>",
-        "weight": "<integer>/<float>/<string>",
-        "createdAt": "<string>",
-        "updatedAt": "<string>"
-      }
+      "updatedAt": "<string>"
     }
   }
 }
@@ -536,20 +512,18 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User successfully patched.",
-  "data": {
-    "user": {
-      "id": "<string>",
-      "email": "<string>",
-      "isVerified": "<boolean>",
-      "name": "<string>",
-      "gender": "<string>",
-      "birthDate": "<string>",
-      "level": "<string>",
-      "goalWeight": "<string>",
-      "photoUrl": "<string>",
-      "createdAt": "<string>",
-      "updatedAt": "<string>"
-    }
+  "user": {
+    "id": "<string>",
+    "email": "<string>",
+    "isVerified": "<boolean>",
+    "name": "<string>",
+    "gender": "<string>",
+    "birthDate": "<string>",
+    "level": "<string>",
+    "goalWeight": "<string>",
+    "photoUrl": "<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
   }
 }
 ```
@@ -572,11 +546,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User photo successfully changed.",
-  "data": {
-    "user": {
-      "id": "<string>",
-      "photoUrl": "<string>"
-    }
+  "user": {
+    "id": "<string>",
+    "photoUrl": "<string>"
   }
 }
 ```
@@ -642,20 +614,15 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User BMIs successfully retrieved.",
-  "data": {
-    "user": {
-      "id": "<string>",
-      "bmis": [
-        {
-          "id": "<integer>",
-          "height": "<integer>/<float>/<string>",
-          "weight": "<integer>/<float>/<string>",
-          "createdAt": "<string>",
-          "updatedAt": "<string>"
-        }
-      ]
+  "bmis": [
+    {
+      "id": "<integer>",
+      "height": "<integer>/<float>/<string>",
+      "weight": "<integer>/<float>/<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
     }
-  }
+  ]
 }
 ```
 
@@ -677,17 +644,12 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "BMI successfully retrieved.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
-    "bmi": {
-      "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
-      "createdAt": "<string>",
-      "updatedAt": "<string>"
-    }
+  "bmi": {
+    "id": "<integer>",
+    "height": "<integer>/<float>/<string>",
+    "weight": "<integer>/<float>/<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
   }
 }
 ```
@@ -718,17 +680,12 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "BMI succesfully added.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
-    "bmi": {
-      "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
-      "createdAt": "<string>",
-      "updatedAt": "<string>"
-    }
+  "bmi": {
+    "id": "<integer>",
+    "height": "<integer>/<float>/<string>",
+    "weight": "<integer>/<float>/<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
   }
 }
 ```
@@ -758,19 +715,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "User workouts successfully retrieved.",
-  "data": {
-    "user": {
-      "id": "<string>",
-      "workouts": [
-        {
-          "id": "<integer>",
-          "exerciseId": "<string>",
-          "createdAt": "<string>",
-          "updatedAt": "<string>"
-        }
-      ]
+  "workouts": [
+    {
+      "id": "<integer>",
+      "exerciseId": "<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
     }
-  }
+  ]
 }
 ```
 
@@ -792,16 +744,11 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "Workout successfully retrieved.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
-    "workout": {
-      "id": "<integer>",
-      "exerciseId": "<string>",
-      "createdAt": "<string>",
-      "updatedAt": "<string>"
-    }
+  "workout": {
+    "id": "<integer>",
+    "exerciseId": "<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
   }
 }
 ```
@@ -832,16 +779,11 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "status": "success",
   "message": "Workout successfully added.",
-  "data": {
-    "user": {
-      "id": "<string>"
-    },
-    "workout": {
-      "id": "<integer>",
-      "exerciseId": "<string>",
-      "createdAt": "<string>",
-      "updatedAt": "<string>"
-    }
+  "workout": {
+    "id": "<integer>",
+    "exerciseId": "<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
   }
 }
 ```
