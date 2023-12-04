@@ -1,4 +1,4 @@
-# :cloud: CH2-PS020-CC
+# ☁️ CH2-PS020-CC
 
 Cloud Computing part of FitSync.
 
@@ -9,7 +9,7 @@ Team members:
 | Alida Shidqiya Naifa Ulmulikhun | C248BSX4205 |
 | Muhammad Alfayed Dennita        | C134BSY3479 |
 
-## :key: Environment Variables
+## 🔑 Environment Variables
 
 ### General
 
@@ -40,7 +40,7 @@ Team members:
 - `EMAIL_TRANSPORTER_PASSWORD`
 - `EMAIL_TRANSPORTER_NAME`
 
-## :link: API Documentation
+## 🔗 API Documentation
 
 **Base URL**:
 
@@ -61,7 +61,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Global Possible Responses:**
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -71,7 +71,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **500** Internal Server Error
+🔴 **500** Internal Server Error
 
 ```json
 {
@@ -82,7 +82,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-### :door: A. Authentication & Authorization
+### 🚪 A. Authentication & Authorization
 
 #### 🟧 A.1 Register: `POST` - /auth/register
 
@@ -151,7 +151,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -160,7 +160,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -169,7 +169,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -208,7 +208,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -242,7 +242,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **401** Unauthorized
+🔴 **401** Unauthorized
 
 ```json
 {
@@ -251,7 +251,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -287,7 +287,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -352,7 +352,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -361,7 +361,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -370,7 +370,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -434,7 +434,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -445,7 +445,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-### :adult: B. Me
+### 🧑 B. Me
 
 **Subglobal Headers:**
 
@@ -454,7 +454,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Subglobal Possible Responses:**
 
-:red_circle: **401** Unauthorized
+🔴 **401** Unauthorized
 
 ```json
 {
@@ -577,7 +577,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -586,7 +586,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -595,7 +595,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **400** Bad Request
+🔴 **400** Bad Request
 
 ```json
 {
@@ -604,7 +604,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **500** Internal Server Error
+🔴 **500** Internal Server Error
 
 ```json
 {
@@ -680,7 +680,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **403** Forbidden
+🔴 **403** Forbidden
 
 ```json
 {
@@ -787,7 +787,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-:red_circle: **403** Forbidden
+🔴 **403** Forbidden
 
 ```json
 {
@@ -829,6 +829,6 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-[:link: Back to Top API Documentation](#api-documentation)
+[🔗 Back to Top API Documentation](#api-documentation)
 
 [:top: Back to Very Top](#ch2-ps020-cc)
