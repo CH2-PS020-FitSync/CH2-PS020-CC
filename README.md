@@ -674,7 +674,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** CREATED
+:green_circle: **201** Created
 
 ```json
 {
@@ -773,7 +773,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** CREATED
+:green_circle: **201** Created
 
 ```json
 {
