@@ -537,14 +537,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
       "goalWeight": "<UserGoalWeight>",
       "photoUrl": "<UserPhotoURL>",
       "createdAt": "<UserCreatedAt>",
-      "updatedAt": "<UserUpdatedAt>",
-      "latestBMI": {
-        "id": "<BMIId>",
-        "height": "<BMIHeight>",
-        "weight": "<BMIWeight>",
-        "createdAt": "<BMICreatedAt>",
-        "updatedAt": "<BMIUpdatedAt>"
-      }
+      "updatedAt": "<UserUpdatedAt>"
     }
   }
 }
