@@ -71,7 +71,9 @@ async function refreshTokenController(req, res) {
     return res.status(400).json({
       status: 'fail',
       message: "Can't create access token.",
-      error,
+      data: {
+        error: error.message,
+      },
     });
   }
 }
