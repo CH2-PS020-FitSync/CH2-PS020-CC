@@ -133,7 +133,7 @@ async function registerController(req, res) {
     await user.createOTP({ code: encryptedOTPCode });
   }
 
-  res.status(201).json({
+  res.status(existedUser ? 200 : 201).json({
     status: 'success',
     message: 'User registered successfully. OTP code sent.',
     data: {
