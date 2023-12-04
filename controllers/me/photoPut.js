@@ -24,7 +24,7 @@ const upload = multer({
 
 const uploadFile = promisify(upload);
 
-async function photoAddController(req, res) {
+async function photoPutController(req, res) {
   try {
     await uploadFile(req, res);
 
@@ -110,4 +110,4 @@ async function photoAddController(req, res) {
   }
 }
 
-module.exports = [photoAddController];
+module.exports = [photoPutController];
