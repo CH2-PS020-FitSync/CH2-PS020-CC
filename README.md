@@ -822,6 +822,6 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-[🔗 Back to Top API Documentation](#api-documentation)
+[🔗 Back to Top API Documentation](#-api-documentation)
 
-[:top: Back to Very Top](#ch2-ps020-cc)
+[:top: Back to Very Top](#%EF%B8%8F-ch2-ps020-cc)
