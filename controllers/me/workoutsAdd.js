@@ -3,11 +3,7 @@ const { body } = require('express-validator');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  body('exerciseId')
-    .exists()
-    .withMessage('Exercise id is required.')
-    .isLength({ min: 20, max: 20 })
-    .withMessage('Exercise id should be 20 characters.'),
+  body('exerciseId').exists().withMessage('Exercise id is required.'),
 ];
 
 async function workoutsAddController(req, res) {
@@ -17,8 +13,8 @@ async function workoutsAddController(req, res) {
   const {
     id,
     ExerciseId: exerciseId,
-    updatedAt,
     createdAt,
+    updatedAt,
   } = newWorkout.toJSON();
 
   return res.status(201).json({
@@ -31,8 +27,8 @@ async function workoutsAddController(req, res) {
       workout: {
         id,
         exerciseId,
-        updatedAt,
         createdAt,
+        updatedAt,
       },
     },
   });
