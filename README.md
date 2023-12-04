@@ -84,7 +84,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ### :door: A. Authentication & Authorization
 
-#### :orange_square: A.1 Register: `POST` - /auth/register
+#### 🟧 A.1 Register: `POST` - /auth/register
 
 **Body:**
 
@@ -126,7 +126,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.2 Register OTP: `POST`- /auth/register/otp
+#### 🟧 A.2 Register OTP: `POST`- /auth/register/otp
 
 **Body:**
 
@@ -180,7 +180,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.3 Login: `POST` - /auth/login
+#### 🟧 A.3 Login: `POST` - /auth/login
 
 **Body:**
 
@@ -219,7 +219,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.4 Logout: `POST` - /auth/logout
+#### 🟧 A.4 Logout: `POST` - /auth/logout
 
 **Headers:**
 
@@ -262,7 +262,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.5 Refresh Token: `POST` - /auth/refresh-token
+#### 🟧 A.5 Refresh Token: `POST` - /auth/refresh-token
 
 **Body:**
 
@@ -299,7 +299,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.6 Forgot Password - Request: `POST` - /auth/forgot-password/request
+#### 🟧 A.6 Forgot Password - Request: `POST` - /auth/forgot-password/request
 
 **Body:**
 
@@ -326,7 +326,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.7 Forgot Password - OTP: `POST` - /auth/forgot-password/otp
+#### 🟧 A.7 Forgot Password - OTP: `POST` - /auth/forgot-password/otp
 
 **Body:**
 
@@ -381,7 +381,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.8 Forgot Password - Change: `POST` - /auth/forgot-password/change
+#### 🟧 A.8 Forgot Password - Change: `POST` - /auth/forgot-password/change
 
 **Body:**
 
@@ -411,7 +411,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :orange_square: A.9 Refresh OTP: `POST` - /auth/otp/refresh
+#### 🟧 A.9 Refresh OTP: `POST` - /auth/otp/refresh
 
 **Body:**
 
@@ -467,7 +467,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 #### :page_with_curl: B.1 Personal Data
 
-##### :green_square: B.1.1 Get Me: `GET` - /me
+##### 🟩 B.1.1 Get Me: `GET` - /me
 
 **Possible Responses:**
 
@@ -504,7 +504,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :purple_square: B.1.2 Patch Me: `PATCH` - /me
+##### 🟪 B.1.2 Patch Me: `PATCH` - /me
 
 **Body:**
 
@@ -552,7 +552,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :blue_square: B.1.3 Update My Photo: `PUT` - /me/photo
+##### 🟦 B.1.3 Update My Photo: `PUT` - /me/photo
 
 **Body:**
 
@@ -617,7 +617,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 #### :chart_with_upwards_trend: B.2 BMIs
 
-##### :green_square: B.2.1 Get All BMIs: `GET` - /me/bmis
+##### 🟩 B.2.1 Get All BMIs: `GET` - /me/bmis
 
 **Query Parameters:**;
 
@@ -649,7 +649,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :green_square: B.2.2 Get One BMI: `GET` - /me/bmis/:id
+##### 🟩 B.2.2 Get One BMI: `GET` - /me/bmis/:id
 
 **Path Parameters:**
 
@@ -691,7 +691,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :orange_square: B.2.3 Add BMI: `POST` - /me/bmis
+##### 🟧 B.2.3 Add BMI: `POST` - /me/bmis
 
 **Body:**
 
@@ -725,7 +725,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 #### :cartwheeling: B.3 Workouts
 
-##### :green_square: B.3.1 Get All Workouts: `GET` - /me/workouts
+##### 🟩 B.3.1 Get All Workouts: `GET` - /me/workouts
 
 **Query Parameters:**;
 
@@ -757,7 +757,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :green_square: B.3.2 Get One Workout: `GET` - /me/workouts/:id
+##### 🟩 B.3.2 Get One Workout: `GET` - /me/workouts/:id
 
 **Path Parameters:**
 
@@ -798,7 +798,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### :orange_square: B.3.3 Add Workout: `POST` - /me/workouts
+##### 🟧 B.3.3 Add Workout: `POST` - /me/workouts
 
 **Body:**
 
