@@ -28,16 +28,11 @@ async function workoutsGetOneController(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'Workout successfully retrieved.',
-    data: {
-      user: {
-        id: user.id,
-      },
-      workout: {
-        id: workout.id,
-        exerciseId: workout.ExerciseId,
-        createdAt: workout.createdAt,
-        updatedAt: workout.updatedAt,
-      },
+    workout: {
+      id: workout.id,
+      exerciseId: workout.ExerciseId,
+      createdAt: workout.createdAt,
+      updatedAt: workout.updatedAt,
     },
   });
 }

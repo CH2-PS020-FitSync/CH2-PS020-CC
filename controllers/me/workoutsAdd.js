@@ -14,16 +14,11 @@ async function workoutsAddController(req, res) {
   return res.status(201).json({
     status: 'success',
     message: 'Workout successfully added.',
-    data: {
-      user: {
-        id: req.user.id,
-      },
-      workout: {
-        id: newWorkout.id,
-        exerciseId: newWorkout.ExerciseId,
-        createdAt: newWorkout.createdAt,
-        updatedAt: newWorkout.updatedAt,
-      },
+    workout: {
+      id: newWorkout.id,
+      exerciseId: newWorkout.ExerciseId,
+      createdAt: newWorkout.createdAt,
+      updatedAt: newWorkout.updatedAt,
     },
   });
 }

@@ -84,12 +84,7 @@ async function bmisGetAll(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'User BMIs successfully retrieved.',
-    data: {
-      user: {
-        id: req.user.id,
-        bmis: userBMIs,
-      },
-    },
+    bmis: userBMIs,
   });
 }
 

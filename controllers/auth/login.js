@@ -72,10 +72,8 @@ async function loginController(req, res) {
     status: 'success',
     message:
       'User successfully logged in. Access token and refresh token created.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
       accessToken,
       refreshToken,
     },

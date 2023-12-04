@@ -17,9 +17,7 @@ function validate(validations) {
     return res.status(400).json({
       status: 'fail',
       message: 'Validation error.',
-      data: {
-        errors: errors.array(),
-      },
+      validationErrors: errors.array(),
     });
   };
 }

@@ -38,9 +38,7 @@ async function patchController(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'User successfully patched.',
-    data: {
-      user: filteredPatchedUser,
-    },
+    user: filteredPatchedUser,
   });
 }
 

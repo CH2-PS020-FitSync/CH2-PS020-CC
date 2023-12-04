@@ -47,10 +47,8 @@ async function forgotPasswordRequest(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'OTP code successfully sent.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
     },
   });
 }

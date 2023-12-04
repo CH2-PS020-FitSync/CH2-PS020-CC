@@ -84,12 +84,7 @@ async function workoutsGetAll(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'User workouts successfully retrieved.',
-    data: {
-      user: {
-        id: req.user.id,
-        workouts: userWorkouts,
-      },
-    },
+    workouts: userWorkouts,
   });
 }
 

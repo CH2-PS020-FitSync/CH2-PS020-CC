@@ -59,10 +59,8 @@ async function refreshTokenController(req, res) {
     return res.status(201).json({
       status: 'success',
       message: 'Access token updated.',
-      data: {
-        user: {
-          id: decodedRefreshToken.userId,
-        },
+      user: {
+        id: decodedRefreshToken.userId,
         accessToken: newAccessToken,
         refreshToken: req.matchedData.refreshToken,
       },
@@ -71,9 +69,7 @@ async function refreshTokenController(req, res) {
     return res.status(400).json({
       status: 'fail',
       message: "Can't create access token.",
-      data: {
-        error: error.message,
-      },
+      error: error.message,
     });
   }
 }

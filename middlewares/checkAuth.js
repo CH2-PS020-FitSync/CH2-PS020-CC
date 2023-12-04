@@ -39,9 +39,7 @@ async function checkAuth(req, res, next) {
     return res.status(401).json({
       status: 'fail',
       message,
-      data: {
-        error: error.message,
-      },
+      error: error.message,
     });
   }
 }

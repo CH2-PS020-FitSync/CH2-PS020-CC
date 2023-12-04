@@ -22,12 +22,7 @@ async function bmisAddController(req, res) {
   return res.status(201).json({
     status: 'success',
     message: 'BMI succesfully added.',
-    data: {
-      user: {
-        id: req.user.id,
-      },
-      bmi: filteredNewBMI,
-    },
+    bmi: filteredNewBMI,
   });
 }
 

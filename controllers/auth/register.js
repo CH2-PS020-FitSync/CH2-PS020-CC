@@ -136,10 +136,8 @@ async function registerController(req, res) {
   res.status(existedUser ? 200 : 201).json({
     status: 'success',
     message: 'User registered successfully. OTP code sent.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
     },
   });
 }

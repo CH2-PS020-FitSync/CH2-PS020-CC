@@ -83,11 +83,9 @@ async function photoPutController(req, res) {
       res.status(200).json({
         status: 'success',
         message: 'User photo successfully changed.',
-        data: {
-          user: {
-            id: newUser.id,
-            photoUrl: newUser.photoUrl,
-          },
+        user: {
+          id: newUser.id,
+          photoUrl: newUser.photoUrl,
         },
       });
     });

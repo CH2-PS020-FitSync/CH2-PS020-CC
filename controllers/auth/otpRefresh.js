@@ -43,10 +43,8 @@ async function otpRefreshController(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'OTP code successfully refreshed and sent.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
     },
   });
 }

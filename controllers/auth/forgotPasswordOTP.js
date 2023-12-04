@@ -55,10 +55,8 @@ async function forgotPasswordOTP(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'Verification success. User ready to change their password.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
     },
   });
 }

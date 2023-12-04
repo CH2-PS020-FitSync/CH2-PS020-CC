@@ -13,11 +13,9 @@ async function getController(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'User data found.',
-    data: {
-      user: {
-        ...filteredUser,
-        latestBMI,
-      },
+    user: {
+      ...filteredUser,
+      latestBMI,
     },
   });
 }

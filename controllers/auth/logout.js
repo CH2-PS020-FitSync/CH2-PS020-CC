@@ -15,10 +15,8 @@ async function logoutController(req, res) {
   res.status(200).json({
     status: 'success',
     message: 'User successfully logged out. Refresh token destroyed.',
-    data: {
-      user: {
-        id: req.user.id,
-      },
+    user: {
+      id: req.user.id,
     },
   });
 }

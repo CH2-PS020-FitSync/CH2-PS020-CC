@@ -50,10 +50,8 @@ async function forgotPasswordChange(req, res) {
   res.status(200).json({
     status: 'success',
     message: 'User password successfully changed.',
-    data: {
-      user: {
-        id: user.id,
-      },
+    user: {
+      id: user.id,
     },
   });
 }
