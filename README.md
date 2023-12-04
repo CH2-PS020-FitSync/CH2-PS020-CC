@@ -790,6 +790,71 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
+### Object Properties
+
+#### validationError
+
+```json
+{
+  "type": "<string>",
+  "msg": "<string>",
+  "path": "<string>",
+  "location": "<string>"
+}
+```
+
+#### user
+
+```json
+{
+  "id": "<string>",
+  "email": "<string>",
+  "isVerified": "<boolean>",
+  "name": "<string>",
+  "gender": "<string>",
+  "birthDate": "<string>",
+  "level": "<string>",
+  "goalWeight": "<string>",
+  "photoUrl": "<string>",
+  "createdAt": "<string>",
+  "updatedAt": "<string>",
+  "latestBMI": {
+    "id": "<integer>",
+    "height": "<integer>/<float>/<string>",
+    "weight": "<integer>/<float>/<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
+  },
+  "accessToken": "<string>",
+  "refreshToken": "<string>"
+}
+```
+
+#### bmi
+
+```json
+{
+  "id": "<integer>",
+  "height": "<integer>/<float>/<string>",
+  "weight": "<integer>/<float>/<string>",
+  "createdAt": "<string>",
+  "updatedAt": "<string>"
+}
+```
+
+#### workout
+
+```json
+{
+  "id": "<integer>",
+  "exerciseId": "<string>",
+  "createdAt": "<string>",
+  "updatedAt": "<string>"
+}
+```
+
+---
+
 [🔗 Back to Top API Documentation](#-api-documentation)
 
 [:top: Back to Very Top](#%EF%B8%8F-ch2-ps020-cc)
