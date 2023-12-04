@@ -452,6 +452,16 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
+🔴 **401** Unauthorized
+
+```json
+{
+  "status": "fail",
+  "message": "Access token expired. Please refresh it.",
+  "error": "jwt expired"
+}
+```
+
 ---
 
 #### :page_with_curl: B.1 Personal Data
