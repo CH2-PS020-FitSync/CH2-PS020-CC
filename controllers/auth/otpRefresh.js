@@ -40,7 +40,7 @@ async function otpRefreshController(req, res) {
 
   await db.otps.update({ code: encryptedOTPCode }, { where: { id: otp.id } });
 
-  return res.status(201).json({
+  return res.status(200).json({
     status: 'success',
     message: 'OTP code successfully refreshed and sent.',
     data: {
