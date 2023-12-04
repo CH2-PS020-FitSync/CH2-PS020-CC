@@ -564,7 +564,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   - MIME types: ['image/png', 'image/jpeg'].
   - Max. size: 2MB.
 
-**Body Responses:**
+**Possible Responses:**
 
 :green_circle: **200** OK
 
