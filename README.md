@@ -51,13 +51,13 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `x-api-key`: STRING - :small_orange_diamond:Required
   - **Value**: b5242882-b5ab-43e3-a846-384bf7e0e22d
 - `x-smtp-host`: STRING (required for development)
-  - **Value**: _Get on https://ethereal.email_
+  - **Value**: _Get at https://ethereal.email_
 - `x-smtp-port`: STRING (required for development)
-  - **Value**: _Get on https://ethereal.email_
+  - **Value**: _Get at https://ethereal.email_
 - `x-smtp-username`: STRING (required for development)
-  - **Value**: _Get on https://ethereal.email_
+  - **Value**: _Get at https://ethereal.email_
 - `x-smtp-password`: STRING (required for development)
-  - **Value**: _Get on https://ethereal.email_
+  - **Value**: _Get at https://ethereal.email_
 
 **Global Possible Responses:**
 
