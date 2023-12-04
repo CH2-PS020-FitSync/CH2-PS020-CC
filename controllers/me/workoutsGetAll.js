@@ -66,7 +66,7 @@ async function workoutsGetAll(req, res) {
   const queryOptions = {
     where: filters,
     attributes: {
-      include: ['id', ['ExerciseId', 'exerciseId'], 'updatedAt', 'createdAt'],
+      include: ['id', ['ExerciseId', 'exerciseId'], 'createdAt', 'updatedAt'],
     },
     order: [['createdAt', order]],
   };
