@@ -10,12 +10,6 @@ async function workoutsAddController(req, res) {
   const newWorkout = await req.user.createWorkout({
     ExerciseId: req.matchedData.exerciseId,
   });
-  const {
-    id,
-    ExerciseId: exerciseId,
-    createdAt,
-    updatedAt,
-  } = newWorkout.toJSON();
 
   return res.status(201).json({
     status: 'success',
@@ -25,10 +19,10 @@ async function workoutsAddController(req, res) {
         id: req.user.id,
       },
       workout: {
-        id,
-        exerciseId,
-        createdAt,
-        updatedAt,
+        id: newWorkout.id,
+        exerciseId: newWorkout.ExerciseId,
+        createdAt: newWorkout.createdAt,
+        updatedAt: newWorkout.updatedAt,
       },
     },
   });
