@@ -795,7 +795,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `exerciseId`: STRING - 🔸Required
+- `exerciseId`: STRING/INTEGER - 🔸Required
   - Exercise should be existed.
 
 **Possible Responses:**
