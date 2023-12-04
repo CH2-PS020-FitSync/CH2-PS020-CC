@@ -174,8 +174,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 ```json
 {
   "status": "fail",
-  "message": "OTP code is incorrect.",
-};
+  "message": "OTP code is incorrect."
+}
 ```
 
 ---
@@ -375,8 +375,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 ```json
 {
   "status": "fail",
-  "message": "OTP code is incorrect.",
-};
+  "message": "OTP code is incorrect."
+}
 ```
 
 ---
