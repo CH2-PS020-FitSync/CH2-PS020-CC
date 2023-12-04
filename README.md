@@ -550,8 +550,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 **Body:**
 
 - `photo`: FILE - 🔸Required
-  - Max. size: 2MB.
   - MIME types: ['image/png', 'image/jpeg'].
+  - Max. size: 2MB.
 
 **Body Responses:**
 
