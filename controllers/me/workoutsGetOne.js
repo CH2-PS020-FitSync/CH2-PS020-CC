@@ -25,12 +25,6 @@ async function workoutsGetOneController(req, res) {
     });
   }
 
-  const {
-    UserId,
-    ExerciseId: exerciseId,
-    ...filteredWorkout
-  } = workout.toJSON();
-
   return res.status(200).json({
     status: 'success',
     message: 'Workout successfully retrieved.',
@@ -39,8 +33,10 @@ async function workoutsGetOneController(req, res) {
         id: user.id,
       },
       workout: {
-        ...filteredWorkout,
-        exerciseId,
+        id: workout.id,
+        exerciseId: workout.ExerciseId,
+        createdAt: workout.createdAt,
+        updatedAt: workout.updatedAt,
       },
     },
   });
