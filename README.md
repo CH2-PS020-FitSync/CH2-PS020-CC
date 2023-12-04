@@ -48,7 +48,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Global Headers**:
 
-- `x-api-key`: STRING (:small_orange_diamond:Required)
+- `x-api-key`: STRING (:small_orange_diamond: Required)
   - **Value**: b5242882-b5ab-43e3-a846-384bf7e0e22d
 - `x-smtp-host`: STRING (required for development)
   - **Value**: _Get on https://ethereal.email_
@@ -88,24 +88,24 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `email`: STRING (:small_orange_diamond:Required)
+- `email`: STRING (:small_orange_diamond: Required)
   - Should be a valid format.
   - Should be not already used and verified.
-- `password`: STRING (:small_orange_diamond:Required)
+- `password`: STRING (:small_orange_diamond: Required)
   - Min. length: 8.
-- `passwordConfirmation`: STRING (:small_orange_diamond:Required)
+- `passwordConfirmation`: STRING (:small_orange_diamond: Required)
   - Should be matched `password`.
-- `name`: STRING (:small_blue_diamond:Optional)
-- `gender`: STRING (:small_blue_diamond:Optional)
+- `name`: STRING (:small_blue_diamond: Optional)
+- `gender`: STRING (:small_blue_diamond: Optional)
   - ['male', 'female'] (case insensitive).
-- `birthDate`: STRING (:small_blue_diamond:Optional)
+- `birthDate`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `level`: STRING (:small_blue_diamond:Optional)
+- `level`: STRING (:small_blue_diamond: Optional)
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
-- `goalWeight`: FLOAT (:small_blue_diamond:Optional)
-- `height`: FLOAT (:small_blue_diamond:Optional)
+- `goalWeight`: FLOAT (:small_blue_diamond: Optional)
+- `height`: FLOAT (:small_blue_diamond: Optional)
   - Should paired with `weight`.
-- `weight`: FLOAT (:small_blue_diamond:Optional)
+- `weight`: FLOAT (:small_blue_diamond: Optional)
   - Should paired with `height`.
 
 **Possible Responses:**
@@ -130,9 +130,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `userId`: STRING (:small_orange_diamond:Required)
+- `userId`: STRING (:small_orange_diamond: Required)
   - User should be existed.
-- `code`: STRING (:small_orange_diamond:Required)
+- `code`: STRING (:small_orange_diamond: Required)
   - Length: 4.
 
 **Possible Responses:**
@@ -184,11 +184,11 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `email`: STRING (:small_orange_diamond:Required)
+- `email`: STRING (:small_orange_diamond: Required)
   - Should be a valid format.
   - User should be existed.
   - User should be verified.
-- `password`: STRING (:small_orange_diamond:Required)
+- `password`: STRING (:small_orange_diamond: Required)
 
 **Possible Responses:**
 
@@ -223,7 +223,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Headers:**
 
-- `authorization`: STRING (:small_orange_diamond:Required)
+- `authorization`: STRING (:small_orange_diamond: Required)
   - Access token.
 
 **Possible Responses:**
@@ -266,7 +266,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `refreshToken`: STRING (:small_orange_diamond:Required)
+- `refreshToken`: STRING (:small_orange_diamond: Required)
   - Should be existed.
 
 **Possible Responses:**
@@ -303,7 +303,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `email`: STRING (:small_orange_diamond:Required)
+- `email`: STRING (:small_orange_diamond: Required)
   - Should be a valid format.
   - User should be existed.
   - User should be verified.
@@ -330,10 +330,10 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `userId`: STRING (:small_orange_diamond:Required)
+- `userId`: STRING (:small_orange_diamond: Required)
   - User should be existed.
   - User should be verified.
-- `code`: STRING (:small_orange_diamond:Required)
+- `code`: STRING (:small_orange_diamond: Required)
   - Length: 4.
 
 **Possible Responses:**
@@ -385,12 +385,12 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `userId`: STRING (:small_orange_diamond:Required)
+- `userId`: STRING (:small_orange_diamond: Required)
   - User should be existed.
   - User should be verified.
-- `password`: STRING (:small_orange_diamond:Required)
+- `password`: STRING (:small_orange_diamond: Required)
   - Min. length: 8.
-- `passwordConfirmation`: STRING (:small_orange_diamond:Required)
+- `passwordConfirmation`: STRING (:small_orange_diamond: Required)
   - Should be matched `password`.
 
 **Possible Responses:**
@@ -415,7 +415,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `userId`: STRING (:small_orange_diamond:Required)
+- `userId`: STRING (:small_orange_diamond: Required)
   - User should be existed.
 
 **Possible Responses:**
@@ -449,7 +449,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Subglobal Headers:**
 
-- `authorization`: STRING (:small_orange_diamond:Required)
+- `authorization`: STRING (:small_orange_diamond: Required)
   - Access token.
 
 **Subglobal Possible Responses:**
@@ -508,14 +508,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `name`: STRING (:small_blue_diamond:Optional)
-- `gender`: STRING (:small_blue_diamond:Optional)
+- `name`: STRING (:small_blue_diamond: Optional)
+- `gender`: STRING (:small_blue_diamond: Optional)
   - ['male', 'female'] (case insensitive).
-- `birthDate`: STRING (:small_blue_diamond:Optional)
+- `birthDate`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `level`: STRING (:small_blue_diamond:Optional)
+- `level`: STRING (:small_blue_diamond: Optional)
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
-- `goalWeight`: FLOAT (:small_blue_diamond:Optional)
+- `goalWeight`: FLOAT (:small_blue_diamond: Optional)
 
 **Possible Responses:**
 
@@ -556,7 +556,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `photo`: FILE (:small_orange_diamond:Required)
+- `photo`: FILE (:small_orange_diamond: Required)
   - Max. size: 2MB.
   - MIME types: ['image/png', 'image/jpeg'].
 
@@ -621,14 +621,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Query Parameters:**;
 
-- `order`: STRING (:small_blue_diamond:Optional)
+- `order`: STRING (:small_blue_diamond: Optional)
   - ['asc', 'desc'] (case-insensitive).
-- `from`: STRING (:small_blue_diamond:Optional)
+- `from`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `to`: STRING (:small_blue_diamond:Optional)
+- `to`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `limit`: INTEGER (:small_blue_diamond:Optional)
-- `offset`: INTEGER (:small_blue_diamond:Optional)
+- `limit`: INTEGER (:small_blue_diamond: Optional)
+- `offset`: INTEGER (:small_blue_diamond: Optional)
 
 **Possible Responses:**
 
@@ -653,7 +653,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Path Parameters:**
 
-- `:id`: STRING/INTEGER (:small_orange_diamond:Required)
+- `:id`: STRING/INTEGER (:small_orange_diamond: Required)
   - BMI's id.
   - BMI should be existed.
 
@@ -695,8 +695,8 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `height`: FLOAT (:small_orange_diamond:Required)
-- `weight`: FLOAT (:small_orange_diamond:Required)
+- `height`: FLOAT (:small_orange_diamond: Required)
+- `weight`: FLOAT (:small_orange_diamond: Required)
 
 **Possible Responses:**
 
@@ -729,14 +729,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Query Parameters:**;
 
-- `order`: STRING (:small_blue_diamond:Optional)
+- `order`: STRING (:small_blue_diamond: Optional)
   - ['asc', 'desc'] (case-insensitive).
-- `from`: STRING (:small_blue_diamond:Optional)
+- `from`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `to`: STRING (:small_blue_diamond:Optional)
+- `to`: STRING (:small_blue_diamond: Optional)
   - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `limit`: INTEGER (:small_blue_diamond:Optional)
-- `offset`: INTEGER (:small_blue_diamond:Optional)
+- `limit`: INTEGER (:small_blue_diamond: Optional)
+- `offset`: INTEGER (:small_blue_diamond: Optional)
 
 **Possible Responses:**
 
@@ -761,7 +761,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Path Parameters:**
 
-- `:id`: STRING/INTEGER (:small_orange_diamond:Required)
+- `:id`: STRING/INTEGER (:small_orange_diamond: Required)
   - Workout's id.
   - Workout should be existed.
 
@@ -802,7 +802,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `exerciseId`: STRING (:small_orange_diamond:Required)
+- `exerciseId`: STRING (:small_orange_diamond: Required)
   - Exercise should be existed.
 
 **Possible Responses:**
