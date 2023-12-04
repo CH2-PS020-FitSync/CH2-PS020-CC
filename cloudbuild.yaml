@@ -19,3 +19,5 @@ steps:
       - 'asia-southeast2'
 images:
   - 'gcr.io/$PROJECT_ID/fitsync-main-api:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
