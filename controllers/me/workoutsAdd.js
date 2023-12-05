@@ -1,9 +1,23 @@
 const { body } = require('express-validator');
 
+const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  body('exerciseId').exists().withMessage('Exercise id is required.'),
+  body('exerciseId')
+    .exists()
+    .withMessage('Exercise id is required.')
+    .custom(async (exerciseId) => {
+      const exerciseSnapshot = await db.firestore.exercises
+        .doc(exerciseId)
+        .get();
+
+      if (!exerciseSnapshot.exists) {
+        throw new Error('Exercise not found.');
+      } else {
+        return true;
+      }
+    }),
 ];
 
 async function workoutsAddController(req, res) {
