@@ -50,15 +50,15 @@ async function bmisGetAll(req, res) {
   };
 
   if (dateFrom && dateTo) {
-    filters.createdAt = {
+    filters.date = {
       [Op.between]: [dateFromFilter, dateToFilter],
     };
   } else if (dateFrom) {
-    filters.createdAt = {
+    filters.date = {
       [Op.gte]: dateFromFilter,
     };
   } else if (dateTo) {
-    filters.createdAt = {
+    filters.date = {
       [Op.lte]: dateToFilter,
     };
   }
@@ -68,7 +68,7 @@ async function bmisGetAll(req, res) {
     attributes: {
       exclude: ['UserId'],
     },
-    order: [['createdAt', orderType]],
+    order: [['date', orderType]],
   };
 
   if (limit) {

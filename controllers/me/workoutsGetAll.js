@@ -50,23 +50,29 @@ async function workoutsGetAll(req, res) {
   };
 
   if (dateFrom && dateTo) {
-    filters.createdAt = {
+    filters.date = {
       [Op.between]: [dateFromFilter, dateToFilter],
     };
   } else if (dateFrom) {
-    filters.createdAt = {
+    filters.date = {
       [Op.gte]: dateFromFilter,
     };
   } else if (dateTo) {
-    filters.createdAt = {
+    filters.date = {
       [Op.lte]: dateToFilter,
     };
   }
 
   const queryOptions = {
     where: filters,
-    attributes: ['id', ['ExerciseId', 'exerciseId'], 'createdAt', 'updatedAt'],
-    order: [['createdAt', orderType]],
+    attributes: [
+      'id',
+      ['ExerciseId', 'exerciseId'],
+      'date',
+      'createdAt',
+      'updatedAt',
+    ],
+    order: [['date', orderType]],
   };
 
   if (limit) {

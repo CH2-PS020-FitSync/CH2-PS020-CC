@@ -18,11 +18,16 @@ const validations = [
         return true;
       }
     }),
+  body('date')
+    .optional()
+    .isISO8601()
+    .withMessage('Date should be in ISO 8601 format.'),
 ];
 
-async function workoutsAddController(req, res) {
+async function workoutsAddOneController(req, res) {
   const newWorkout = await req.user.createWorkout({
     ExerciseId: req.matchedData.exerciseId,
+    date: req.matchedData.date,
   });
 
   return res.status(201).json({
@@ -31,10 +36,11 @@ async function workoutsAddController(req, res) {
     workout: {
       id: newWorkout.id,
       exerciseId: newWorkout.ExerciseId,
+      date: newWorkout.date,
       createdAt: newWorkout.createdAt,
       updatedAt: newWorkout.updatedAt,
     },
   });
 }
 
-module.exports = [validate(validations), workoutsAddController];
+module.exports = [validate(validations), workoutsAddOneController];

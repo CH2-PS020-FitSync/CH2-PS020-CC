@@ -675,12 +675,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### 🟧 B.2.3 Add BMI: `POST` - /me/bmis
+##### 🟧 B.2.3 Add One BMI: `POST` - /me/bmis
 
 **Body:**
 
 - `height`: FLOAT - 🔸Required
 - `weight`: FLOAT - 🔸Required
+- `date`: STRING - 🔹Optional
+  - Format: ISO 8601
 
 **Possible Responses:**
 
@@ -694,6 +696,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
     "id": "<integer>",
     "height": "<integer>/<float>/<string>",
     "weight": "<integer>/<float>/<string>",
+    "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
   }
@@ -702,7 +705,54 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### :cartwheeling: B.3 Workouts
+##### 🟧 B.2.4 Add Many BMIs: `POST` - /me/bmis/many
+
+**Body:**
+
+- `bmis`: ARRAY - 🔸Required
+  - `height`: FLOAT - 🔸Required
+  - `weight`: FLOAT - 🔸Required
+  - `date`: STRING - 🔹Optional
+    - Format: ISO 8601
+
+**Raw Body:**
+
+```json
+{
+  "bmis": [
+    {
+      "height": "<float>",
+      "weight": "<float>",
+      "date": "<string>"
+    }
+  ]
+}
+```
+
+**Possible Responses:**
+
+🟢 **201** Created
+
+```json
+{
+  "status": "success",
+  "message": "BMIs succesfully added.",
+  "bmis": [
+    {
+      "id": "<integer>",
+      "height": "<integer>/<float>/<string>",
+      "weight": "<integer>/<float>/<string>",
+      "date": "<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
+    }
+  ]
+}
+```
+
+---
+
+#### 🤸 B.3 Workouts
 
 ##### 🟩 B.3.1 Get All Workouts: `GET` - /me/workouts
 
@@ -774,12 +824,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### 🟧 B.3.3 Add Workout: `POST` - /me/workouts
+##### 🟧 B.3.3 Add One Workout: `POST` - /me/workouts
 
 **Body:**
 
 - `exerciseId`: STRING - 🔸Required
   - Exercise should be existed.
+- `date`: STRING - 🔹Optional
+  - Format: ISO 8601
 
 **Possible Responses:**
 
@@ -792,9 +844,55 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
+    "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
   }
+}
+```
+
+---
+
+##### 🟧 B.3.4 Add Many Workouts: `POST` - /me/workouts/many
+
+**Body:**
+
+- `workouts`: ARRAY - 🔸Required
+  - `exerciseId`: STRING - 🔸Required
+    - Exercise should be existed.
+  - `date`: STRING - 🔹Optional
+    - Format: ISO 8601
+
+**Raw Body:**
+
+```json
+{
+  "workouts": [
+    {
+      "exerciseId": "<string>",
+      "date": "<string>"
+    }
+  ]
+}
+```
+
+**Possible Responses:**
+
+🟢 **201** Created
+
+```json
+{
+  "status": "success",
+  "message": "Workout successfully added.",
+  "workouts": [
+    {
+      "id": "<integer>",
+      "exerciseId": "<string>",
+      "date": "<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
+    }
+  ]
 }
 ```
 
@@ -938,6 +1036,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   "id": "<integer>",
   "height": "<integer>/<float>/<string>",
   "weight": "<integer>/<float>/<string>",
+  "date": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>"
 }
@@ -949,6 +1048,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 {
   "id": "<integer>",
   "exerciseId": "<string>",
+  "date": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>"
 }

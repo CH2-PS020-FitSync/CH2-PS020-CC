@@ -32,6 +32,7 @@ async function workoutsGetOneController(req, res) {
     workout: {
       id: req.workout.id,
       exerciseId: req.workout.ExerciseId,
+      date: req.workout.date,
       createdAt: req.workout.createdAt,
       updatedAt: req.workout.updatedAt,
     },

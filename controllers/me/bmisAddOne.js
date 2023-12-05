@@ -13,9 +13,13 @@ const validations = [
     .withMessage('Weight is required.')
     .isFloat()
     .withMessage('Weight should be float.'),
+  body('date')
+    .optional()
+    .isISO8601()
+    .withMessage('Date should be in ISO 8601 format.'),
 ];
 
-async function bmisAddController(req, res) {
+async function bmisAddOneController(req, res) {
   const newBMI = await req.user.createBMI(req.matchedData);
   const { UserId, ...filteredNewBMI } = newBMI.toJSON();
 
@@ -26,4 +30,4 @@ async function bmisAddController(req, res) {
   });
 }
 
-module.exports = [validate(validations), bmisAddController];
+module.exports = [validate(validations), bmisAddOneController];
