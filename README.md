@@ -897,6 +897,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 ```json
 {
   "type": "<string>",
+  "value": "<string>",
   "msg": "<string>",
   "path": "<string>",
   "location": "<string>"
