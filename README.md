@@ -1058,7 +1058,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 }
 ```
 
-#### exercises
+#### exercise
 
 ```json
 {
