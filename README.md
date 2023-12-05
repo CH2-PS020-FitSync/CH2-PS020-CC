@@ -778,7 +778,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Body:**
 
-- `exerciseId`: STRING/INTEGER - 🔸Required
+- `exerciseId`: STRING - 🔸Required
   - Exercise should be existed.
 
 **Possible Responses:**
@@ -855,7 +855,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Path Parameters:**
 
-- `id`: STRING/INTEGER - 🔸Required
+- `id`: STRING - 🔸Required
   - Exercise's id.
   - Exercise should be existed.
 
