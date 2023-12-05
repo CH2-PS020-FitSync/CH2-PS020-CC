@@ -60,4 +60,8 @@ db.users.hasMany(db.workouts, {
 });
 db.workouts.belongsTo(db.users);
 
+db.firestore = require('./firestore')();
+
+db.firestore.exercises = db.firestore.collection('exercises');
+
 module.exports = db;
