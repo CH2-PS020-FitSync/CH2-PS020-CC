@@ -851,7 +851,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-#### 🟩 C.1 Get One Exercise: `GET` - /exercises/{id}
+#### 🟩 C.2 Get One Exercise: `GET` - /exercises/{id}
 
 **Path Parameters:**
 
