@@ -614,7 +614,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `to`: STRING - 🔹Optional
   - Format: YYYY-MM-DD or YYYY/MM/DD.
 - `limit`: INTEGER - 🔹Optional
+  - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
+  - Min. value: 1.
 
 **Possible Responses:**
 
@@ -682,7 +684,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `height`: FLOAT - 🔸Required
 - `weight`: FLOAT - 🔸Required
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601
+  - Format: ISO 8601.
 
 **Possible Responses:**
 
@@ -713,7 +715,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   - `height`: FLOAT - 🔸Required
   - `weight`: FLOAT - 🔸Required
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601
+    - Format: ISO 8601.
 
 **Raw Body:**
 
@@ -765,7 +767,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `to`: STRING - 🔹Optional
   - Format: YYYY-MM-DD or YYYY/MM/DD.
 - `limit`: INTEGER - 🔹Optional
+  - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
+  - Min. value: 1.
 
 **Possible Responses:**
 
@@ -831,7 +835,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `exerciseId`: STRING - 🔸Required
   - Exercise should be existed.
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601
+  - Format: ISO 8601.
 
 **Possible Responses:**
 
@@ -861,7 +865,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   - `exerciseId`: STRING - 🔸Required
     - Exercise should be existed.
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601
+    - Format: ISO 8601.
 
 **Raw Body:**
 

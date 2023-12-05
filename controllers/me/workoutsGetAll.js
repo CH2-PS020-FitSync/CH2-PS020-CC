@@ -21,13 +21,13 @@ const validations = [
     .toUpperCase(),
   query('limit')
     .optional()
-    .isInt()
-    .withMessage('Limit should be integer.')
+    .isInt({ min: 1 })
+    .withMessage('Limit should be integer. Minimum: 1.')
     .toInt(),
   query('offset')
     .optional()
-    .isInt()
-    .withMessage('Offset should be integer.')
+    .isInt({ min: 1 })
+    .withMessage('Offset should be integer. Minimum: 1.')
     .toInt(),
 ];
 
