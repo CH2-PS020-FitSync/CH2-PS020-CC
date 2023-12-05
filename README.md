@@ -117,7 +117,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** Created or **200** OK
+🟢 **201** Created or **200** OK
 
 ```json
 {
@@ -142,7 +142,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -195,7 +195,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -229,7 +229,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -270,7 +270,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** Created
+🟢 **201** Created
 
 ```json
 {
@@ -307,7 +307,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -333,7 +333,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -388,7 +388,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -411,7 +411,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -470,7 +470,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -516,7 +516,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -550,7 +550,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -607,7 +607,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Query Parameters:**;
 
-- `order`: STRING - 🔹Optional
+- `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
 - `from`: STRING - 🔹Optional
   - Format: YYYY-MM-DD or YYYY/MM/DD.
@@ -618,7 +618,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -638,17 +638,17 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### 🟩 B.2.2 Get One BMI: `GET` - /me/bmis/:id
+##### 🟩 B.2.2 Get One BMI: `GET` - /me/bmis/{id}
 
 **Path Parameters:**
 
-- `:id`: STRING/INTEGER - 🔸Required
+- `id`: STRING/INTEGER - 🔸Required
   - BMI's id.
   - BMI should be existed.
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -684,7 +684,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** Created
+🟢 **201** Created
 
 ```json
 {
@@ -708,7 +708,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Query Parameters:**;
 
-- `order`: STRING - 🔹Optional
+- `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
 - `from`: STRING - 🔹Optional
   - Format: YYYY-MM-DD or YYYY/MM/DD.
@@ -719,7 +719,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -738,17 +738,17 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ---
 
-##### 🟩 B.3.2 Get One Workout: `GET` - /me/workouts/:id
+##### 🟩 B.3.2 Get One Workout: `GET` - /me/workouts/{id}
 
 **Path Parameters:**
 
-- `:id`: STRING/INTEGER - 🔸Required
+- `id`: STRING/INTEGER - 🔸Required
   - Workout's id.
   - Workout should be existed.
 
 **Possible Responses:**
 
-:green_circle: **200** OK
+🟢 **200** OK
 
 ```json
 {
@@ -783,7 +783,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Possible Responses:**
 
-:green_circle: **201** Created
+🟢 **201** Created
 
 ```json
 {
@@ -794,6 +794,96 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
     "exerciseId": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
+  }
+}
+```
+
+---
+
+### 💪 C. Exercises
+
+#### 🟩 C.1 Get All Exercises: `GET` - /exercises
+
+**Query Parameters:**
+
+- `titleStartsWith`: STRING - 🔹Optional
+- `type`: STRING - 🔹Optional
+  - ['strength', 'stretching', 'aerobic'] (case insensitive).
+- `level`: STRING - 🔹Optional
+  - ['beginner', 'intermediate', 'expert'] (case insensitive).
+- `gender`: STRING - 🔹Optional
+  - ['male', 'female'] (case insensitive).
+- `limit`: INTEGER - 🔹Optional
+  - Min. value: 1.
+- `offset`: INTEGER - 🔹Optional
+  - Min. value: 1.
+
+**Possible Responses:**
+
+🟢 **200** OK
+
+```json
+{
+  "status": "success",
+  "message": "Exercises successfully retrieved.",
+  "exercises": [
+    {
+      "id": "<string>",
+      "title": "<string>",
+      "type": "<string>",
+      "level": "<string>",
+      "gender": "<string>",
+      "bodyPart": "<string>",
+      "desc": "<string>",
+      "jpg": "<string>",
+      "gif": "<string>",
+      "duration": {
+        "sec": "<string>",
+        "rep": "<string>",
+        "set": "<string>",
+        "min": "<string>",
+        "desc": "<string>"
+      }
+    }
+  ]
+}
+```
+
+---
+
+#### 🟩 C.1 Get One Exercise: `GET` - /exercises/{id}
+
+**Path Parameters:**
+
+- `id`: STRING/INTEGER - 🔸Required
+  - Exercise's id.
+  - Exercise should be existed.
+
+**Possible Responses:**
+
+🟢 **200** OK
+
+```json
+{
+  "status": "success",
+  "message": "Exercise successfully retrieved.",
+  "exercise": {
+    "id": "<string>",
+    "title": "<string>",
+    "type": "<string>",
+    "level": "<string>",
+    "gender": "<string>",
+    "bodyPart": "<string>",
+    "desc": "<string>",
+    "jpg": "<string>",
+    "gif": "<string>",
+    "duration": {
+      "sec": "<string>",
+      "rep": "<string>",
+      "set": "<string>",
+      "min": "<string>",
+      "desc": "<string>"
+    }
   }
 }
 ```
@@ -860,6 +950,29 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   "exerciseId": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>"
+}
+```
+
+#### exercises
+
+```json
+{
+  "id": "<string>",
+  "title": "<string>",
+  "type": "<string>",
+  "level": "<string>",
+  "gender": "<string>",
+  "bodyPart": "<string>",
+  "desc": "<string>",
+  "jpg": "<string>",
+  "gif": "<string>",
+  "duration": {
+    "sec": "<string>",
+    "rep": "<string>",
+    "set": "<string>",
+    "min": "<string>",
+    "desc": "<string>"
+  }
 }
 ```
 
