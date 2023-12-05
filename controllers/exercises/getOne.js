@@ -5,26 +5,24 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   param('id').custom(async (id, { req }) => {
-    const exercise = await db.firestore.exercises.doc(id).get();
+    const exerciseSnapshot = await db.firestore.exercises.doc(id).get();
 
-    if (!exercise.exists) {
+    if (!exerciseSnapshot.exists) {
       throw new Error('Exercise not found.');
     } else {
-      req.exercise = exercise;
+      req.exerciseSnapshot = exerciseSnapshot;
       return true;
     }
   }),
 ];
 
 async function getOneController(req, res) {
-  const exerciseSnapshot = req.exercise;
-
   return res.status(200).json({
     status: 'success',
     message: 'Exercise successfully retrieved.',
     exercise: {
-      id: exerciseSnapshot.id,
-      ...exerciseSnapshot.data(),
+      id: req.exerciseSnapshot.id,
+      ...req.exerciseSnapshot.data(),
     },
   });
 }

@@ -11,13 +11,15 @@ const validations = [
     .withMessage('Email is required.')
     .isEmail()
     .withMessage('Email is invalid.')
-    .custom(async (email) => {
+    .custom(async (email, { req }) => {
       const user = await db.users.findOne({ where: { email } });
+
       if (!user) {
         throw new Error('Email not found.');
       } else if (!user?.isVerified) {
         throw new Error('User not verified.');
       } else {
+        req.user = user;
         return true;
       }
     }),
@@ -25,13 +27,9 @@ const validations = [
 ];
 
 async function loginController(req, res) {
-  const user = await db.users.findOne({
-    where: { email: req.matchedData.email },
-  });
-
   const isPasswordMatched = await bcrypt.compare(
     req.matchedData.password,
-    user.password
+    req.user.password
   );
 
   if (!isPasswordMatched) {
@@ -41,14 +39,14 @@ async function loginController(req, res) {
     });
   }
 
-  const existedRefreshToken = await user.getRefreshToken();
+  const existedRefreshToken = await req.user.getRefreshToken();
 
   const jwtOptions = {
     issuer: 'FitSync',
   };
 
   const accessToken = jwt.sign(
-    { userId: user.id },
+    { userId: req.user.id },
     process.env.ACCESS_TOKEN_PRIVATE_KEY,
     {
       ...jwtOptions,
@@ -61,11 +59,11 @@ async function loginController(req, res) {
     refreshToken = existedRefreshToken.token;
   } else {
     refreshToken = jwt.sign(
-      { userId: user.id },
+      { userId: req.user.id },
       process.env.REFRESH_TOKEN_PRIVATE_KEY,
       { ...jwtOptions }
     );
-    await user.createRefreshToken({ token: refreshToken });
+    await req.user.createRefreshToken({ token: refreshToken });
   }
 
   return res.status(201).json({
@@ -73,7 +71,7 @@ async function loginController(req, res) {
     message:
       'User successfully logged in. Access token and refresh token created.',
     user: {
-      id: user.id,
+      id: req.user.id,
       accessToken,
       refreshToken,
     },

@@ -8,19 +8,20 @@ const validations = [
   body('userId')
     .exists()
     .withMessage('User id is required.')
-    .custom(async (id) => {
+    .custom(async (id, { req }) => {
       const user = await db.users.findByPk(id);
+
       if (!user) {
         throw new Error('User not found.');
       } else {
+        req.user = user;
         return true;
       }
     }),
 ];
 
 async function otpRefreshController(req, res) {
-  const user = await db.users.findByPk(req.body.userId);
-  const otp = await user.getOTP();
+  const otp = await req.user.getOTP();
 
   if (!otp) {
     return res.status(400).json({
@@ -31,10 +32,10 @@ async function otpRefreshController(req, res) {
 
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
   await sendOTPToEmail({
-    type: user.isVerified ? 'forgot-password' : 'register',
+    type: req.user.isVerified ? 'forgot-password' : 'register',
     otpCode: plainOTPCode,
-    to: user.email,
-    name: user.name,
+    to: req.user.email,
+    name: req.user.name,
     smtpOptions: req.smtpOptions,
   });
 
@@ -44,7 +45,7 @@ async function otpRefreshController(req, res) {
     status: 'success',
     message: 'OTP code successfully refreshed and sent.',
     user: {
-      id: user.id,
+      id: req.user.id,
     },
   });
 }

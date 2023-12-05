@@ -10,36 +10,35 @@ const validations = [
     .withMessage('Email is required.')
     .isEmail()
     .withMessage('Email is invalid.')
-    .custom(async (email) => {
+    .custom(async (email, { req }) => {
       const user = await db.users.findOne({ where: { email } });
+
       if (!user) {
         throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {
+        req.user = user;
         return true;
       }
     }),
 ];
 
 async function forgotPasswordRequest(req, res) {
-  const user = await db.users.findOne({
-    where: { email: req.matchedData.email },
-  });
-  const otp = await user.getOTP();
+  const otp = await req.user.getOTP();
 
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
 
   await sendOTPToEmail({
     type: 'forgot-password',
     otpCode: plainOTPCode,
-    to: user.email,
-    name: user.name,
+    to: req.user.email,
+    name: req.user.name,
     smtpOptions: req.smtpOptions,
   });
 
   if (!otp) {
-    await user.createOTP({ code: encryptedOTPCode });
+    await req.user.createOTP({ code: encryptedOTPCode });
   } else {
     await db.otps.update({ code: encryptedOTPCode }, { where: { id: otp.id } });
   }
@@ -48,7 +47,7 @@ async function forgotPasswordRequest(req, res) {
     status: 'success',
     message: 'OTP code successfully sent.',
     user: {
-      id: user.id,
+      id: req.user.id,
     },
   });
 }

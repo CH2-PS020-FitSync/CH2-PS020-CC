@@ -9,13 +9,15 @@ const validations = [
   body('userId')
     .exists()
     .withMessage('User id is required.')
-    .custom(async (id) => {
+    .custom(async (id, { req }) => {
       const user = await db.users.findByPk(id);
+
       if (!user) {
         throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {
+        req.user = user;
         return true;
       }
     }),
@@ -25,8 +27,7 @@ const validations = [
 ];
 
 async function forgotPasswordOTP(req, res) {
-  const user = await db.users.findByPk(req.matchedData.userId);
-  const otp = await user.getOTP();
+  const otp = await req.user.getOTP();
 
   if (!otp) {
     return res.status(400).json({
@@ -56,7 +57,7 @@ async function forgotPasswordOTP(req, res) {
     status: 'success',
     message: 'Verification success. User ready to change their password.',
     user: {
-      id: user.id,
+      id: req.user.id,
     },
   });
 }

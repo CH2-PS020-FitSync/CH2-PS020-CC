@@ -10,7 +10,7 @@ const validations = [
     .withMessage('Refresh token is required.')
     .isJWT()
     .withMessage('Refresh token should be JWT.')
-    .custom(async (refreshToken) => {
+    .custom(async (refreshToken, { req }) => {
       const token = await db.refreshTokens.findOne({
         where: { token: refreshToken },
       });
@@ -29,6 +29,7 @@ const validations = [
 
           throw new Error('Refresh token expired.');
         } else {
+          req.refreshToken = token;
           return true;
         }
       }
@@ -51,10 +52,7 @@ async function refreshTokenController(req, res) {
       }
     );
 
-    const refreshToken = await db.refreshTokens.findOne({
-      where: { token: req.matchedData.refreshToken },
-    });
-    await refreshToken.update({ lastAccessedAt: new Date() });
+    await req.refreshToken.update({ lastAccessedAt: new Date() });
 
     return res.status(201).json({
       status: 'success',

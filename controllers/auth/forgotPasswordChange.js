@@ -8,13 +8,15 @@ const validations = [
   body('userId')
     .exists()
     .withMessage('User id is required.')
-    .custom(async (id) => {
+    .custom(async (id, { req }) => {
       const user = await db.users.findByPk(id);
+
       if (!user) {
         throw new Error('User not found.');
       } else if (!user?.isVerified) {
         throw new Error('User is not verified.');
       } else {
+        req.user = user;
         return true;
       }
     }),
@@ -36,22 +38,20 @@ const validations = [
 ];
 
 async function forgotPasswordChange(req, res) {
-  const user = await db.users.findByPk(req.matchedData.userId);
-
   const plainPassword = req.matchedData.password;
   const saltRounds = 10;
   const encryptedPassword = await bcrypt.hash(plainPassword, saltRounds);
 
   await db.users.update(
     { password: encryptedPassword },
-    { where: { id: user.id } }
+    { where: { id: req.user.id } }
   );
 
   res.status(200).json({
     status: 'success',
     message: 'User password successfully changed.',
     user: {
-      id: user.id,
+      id: req.user.id,
     },
   });
 }

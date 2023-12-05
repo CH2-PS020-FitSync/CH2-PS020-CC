@@ -11,11 +11,13 @@ const validations = [
     .withMessage('Email is required.')
     .isEmail()
     .withMessage('Email is invalid.')
-    .custom(async (email) => {
+    .custom(async (email, { req }) => {
       const user = await db.users.findOne({ where: { email } });
+
       if (user?.isVerified) {
         throw new Error('Email already used and verified.');
       } else {
+        req.user = user;
         return true;
       }
     }),
@@ -108,9 +110,7 @@ async function registerController(req, res) {
     weight: req.matchedData.weight,
   };
 
-  const existedUser = await db.users.findOne({
-    where: { email: req.matchedData.email },
-  });
+  const existedUser = req.user;
   let user;
 
   if (existedUser) {

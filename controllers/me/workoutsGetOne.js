@@ -4,19 +4,20 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  param('id').custom(async (id) => {
+  param('id').custom(async (id, { req }) => {
     const workout = await db.workouts.findByPk(id);
+
     if (!workout) {
       throw new Error('Workout not found.');
     } else {
+      req.workout = workout;
       return true;
     }
   }),
 ];
 
 async function workoutsGetOneController(req, res) {
-  const workout = await db.workouts.findByPk(req.matchedData.id);
-  const user = await workout.getUser();
+  const user = await req.workout.getUser();
 
   if (user.id !== req.user.id) {
     return res.status(403).json({
@@ -29,10 +30,10 @@ async function workoutsGetOneController(req, res) {
     status: 'success',
     message: 'Workout successfully retrieved.',
     workout: {
-      id: workout.id,
-      exerciseId: workout.ExerciseId,
-      createdAt: workout.createdAt,
-      updatedAt: workout.updatedAt,
+      id: req.workout.id,
+      exerciseId: req.workout.ExerciseId,
+      createdAt: req.workout.createdAt,
+      updatedAt: req.workout.updatedAt,
     },
   });
 }
