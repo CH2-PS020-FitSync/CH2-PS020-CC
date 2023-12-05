@@ -16,6 +16,7 @@ app.use(require('./middlewares/storeSMTPOptions'));
 
 app.use('/auth', require('./routes/auth'));
 app.use('/me', require('./routes/me'));
+app.use('/exercises', require('./routes/exercises'));
 
 app.use(require('./middlewares/errorHandler'));
 
