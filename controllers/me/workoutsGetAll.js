@@ -5,12 +5,6 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  query('order')
-    .optional()
-    .toLowerCase()
-    .isIn(['asc', 'desc'])
-    .withMessage('Order should be [asc, desc] (case insensitive).')
-    .toUpperCase(),
   query('from')
     .optional()
     .isDate()
@@ -19,6 +13,12 @@ const validations = [
     .optional()
     .isDate()
     .withMessage('To date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+  query('orderType')
+    .optional()
+    .toLowerCase()
+    .isIn(['asc', 'desc'])
+    .withMessage('Order type should be [asc, desc] (case insensitive).')
+    .toUpperCase(),
   query('limit')
     .optional()
     .isInt()
@@ -33,9 +33,9 @@ const validations = [
 
 async function workoutsGetAll(req, res) {
   const {
-    order = 'desc',
     from: dateFrom,
     to: dateTo,
+    orderType = 'desc',
     limit,
     offset,
   } = req.matchedData;
@@ -68,7 +68,7 @@ async function workoutsGetAll(req, res) {
     attributes: {
       include: ['id', ['ExerciseId', 'exerciseId'], 'createdAt', 'updatedAt'],
     },
-    order: [['createdAt', order]],
+    order: [['createdAt', orderType]],
   };
 
   if (limit) {
