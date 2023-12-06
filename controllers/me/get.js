@@ -5,14 +5,14 @@ async function getController(req, res) {
       attributes: {
         exclude: ['UserId'],
       },
-      order: [['createdAt', 'DESC']],
+      order: [['date', 'DESC']],
       limit: 1,
     })
   )[0];
 
   return res.status(200).json({
     status: 'success',
-    message: 'User data found.',
+    message: 'User successfully retrieved.',
     user: {
       ...filteredUser,
       latestBMI,

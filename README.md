@@ -475,7 +475,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 ```json
 {
   "status": "success",
-  "message": "User data found.",
+  "message": "User successfully retrieved.",
   "user": {
     "id": "<string>",
     "email": "<string>",
@@ -513,6 +513,10 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `level`: STRING - 🔹Optional
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
 - `goalWeight`: FLOAT - 🔹Optional
+- `height`: FLOAT - 🔹Optional
+  - Should paired with `weight`.
+- `weight`: FLOAT - 🔹Optional
+  - Should paired with `height`.
 
 **Possible Responses:**
 
@@ -533,7 +537,14 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
     "goalWeight": "<string>",
     "photoUrl": "<string>",
     "createdAt": "<string>",
-    "updatedAt": "<string>"
+    "updatedAt": "<string>",
+    "latestBMI": {
+      "id": "<integer>",
+      "height": "<integer>/<float>/<string>",
+      "weight": "<integer>/<float>/<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
+    }
   }
 }
 ```
@@ -605,7 +616,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ##### 🟩 B.2.1 Get All BMIs: `GET` - /me/bmis
 
-**Query Parameters:**;
+**Query Parameters:**
 
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
@@ -758,7 +769,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 ##### 🟩 B.3.1 Get All Workouts: `GET` - /me/workouts
 
-**Query Parameters:**;
+**Query Parameters:**
 
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).

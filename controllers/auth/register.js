@@ -117,7 +117,7 @@ async function registerController(req, res) {
     user = existedUser;
     await db.users.update(userData, { where: { id: user.id } });
 
-    if (req.matchedData.height && req.matchedData.weight) {
+    if (bmiData.height && bmiData.weight) {
       await user.createBMI(bmiData);
     }
 
@@ -126,7 +126,7 @@ async function registerController(req, res) {
   } else {
     user = await db.users.create(userData);
 
-    if (req.matchedData.height && req.matchedData.weight) {
+    if (bmiData.height && bmiData.weight) {
       await user.createBMI(bmiData);
     }
 
