@@ -439,8 +439,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Subglobal Headers:**
 
-- `authorization`: STRING - 🔸Required
-  - Access token.
+- `Authorization`: STRING - 🔸Required
+  - Bearer + Access token.
+  - "Bearer {accessToken}"
 
 **Subglobal Possible Responses:**
 
