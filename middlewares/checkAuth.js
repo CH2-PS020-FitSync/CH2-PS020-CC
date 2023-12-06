@@ -40,7 +40,8 @@ async function checkAuth(req, res, next) {
       status: 'fail',
       message,
       error: error.message,
-      errorStack: error.stack,
+      authorization: req.headers.authorization,
+      token: accessToken,
     });
   }
 }
