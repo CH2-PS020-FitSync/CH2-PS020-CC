@@ -47,7 +47,7 @@ async function forgotPasswordChange(req, res) {
     { where: { id: req.user.id } }
   );
 
-  res.status(200).json({
+  return res.status(200).json({
     status: 'success',
     message: 'User password successfully changed.',
     user: {

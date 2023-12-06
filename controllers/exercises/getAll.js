@@ -92,7 +92,7 @@ async function getAllController(req, res) {
     });
   }
 
-  res.status(200).json({
+  return res.status(200).json({
     status: 'success',
     message: 'Exercises successfully retrieved.',
     exercises,

@@ -4,7 +4,7 @@ async function logoutController(req, res) {
   const refreshToken = await req.user.getRefreshToken();
 
   if (!refreshToken) {
-    res.status(400).json({
+    return res.status(400).json({
       status: 'fail',
       message: 'User already logged out.',
     });
@@ -12,7 +12,7 @@ async function logoutController(req, res) {
 
   await refreshToken.destroy();
 
-  res.status(200).json({
+  return res.status(200).json({
     status: 'success',
     message: 'User successfully logged out. Refresh token destroyed.',
     user: {

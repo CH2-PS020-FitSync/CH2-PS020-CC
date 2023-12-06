@@ -57,12 +57,12 @@ async function photoPutController(req, res) {
       },
     });
 
-    blobStream.on('error', (error) => {
+    blobStream.on('error', (error) =>
       res.status(500).json({
         status: 'error',
         message: error.message,
-      });
-    });
+      })
+    );
 
     blobStream.on('finish', async () => {
       const photoUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
@@ -80,7 +80,7 @@ async function photoPutController(req, res) {
       await db.users.update({ photoUrl }, { where: { id: req.user.id } });
       const newUser = await db.users.findByPk(req.user.id);
 
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         message: 'User photo successfully changed.',
         user: {
