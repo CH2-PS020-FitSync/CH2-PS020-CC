@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING(20),
         allowNull: false,
       },
+      rating: {
+        type: DataTypes.INTEGER(10),
+      },
       date: {
         type: DataTypes.DATE,
         allowNull: false,

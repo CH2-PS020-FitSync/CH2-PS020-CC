@@ -5,14 +5,16 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  query('from')
+  query('dateFrom')
     .optional()
     .isDate()
-    .withMessage('From date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
-  query('to')
+    .withMessage(
+      'Date-from date should be in YYYY-MM-DD or YYYY/MM/DD format.'
+    ),
+  query('dateTo')
     .optional()
     .isDate()
-    .withMessage('To date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+    .withMessage('Date-to date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
   query('orderType')
     .optional()
     .toLowerCase()
@@ -33,8 +35,8 @@ const validations = [
 
 async function bmisGetAll(req, res) {
   const {
-    from: dateFrom,
-    to: dateTo,
+    dateFrom,
+    dateTo,
     orderType = 'desc',
     limit,
     offset,

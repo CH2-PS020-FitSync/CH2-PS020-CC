@@ -19,6 +19,11 @@ const validations = [
         return true;
       }
     }),
+  body('workouts.*.rating')
+    .optional()
+    .isInt({ min: 1, max: 10 })
+    .withMessage('Rating should be in 1-10 range.')
+    .toInt(),
   body('workouts.*.date')
     .optional()
     .isISO8601()
@@ -27,11 +32,16 @@ const validations = [
 
 async function workoutsAddManyController(req, res) {
   const newWorkouts = await db.workouts.bulkCreate(
-    req.matchedData.workouts.map((newWorkout) => ({
-      ExerciseId: newWorkout.exerciseId,
-      date: newWorkout.date,
-      UserId: req.user.id,
-    }))
+    req.matchedData.workouts.map((newWorkout) => {
+      const { exerciseId: ExerciseId, rating, date } = newWorkout;
+
+      return {
+        ExerciseId,
+        rating,
+        date,
+        UserId: req.user.id,
+      };
+    })
   );
 
   const filteredNewWorkouts = newWorkouts.map((newWorkout) => {
@@ -40,6 +50,7 @@ async function workoutsAddManyController(req, res) {
     return {
       id: newWorkoutInJSON.id,
       exerciseId: newWorkoutInJSON.ExerciseId,
+      rating: newWorkoutInJSON.rating,
       date: newWorkoutInJSON.date,
       createdAt: newWorkoutInJSON.createdAt,
       updatedAt: newWorkoutInJSON.updatedAt,

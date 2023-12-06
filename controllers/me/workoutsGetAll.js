@@ -5,14 +5,42 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  query('from')
+  query('dateFrom')
     .optional()
     .isDate()
-    .withMessage('From date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
-  query('to')
+    .withMessage('Date-from should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+  query('dateTo')
     .optional()
     .isDate()
-    .withMessage('To date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+    .withMessage('Date-to should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+  query('ratingFrom')
+    .optional()
+    .isInt({ min: 1, max: 10 })
+    .withMessage('Rating-from should be in 1-10 range.')
+    .toInt()
+    .custom((ratingFrom, { req }) => {
+      const { ratingTo } = req.query;
+
+      if (ratingTo && ratingTo < ratingFrom) {
+        throw new Error('Rating-from should be lesser than rating-to.');
+      } else {
+        return true;
+      }
+    }),
+  query('ratingTo')
+    .optional()
+    .isInt({ min: 1, max: 10 })
+    .withMessage('Rating-to should be in 1-10 range.')
+    .toInt()
+    .custom((ratingTo, { req }) => {
+      const { ratingFrom } = req.query;
+
+      if (ratingFrom && ratingFrom > ratingTo) {
+        throw new Error('Rating-to should be greater than rating-from.');
+      } else {
+        return true;
+      }
+    }),
   query('orderType')
     .optional()
     .toLowerCase()
@@ -33,8 +61,10 @@ const validations = [
 
 async function workoutsGetAll(req, res) {
   const {
-    from: dateFrom,
-    to: dateTo,
+    dateFrom,
+    dateTo,
+    ratingFrom,
+    ratingTo,
     orderType = 'desc',
     limit,
     offset,
@@ -63,11 +93,26 @@ async function workoutsGetAll(req, res) {
     };
   }
 
+  if (ratingFrom && ratingTo) {
+    filters.rating = {
+      [Op.between]: [ratingFrom, ratingTo],
+    };
+  } else if (ratingFrom) {
+    filters.rating = {
+      [Op.gte]: ratingFrom,
+    };
+  } else if (ratingTo) {
+    filters.rating = {
+      [Op.lte]: ratingTo,
+    };
+  }
+
   const queryOptions = {
     where: filters,
     attributes: [
       'id',
       ['ExerciseId', 'exerciseId'],
+      'rating',
       'date',
       'createdAt',
       'updatedAt',

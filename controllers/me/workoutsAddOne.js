@@ -18,6 +18,11 @@ const validations = [
         return true;
       }
     }),
+  body('rating')
+    .optional()
+    .isInt({ min: 1, max: 10 })
+    .withMessage('Rating should be in 1-10 range.')
+    .toInt(),
   body('date')
     .optional()
     .isISO8601()
@@ -25,9 +30,12 @@ const validations = [
 ];
 
 async function workoutsAddOneController(req, res) {
+  const { exerciseId: ExerciseId, rating, date } = req.matchedData;
+
   const newWorkout = await req.user.createWorkout({
-    ExerciseId: req.matchedData.exerciseId,
-    date: req.matchedData.date,
+    ExerciseId,
+    rating,
+    date,
   });
 
   return res.status(201).json({
@@ -36,6 +44,7 @@ async function workoutsAddOneController(req, res) {
     workout: {
       id: newWorkout.id,
       exerciseId: newWorkout.ExerciseId,
+      rating: newWorkout.rating,
       date: newWorkout.date,
       createdAt: newWorkout.createdAt,
       updatedAt: newWorkout.updatedAt,

@@ -666,12 +666,12 @@ Data list:
 
 **Query Parameters:**
 
+- `dateFrom`: STRING - 🔹Optional
+  - Format: YYYY-MM-DD or YYYY/MM/DD.
+- `dateTo`: STRING - 🔹Optional
+  - Format: YYYY-MM-DD or YYYY/MM/DD.
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
-- `from`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `to`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
 - `limit`: INTEGER - 🔹Optional
   - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
@@ -821,12 +821,18 @@ Data list:
 
 **Query Parameters:**
 
+- `dateFrom`: STRING - 🔹Optional
+  - Format: YYYY-MM-DD or YYYY/MM/DD.
+- `dateTo`: STRING - 🔹Optional
+  - Format: YYYY-MM-DD or YYYY/MM/DD.
+- `ratingFrom`: INTEGER - 🔹Optional
+  - Range: 1-10.
+  - Should be lesser than `ratingTo`.
+- `ratingTo`: INTEGER - 🔹Optional
+  - Range: 1-10.
+  - Should be greater than `ratingFrom`.
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
-- `from`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
-- `to`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
 - `limit`: INTEGER - 🔹Optional
   - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
@@ -844,6 +850,8 @@ Data list:
     {
       "id": "<integer>",
       "exerciseId": "<string>",
+      "rating": "<integer>",
+      "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
     }
@@ -872,6 +880,8 @@ Data list:
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
+    "rating": "<integer>",
+    "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
   }
@@ -895,6 +905,8 @@ Data list:
 
 - `exerciseId`: STRING - 🔸Required
   - Exercise should be existed.
+- `rating`: INTEGER - 🔹Optional
+  - Range: 1-10.
 - `date`: STRING - 🔹Optional
   - Format: ISO 8601.
   - Default value: current date & time.
@@ -910,6 +922,7 @@ Data list:
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
+    "rating": "<integer>",
     "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
@@ -926,6 +939,8 @@ Data list:
 - `workouts`: ARRAY - 🔸Required
   - `exerciseId`: STRING - 🔸Required
     - Exercise should be existed.
+  - `rating`: INTEGER - 🔹Optional
+    - Range: 1-10.
   - `date`: STRING - 🔹Optional
     - Format: ISO 8601.
     - Default value: current date & time.
@@ -937,6 +952,7 @@ Data list:
   "workouts": [
     {
       "exerciseId": "<string>",
+      "rating": "<integer>",
       "date": "<string>"
     }
   ]
@@ -955,6 +971,7 @@ Data list:
     {
       "id": "<integer>",
       "exerciseId": "<string>",
+      "rating": "<integer>",
       "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
@@ -1115,6 +1132,7 @@ Data list:
 {
   "id": "<integer>",
   "exerciseId": "<string>",
+  "rating": "<integer>",
   "date": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>"
