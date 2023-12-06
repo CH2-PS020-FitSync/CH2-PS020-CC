@@ -10,7 +10,7 @@ async function checkAuth(req, res, next) {
     });
   }
 
-  const accessToken = req.headers.authorization.split(' ')[1];
+  const accessToken = req.headers.authorization.trim().split(' ')[1];
 
   try {
     const decodedAccessToken = jwt.verify(
