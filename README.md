@@ -224,8 +224,9 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 
 **Headers:**
 
-- `authorization`: STRING - 🔸Required
-  - Access token.
+- `Authorization`: STRING - 🔸Required
+  - Bearer + Access token.
+  - "Bearer {accessToken}"
 
 **Possible Responses:**
 
