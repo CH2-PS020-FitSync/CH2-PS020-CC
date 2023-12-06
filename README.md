@@ -696,6 +696,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `weight`: FLOAT - 🔸Required
 - `date`: STRING - 🔹Optional
   - Format: ISO 8601.
+  - Default value: current date & time.
 
 **Possible Responses:**
 
@@ -727,6 +728,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   - `weight`: FLOAT - 🔸Required
   - `date`: STRING - 🔹Optional
     - Format: ISO 8601.
+    - Default value: current date & time.
 
 **Raw Body:**
 
@@ -847,6 +849,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
   - Exercise should be existed.
 - `date`: STRING - 🔹Optional
   - Format: ISO 8601.
+  - Default value: current date & time.
 
 **Possible Responses:**
 
@@ -877,6 +880,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
     - Exercise should be existed.
   - `date`: STRING - 🔹Optional
     - Format: ISO 8601.
+    - Default value: current date & time.
 
 **Raw Body:**
 
