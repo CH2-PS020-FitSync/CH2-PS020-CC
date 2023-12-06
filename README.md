@@ -59,6 +59,52 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 - `x-smtp-password`: STRING (required for development)
   - Value: _Get at https://ethereal.email_
 
+**Responses Format:**
+
+🟢 Success
+
+```json
+{
+  "status": "success",
+  "message": "<string>",
+  "<data>": "<object>/<string>"
+}
+```
+
+Data list:
+
+- user
+- bmis
+- bmi
+- workouts
+- workout
+- exercises
+- exercise
+
+🔴 Fail
+
+```json
+{
+  "status": "fail",
+  "message": "<string>",
+  "<data>": "<object>/<string>"
+}
+```
+
+Data list:
+
+- error
+- validationErrors
+
+🔴 Error
+
+```json
+{
+  "status": "error",
+  "message": "<string>"
+}
+```
+
 **Global Possible Responses:**
 
 🔴 **400** Bad Request
