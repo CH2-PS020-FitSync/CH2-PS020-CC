@@ -55,7 +55,7 @@ async function bmisPutManyController(req, res) {
     bmis.push(filteredBMI);
   }
 
-  return res.status(201).json({
+  return res.status(200).json({
     status: 'success',
     message: 'BMIs succesfully added.',
     bmis,

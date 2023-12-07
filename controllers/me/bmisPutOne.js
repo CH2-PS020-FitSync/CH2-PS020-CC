@@ -50,7 +50,7 @@ async function bmisPutOneController(req, res) {
 
   const { UserId, ...filteredBMI } = bmi.toJSON();
 
-  return res.status(201).json({
+  return res.status(isUpdate ? 200 : 201).json({
     status: 'success',
     message: `BMI succesfully ${isUpdate ? 'updated' : 'added'}.`,
     bmi: filteredBMI,

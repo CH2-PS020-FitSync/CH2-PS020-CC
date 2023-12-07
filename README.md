@@ -748,7 +748,7 @@ Data list:
 
 **Possible Responses:**
 
-🟢 **201** Created
+🟢 **201** Created or **200** OK
 
 ```json
 {
@@ -794,7 +794,7 @@ Data list:
 
 **Possible Responses:**
 
-🟢 **201** Created
+🟢 **200** OK
 
 ```json
 {
