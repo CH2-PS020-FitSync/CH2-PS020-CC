@@ -29,7 +29,7 @@ const validations = [
     .withMessage('Date should be in ISO 8601 format.'),
 ];
 
-async function workoutsAddOneController(req, res) {
+async function workoutsPostOneController(req, res) {
   const { exerciseId: ExerciseId, rating, date } = req.matchedData;
 
   const newWorkout = await req.user.createWorkout({
@@ -52,4 +52,4 @@ async function workoutsAddOneController(req, res) {
   });
 }
 
-module.exports = [validate(validations), workoutsAddOneController];
+module.exports = [validate(validations), workoutsPostOneController];

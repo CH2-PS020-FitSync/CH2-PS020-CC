@@ -13,8 +13,8 @@ const bmisPutManyController = require('../controllers/me/bmisPutMany');
 const photoPutController = require('../controllers/me/photoPut');
 const workoutsGetAllController = require('../controllers/me/workoutsGetAll');
 const workoutsGetOneController = require('../controllers/me/workoutsGetOne');
-const workoutsAddOneController = require('../controllers/me/workoutsAddOne');
-const workoutsAddManyController = require('../controllers/me/workoutsAddMany');
+const workoutsPostOneController = require('../controllers/me/workoutsPostOne');
+const workoutsPostManyController = require('../controllers/me/workoutsPostMany');
 
 router.use(checkAuth);
 
@@ -27,7 +27,7 @@ router.post('/bmis/many', bmisPutManyController);
 router.put('/photo', photoPutController);
 router.get('/workouts', workoutsGetAllController);
 router.get('/workouts/:id', workoutsGetOneController);
-router.post('/workouts', workoutsAddOneController);
-router.post('/workouts/many', workoutsAddManyController);
+router.post('/workouts', workoutsPostOneController);
+router.post('/workouts/many', workoutsPostManyController);
 
 module.exports = router;

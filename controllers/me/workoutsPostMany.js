@@ -30,7 +30,7 @@ const validations = [
     .withMessage('Date should be in ISO 8601 format.'),
 ];
 
-async function workoutsAddManyController(req, res) {
+async function workoutsPostManyController(req, res) {
   const newWorkouts = await db.workouts.bulkCreate(
     req.matchedData.workouts.map((newWorkout) => {
       const { exerciseId: ExerciseId, rating, date } = newWorkout;
@@ -64,4 +64,4 @@ async function workoutsAddManyController(req, res) {
   });
 }
 
-module.exports = [validate(validations), workoutsAddManyController];
+module.exports = [validate(validations), workoutsPostManyController];
