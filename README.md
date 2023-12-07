@@ -736,7 +736,7 @@ Data list:
 
 ---
 
-##### 🟧 B.2.3 Add One BMI: `POST` - /me/bmis
+##### 🟧 B.2.3 Add/Update One BMI: `PUT` - /me/bmis
 
 **Body:**
 
@@ -753,7 +753,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "BMI succesfully added.",
+  "message": "BMI succesfully added/updated.",
   "bmi": {
     "id": "<integer>",
     "height": "<integer>/<float>/<string>",
@@ -767,7 +767,7 @@ Data list:
 
 ---
 
-##### 🟧 B.2.4 Add Many BMIs: `POST` - /me/bmis/many
+##### 🟧 B.2.4 Add/Update Many BMIs: `PUT` - /me/bmis/many
 
 **Body:**
 
