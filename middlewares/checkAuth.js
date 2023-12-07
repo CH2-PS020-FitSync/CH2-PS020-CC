@@ -10,7 +10,10 @@ async function checkAuth(req, res, next) {
     });
   }
 
-  const accessToken = req.headers.authorization.trim().split(' ')[1];
+  // const accessToken = req.headers.authorization.trim().split(' ')[1];
+  const accessToken = req.headers.authorization
+    .replaceAll(/,?((B|b)earer)/g, '')
+    .trim();
 
   try {
     const decodedAccessToken = jwt.verify(
@@ -40,8 +43,6 @@ async function checkAuth(req, res, next) {
       status: 'fail',
       message,
       error: error.message,
-      authorization: req.headers.authorization,
-      token: accessToken,
     });
   }
 }
