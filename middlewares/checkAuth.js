@@ -43,6 +43,8 @@ async function checkAuth(req, res, next) {
       status: 'fail',
       message,
       error: error.message,
+      fullToken: req.headers.authorization,
+      accessToken,
     });
   }
 }
