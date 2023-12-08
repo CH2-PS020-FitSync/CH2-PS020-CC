@@ -9,15 +9,6 @@ const dbDialect = process.env.DB_DIALECT;
 const options = {
   host: dbHost,
   dialect: dbDialect,
-  dialectOptions: {
-    typeCast: (field, next) => {
-      if (field.type === 'DATETIME') {
-        return field.string();
-      }
-      return next();
-    },
-  },
-  timezone: '+07:00',
 };
 
 if (process.env.IS_LOCAL === 'false') {

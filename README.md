@@ -152,7 +152,7 @@ Data list:
 - `gender`: STRING - 🔹Optional
   - ['male', 'female'] (case insensitive).
 - `birthDate`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `level`: STRING - 🔹Optional
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
 - `goalWeight`: FLOAT - 🔹Optional
@@ -557,7 +557,7 @@ Data list:
 - `gender`: STRING - 🔹Optional
   - ['male', 'female'] (case insensitive).
 - `birthDate`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `level`: STRING - 🔹Optional
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
 - `goalWeight`: FLOAT - 🔹Optional
@@ -667,9 +667,9 @@ Data list:
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
 - `limit`: INTEGER - 🔹Optional
@@ -743,7 +743,7 @@ Data list:
 - `height`: FLOAT - 🔸Required
 - `weight`: FLOAT - 🔸Required
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601.
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
   - Default value: current date & time.
 
 **Possible Responses:**
@@ -775,7 +775,7 @@ Data list:
   - `height`: FLOAT - 🔸Required
   - `weight`: FLOAT - 🔸Required
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601.
+    - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
     - Default value: current date & time.
 
 **Raw Body:**
@@ -822,9 +822,9 @@ Data list:
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD.
+  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
 - `ratingFrom`: INTEGER - 🔹Optional
   - Range: 1-10.
   - Should be lesser than `ratingTo`.
@@ -908,7 +908,7 @@ Data list:
 - `rating`: INTEGER - 🔹Optional
   - Range: 1-10.
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601.
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
   - Default value: current date & time.
 
 **Possible Responses:**
@@ -942,7 +942,7 @@ Data list:
   - `rating`: INTEGER - 🔹Optional
     - Range: 1-10.
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601.
+    - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
     - Default value: current date & time.
 
 **Raw Body:**
