@@ -9,6 +9,7 @@ const dbDialect = process.env.DB_DIALECT;
 const options = {
   host: dbHost,
   dialect: dbDialect,
+  dialectOptions: {},
 };
 
 if (process.env.IS_LOCAL === 'false') {
