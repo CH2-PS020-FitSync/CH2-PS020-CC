@@ -25,8 +25,8 @@ async function bmisPutOneController(req, res) {
   const { height, weight, date } = req.matchedData;
 
   const bmiDate = date ? new Date(date) : new Date();
-  const startDate = bmiDate.setHours(0, 0, 0);
-  const endDate = bmiDate.setHours(23, 59, 59);
+  const startDate = new Date(bmiDate).setHours(0, 0, 0);
+  const endDate = new Date(bmiDate).setHours(23, 59, 59);
 
   let bmi = await db.bmis.findOne({
     where: {
@@ -37,12 +37,15 @@ async function bmisPutOneController(req, res) {
   let isUpdate = false;
 
   if (bmi) {
-    bmi.set({
-      height,
-      weight,
-      date: bmiDate,
-    });
-    await bmi.save();
+    await db.bmis.update(
+      {
+        height,
+        weight,
+        date: bmiDate,
+      },
+      { where: { id: bmi.id } }
+    );
+    bmi = await db.bmis.findByPk(bmi.id);
     isUpdate = true;
   } else {
     bmi = await req.user.createBMI(req.matchedData);
