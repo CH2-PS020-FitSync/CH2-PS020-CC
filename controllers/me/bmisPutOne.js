@@ -48,7 +48,8 @@ async function bmisPutOneController(req, res) {
     bmi = await db.bmis.findByPk(bmi.id);
     isUpdate = true;
   } else {
-    bmi = await req.user.createBMI(req.matchedData);
+    const createdBMI = await req.user.createBMI(req.matchedData);
+    bmi = await db.bmis.findByPk(createdBMI.id);
   }
 
   const { UserId, ...filteredBMI } = bmi.toJSON();

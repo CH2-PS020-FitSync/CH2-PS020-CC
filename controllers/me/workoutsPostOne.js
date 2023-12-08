@@ -32,11 +32,12 @@ const validations = [
 async function workoutsPostOneController(req, res) {
   const { exerciseId: ExerciseId, rating, date } = req.matchedData;
 
-  const newWorkout = await req.user.createWorkout({
+  const createdWorkout = await req.user.createWorkout({
     ExerciseId,
     rating,
     date,
   });
+  const newWorkout = await db.workouts.findByPk(createdWorkout.id);
 
   return res.status(201).json({
     status: 'success',

@@ -124,7 +124,8 @@ async function registerController(req, res) {
     const otp = await user.getOTP();
     await db.otps.update({ code: encryptedOTPCode }, { where: { id: otp.id } });
   } else {
-    user = await db.users.create(userData);
+    const createdUser = await db.users.create(userData);
+    user = await db.users.findByPk(createdUser.id);
 
     if (bmiData.height && bmiData.weight) {
       await user.createBMI(bmiData);
