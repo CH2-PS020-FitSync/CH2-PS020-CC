@@ -667,9 +667,9 @@ Data list:
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case-insensitive).
 - `limit`: INTEGER - 🔹Optional
@@ -822,9 +822,9 @@ Data list:
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: YYYY-MM-DD or YYYY/MM/DD (UTC+0).
+  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `ratingFrom`: INTEGER - 🔹Optional
   - Range: 1-10.
   - Should be lesser than `ratingTo`.

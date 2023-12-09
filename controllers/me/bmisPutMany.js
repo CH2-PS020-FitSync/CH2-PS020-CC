@@ -29,8 +29,8 @@ async function bmisPutManyController(req, res) {
     const { height, weight, date } = bmiItem;
 
     const bmiDate = date ? new Date(date) : new Date();
-    const startDate = new Date(bmiDate).setHours(0, 0, 0);
-    const endDate = new Date(bmiDate).setHours(23, 59, 59);
+    const startDate = new Date(bmiDate).setUTCHours(0, 0, 0);
+    const endDate = new Date(bmiDate).setUTCHours(23, 59, 59);
 
     let bmi = await db.bmis.findOne({
       where: {

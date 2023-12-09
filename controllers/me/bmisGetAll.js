@@ -7,14 +7,12 @@ const validate = require('../../middlewares/validate');
 const validations = [
   query('dateFrom')
     .optional()
-    .isDate()
-    .withMessage(
-      'Date-from date should be in YYYY-MM-DD or YYYY/MM/DD format.'
-    ),
+    .isISO8601()
+    .withMessage('Date should be in ISO 8601 format.'),
   query('dateTo')
     .optional()
-    .isDate()
-    .withMessage('Date-to date should be in YYYY-MM-DD or YYYY/MM/DD format.'),
+    .isISO8601()
+    .withMessage('Date should be in ISO 8601 format.'),
   query('orderType')
     .optional()
     .toLowerCase()
@@ -43,9 +41,7 @@ async function bmisGetAll(req, res) {
   } = req.matchedData;
 
   const dateFromFilter = new Date(dateFrom);
-  const dateToFilter = new Date(
-    new Date(dateTo).getTime() + 24 * (60 * 60 * 1000) - 1000
-  );
+  const dateToFilter = new Date(dateTo);
 
   const filters = {
     UserId: req.user.id,
