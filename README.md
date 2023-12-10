@@ -56,7 +56,7 @@ https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
 **Global Headers:**
 
 - `x-api-key`: STRING - 🔸Required
-  - Value: b5242882-b5ab-43e3-a846-384bf7e0e22d
+  - Value: [See API Key](https://console.cloud.google.com/security/secret-manager/secret/fitsync-main-api-API_KEY/versions?project=fitsync-406408)
 - `x-smtp-host`: STRING (required for development)
   - Value: _Get at https://ethereal.email_
 - `x-smtp-port`: INTEGER (required for development)
