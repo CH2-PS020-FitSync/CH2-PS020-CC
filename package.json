@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/CH2-PS020-FitSync/CH2-PS020-CC#readme",
   "dependencies": {
+    "@babel/runtime": "^7.23.5",
     "@google-cloud/storage": "^7.7.0",
     "bcrypt": "^5.1.1",
     "chalk": "^4.1.2",
@@ -33,7 +34,8 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.5",
     "nodemailer": "^6.9.7",
-    "sequelize": "^6.35.1"
+    "sequelize": "^6.35.1",
+    "typesense": "^1.7.2"
   },
   "devDependencies": {
     "eslint": "^8.54.0",

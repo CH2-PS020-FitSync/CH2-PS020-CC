@@ -4,7 +4,7 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
-  query('titleStartsWith').optional(),
+  query('title').optional(),
   query('type')
     .optional()
     .toLowerCase()
@@ -37,59 +37,51 @@ const validations = [
 ];
 
 async function getAllController(req, res) {
-  const { titleStartsWith, type, level, gender, limit, offset } =
-    req.matchedData;
+  const {
+    title = '',
+    type,
+    level,
+    gender,
+    limit = 10,
+    offset,
+  } = req.matchedData;
 
-  let exercisesQuery = db.firestore.exercises;
+  const searchParameters = {};
+  const filters = [];
 
-  if (titleStartsWith) {
-    exercisesQuery = exercisesQuery
-      .where('title', '>=', titleStartsWith)
-      .where('title', '<=', `${titleStartsWith}\uf8ff`);
-  }
+  searchParameters.q = title;
+  searchParameters.query_by = 'title';
 
   if (type) {
-    exercisesQuery = exercisesQuery.where('type', '==', type);
+    filters.push(`type:=${type}`);
   }
 
   if (level) {
-    exercisesQuery = exercisesQuery.where('level', '==', level);
+    filters.push(`level:=${level}`);
   }
 
   if (gender) {
-    exercisesQuery = exercisesQuery.where('gender', '==', gender);
+    filters.push(`gender:=${gender}`);
   }
 
-  exercisesQuery = exercisesQuery.orderBy('title', 'asc');
+  if (filters.length > 0) {
+    searchParameters.filter_by = filters.join(' && ');
+  }
+
+  searchParameters.limit = limit;
 
   if (offset) {
-    const tmpExercisesSnapshot = await exercisesQuery.limit(offset).get();
-    const tmpExercises = tmpExercisesSnapshot.docs;
-
-    const startAfterPoint = tmpExercises[offset - 1];
-
-    if (startAfterPoint) {
-      exercisesQuery = exercisesQuery.startAfter(startAfterPoint);
-    } else {
-      exercisesQuery = false;
-    }
+    searchParameters.offset = offset;
   }
 
-  if (limit) {
-    exercisesQuery = exercisesQuery ? exercisesQuery.limit(limit) : false;
-  }
+  const searchResult = await db.typesense.exercises
+    .documents()
+    .search(searchParameters);
 
-  const exercises = [];
+  let exercises = [];
 
-  if (exercisesQuery) {
-    const exercisesSnapshot = await exercisesQuery.get();
-
-    exercisesSnapshot.forEach((exercise) => {
-      exercises.push({
-        id: exercise.id,
-        ...exercise.data(),
-      });
-    });
+  if (searchResult.found > 0) {
+    exercises = searchResult.hits.map((hit) => hit.document);
   }
 
   return res.status(200).json({

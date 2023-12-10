@@ -5,12 +5,12 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   param('id').custom(async (id, { req }) => {
-    const exerciseSnapshot = await db.firestore.exercises.doc(id).get();
+    const exercise = await db.typesense.exercises.documents(id).retrieve();
 
-    if (!exerciseSnapshot.exists) {
+    if (!exercise.id) {
       throw new Error('Exercise not found.');
     } else {
-      req.exerciseSnapshot = exerciseSnapshot;
+      req.exercise = exercise;
       return true;
     }
   }),
@@ -20,10 +20,7 @@ async function getOneController(req, res) {
   return res.status(200).json({
     status: 'success',
     message: 'Exercise successfully retrieved.',
-    exercise: {
-      id: req.exerciseSnapshot.id,
-      ...req.exerciseSnapshot.data(),
-    },
+    exercise: req.exercise,
   });
 }
 

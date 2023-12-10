@@ -39,6 +39,11 @@ app.use(require('./middlewares/errorHandler'));
       chalk.blue('All database models were synchronized successfully.')
     );
 
+    await db.typesense.init();
+    console.log(
+      chalk.blue('All Typesense schemas were synchronized successfully.')
+    );
+
     app.listen(port, () => {
       console.log(chalk.green.bold(`Server is listening on port ${port}!`));
     });

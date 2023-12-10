@@ -40,6 +40,13 @@ Team members:
 - `EMAIL_TRANSPORTER_PASSWORD`
 - `EMAIL_TRANSPORTER_NAME`
 
+### Typesense
+
+- `TYPESENSE_HOST`
+- `TYPESENSE_PORT`
+- `TYPESENSE_PROTOCOL`
+- `TYPESENSE_API_KEY`
+
 ## 🔗 API Documentation
 
 **Base URL:**
@@ -988,7 +995,7 @@ Data list:
 
 **Query Parameters:**
 
-- `titleStartsWith`: STRING - 🔹Optional
+- `title`: STRING - 🔹Optional
 - `type`: STRING - 🔹Optional
   - ['strength', 'stretching', 'aerobic'] (case insensitive).
 - `level`: STRING - 🔹Optional
@@ -997,6 +1004,7 @@ Data list:
   - ['male', 'female'] (case insensitive).
 - `limit`: INTEGER - 🔹Optional
   - Min. value: 1.
+  - Default: 10.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
