@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { body } = require('express-validator');
 
 const db = require('../../models');
@@ -50,17 +51,39 @@ const validations = [
 ];
 
 async function patchController(req, res) {
+  await db.users.update(req.matchedData, {
+    where: { id: req.user.id },
+  });
+
   const bmiData = {
     height: req.matchedData.height,
     weight: req.matchedData.weight,
   };
 
-  await db.users.update(req.matchedData, {
-    where: { id: req.user.id },
-  });
-
   if (bmiData.height && bmiData.weight) {
-    await req.user.createBMI(bmiData);
+    const bmiDate = new Date();
+    const startDate = new Date(bmiDate).setUTCHours(0, 0, 0);
+    const endDate = new Date(bmiDate).setUTCHours(23, 59, 59);
+
+    const bmi = await db.bmis.findOne({
+      where: {
+        date: { [Op.between]: [startDate, endDate] },
+        UserId: req.user.id,
+      },
+    });
+
+    if (bmi) {
+      await db.bmis.update(
+        {
+          height: bmiData.height,
+          weight: bmiData.weight,
+          date: bmiDate,
+        },
+        { where: { id: bmi.id } }
+      );
+    } else {
+      await req.user.createBMI(bmiData);
+    }
   }
 
   const patchedUser = await db.users.findByPk(req.user.id);
