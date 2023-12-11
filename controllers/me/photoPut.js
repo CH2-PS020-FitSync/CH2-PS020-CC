@@ -9,7 +9,7 @@ let storage;
 
 if (process.env.IS_LOCAL === 'true') {
   storage = new Storage({
-    keyFilename: 'keys/storage-object-admin.json',
+    keyFilename: 'keys/main-api-cloud-run.json',
   });
 } else {
   storage = new Storage();

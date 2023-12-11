@@ -11,7 +11,7 @@ module.exports = () => {
 
   if (process.env.IS_LOCAL === 'true') {
     // eslint-disable-next-line global-require
-    const serviceAccount = require('../keys/firebase-adminsdk.json');
+    const serviceAccount = require('../keys/main-api-cloud-run.json');
     credential = cert(serviceAccount);
   } else {
     credential = applicationDefault();
