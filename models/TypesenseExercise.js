@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'exercises_2',
+  name: 'exercises_1',
   enable_nested_fields: true,
   // fields: [
   //   {
