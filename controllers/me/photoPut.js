@@ -1,6 +1,7 @@
 const { promisify } = require('util');
 const { Storage } = require('@google-cloud/storage');
 const multer = require('multer');
+const sharp = require('sharp');
 
 const db = require('../../models');
 
@@ -44,10 +45,15 @@ async function photoPutController(req, res) {
       });
     }
 
-    const splittedFileOriginalName = req.file.originalname.split('.');
-    const fileExtension =
-      splittedFileOriginalName[splittedFileOriginalName.length - 1];
-    const fileName = `${req.user.id}.${fileExtension}`;
+    const compressedBuffer = await sharp(req.file.buffer)
+      .resize(256, 256)
+      .jpeg({
+        quality: 75,
+        mozjpeg: true,
+      })
+      .toBuffer();
+
+    const fileName = `${req.user.id}.jpg`;
 
     const blob = bucket.file(fileName);
     const blobStream = blob.createWriteStream({
@@ -90,7 +96,7 @@ async function photoPutController(req, res) {
       });
     });
 
-    blobStream.end(req.file.buffer);
+    blobStream.end(compressedBuffer);
 
     return true;
   } catch (error) {

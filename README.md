@@ -608,6 +608,9 @@ Data list:
 
 ##### 🟦 B.1.3 Update My Photo: `PUT` - /me/photo
 
+> [!NOTE]
+> The image will be converted & compressed into JPG format with a size of 256×256 pixels.
+
 **Body:**
 
 - `photo`: FILE - 🔸Required
