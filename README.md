@@ -992,6 +992,74 @@ Data list:
 
 ---
 
+### 🔮 B.4 Recommendation
+
+#### 🟩 B.4.1 Get Exercises Recommendation: `GET` - /recommendation/exercises
+
+**Possible Responses:**
+
+🟢 **200** OK
+
+```json
+{
+  "status": "success",
+  "message": "Exercises recommendation successfully retrieved.",
+  "exercises": [
+    {
+      "id": "<string>",
+      "bodyPart": "<string>",
+      "gender": "<string>",
+      "level": "<string>",
+      "title": "<string>",
+      "type": "<string>"
+    }
+  ]
+}
+```
+
+🔴 **503** Service Unavailable
+
+```json
+{
+  "status": "error",
+  "message": "Failed to get recommendation.",
+  "error": "ML API Error: <string>"
+}
+```
+
+---
+
+#### 🟩 B.4.2 Get Nutrition Recommendation: `GET` - /recommendation/nutrition
+
+**Possible Responses:**
+
+🟢 **200** OK
+
+```json
+{
+  "status": "success",
+  "message": "Nutrition recommendation successfully retrieved.",
+  "nutrition": {
+    "estimatedCalories": "<float>",
+    "estimatedCarbohydrates": "<float>",
+    "estimatedFat": "<float>",
+    "estimatedProteinMean": "<float>"
+  }
+}
+```
+
+🔴 **503** Service Unavailable
+
+```json
+{
+  "status": "error",
+  "message": "Failed to get recommendation.",
+  "error": "ML API Error: <string>"
+}
+```
+
+---
+
 ### 💪 C. Exercises
 
 #### 🟩 C.1 Get All Exercises: `GET` - /exercises

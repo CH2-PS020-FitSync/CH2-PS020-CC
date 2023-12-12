@@ -15,6 +15,8 @@ const workoutsGetAllController = require('../controllers/me/workoutsGetAll');
 const workoutsGetOneController = require('../controllers/me/workoutsGetOne');
 const workoutsPostOneController = require('../controllers/me/workoutsPostOne');
 const workoutsPostManyController = require('../controllers/me/workoutsPostMany');
+const recommendationGetExercises = require('../controllers/me/recommendationGetExercises');
+const recommendationGetNutrition = require('../controllers/me/recommendationGetNutrition');
 
 router.use(checkAuth);
 
@@ -29,5 +31,7 @@ router.get('/workouts', workoutsGetAllController);
 router.get('/workouts/:id', workoutsGetOneController);
 router.post('/workouts', workoutsPostOneController);
 router.post('/workouts/many', workoutsPostManyController);
+router.get('/recommendation/exercises', recommendationGetExercises);
+router.get('/recommendation/nutrition', recommendationGetNutrition);
 
 module.exports = router;
