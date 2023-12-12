@@ -12,10 +12,10 @@ async function recommendationGetNutrition(req, res) {
     const { data: resNutrition } = response.data;
 
     const nutrition = {
-      estimatedCalories: resNutrition.Estimated_Calories,
-      estimatedCarbohydrates: resNutrition.Estimated_Carbohydrates,
-      estimatedFat: resNutrition.Estimated_Fat,
-      estimatedProteinMean: resNutrition.Estimated_Protein_Mean,
+      estimatedCalories: parseFloat(resNutrition.Estimated_Calories),
+      estimatedCarbohydrates: parseFloat(resNutrition.Estimated_Carbohydrates),
+      estimatedFat: parseFloat(resNutrition.Estimated_Fat),
+      estimatedProteinMean: parseFloat(resNutrition.Estimated_Protein_Mean),
     };
 
     return res.status(200).json({
