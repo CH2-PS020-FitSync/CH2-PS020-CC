@@ -18,6 +18,10 @@ Team members:
 - `API_KEY`
 - `PORT`
 
+### Other Services
+
+- `ML_BASE_URL`
+
 ### Database
 
 - `DB_HOST`
