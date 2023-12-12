@@ -998,7 +998,7 @@ Data list:
 
 #### 🔮 B.4 Recommendation
 
-##### 🟩 B.4.1 Get Exercises Recommendation: `GET` - /recommendation/exercises
+##### 🟩 B.4.1 Get Exercises Recommendation: `GET` - /me/recommendation/exercises
 
 **Possible Responses:**
 
@@ -1033,7 +1033,7 @@ Data list:
 
 ---
 
-##### 🟩 B.4.2 Get Nutrition Recommendation: `GET` - /recommendation/nutrition
+##### 🟩 B.4.2 Get Nutrition Recommendation: `GET` - /me/recommendation/nutrition
 
 **Possible Responses:**
 
