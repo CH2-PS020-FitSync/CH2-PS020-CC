@@ -1241,6 +1241,17 @@ Data list:
 }
 ```
 
+#### nutrition
+
+```json
+{
+  "estimatedCalories": "<float>",
+  "estimatedCarbohydrates": "<float>",
+  "estimatedFat": "<float>",
+  "estimatedProteinMean": "<float>"
+}
+```
+
 ---
 
 [🔗 Back to Top API Documentation](#-api-documentation)
