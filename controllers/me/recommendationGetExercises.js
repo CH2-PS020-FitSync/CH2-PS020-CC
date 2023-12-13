@@ -1,5 +1,7 @@
 const axios = require('axios').default;
 
+const db = require('../../models');
+
 async function recommendationGetExercises(req, res) {
   try {
     if (!req.user.birthDate) {
@@ -28,15 +30,22 @@ async function recommendationGetExercises(req, res) {
 
       const { data: resExercises } = response.data;
 
-      const exercises = resExercises.map((exercise) => {
-        // eslint-disable-next-line camelcase
-        const { workout_id, ...cleanExerciseData } = exercise;
+      const exerciseIds = resExercises.map((exercise) => exercise.workout_id);
 
-        return {
-          id: exercise.workout_id,
-          ...cleanExerciseData,
-        };
-      });
+      const searchParameter = {
+        q: '*',
+        filter_by: `id:[${exerciseIds.join(',')}]`,
+        pinned_hits: exerciseIds.reduce(
+          (pinnedHits, exerciseId, index) =>
+            `${pinnedHits}${exerciseId}:${index + 1}${
+              index + 1 < exerciseIds.length ? ',' : ''
+            }`,
+          ''
+        ),
+      };
+      const exercises = (
+        await db.typesense.exercises.documents().search(searchParameter)
+      ).hits.map((exerciseHits) => exerciseHits.document);
 
       return res.status(200).json({
         status: 'success',

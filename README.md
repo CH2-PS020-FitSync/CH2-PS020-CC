@@ -1011,11 +1011,21 @@ Data list:
   "exercises": [
     {
       "id": "<string>",
-      "bodyPart": "<string>",
-      "gender": "<string>",
-      "level": "<string>",
       "title": "<string>",
-      "type": "<string>"
+      "type": "<string>",
+      "level": "<string>",
+      "gender": "<string>",
+      "bodyPart": "<string>",
+      "desc": "<string>",
+      "jpg": "<string>",
+      "gif": "<string>",
+      "duration": {
+        "sec": "<string>",
+        "rep": "<string>",
+        "set": "<string>",
+        "min": "<string>",
+        "desc": "<string>"
+      }
     }
   ]
 }
