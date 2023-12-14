@@ -60,7 +60,7 @@ Team members:
 **Base URL:**
 
 - 🛠️ Development: https://fitsync-main-api-k3bfbgtn5q-et.a.run.app
-- 🌏 Production: TBD
+- 🌏 Production: https://prod-fitsync-main-api-k3bfbgtn5q-et.a.run.app
 
 **Global Headers:**
 
