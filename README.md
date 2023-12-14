@@ -207,7 +207,7 @@ Data list:
 
 ---
 
-#### 🟧 A.2 Register OTP: `POST`- /auth/register/otp
+#### 🟧 A.2 Register - OTP: `POST`- /auth/register/otp
 
 **Endpoint:** `/auth/register/otp`
 
