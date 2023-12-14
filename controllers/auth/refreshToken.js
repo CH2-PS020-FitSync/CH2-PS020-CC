@@ -23,8 +23,9 @@ const validations = [
           new Date(token.lastAccessedAt).getTime() / 1000
         );
         const currentSeconds = Math.round(new Date().getTime() / 1000);
+        const diffSeconds = currentSeconds - lastAccessedSeconds;
 
-        if (currentSeconds - lastAccessedSeconds > expiredDaysInSeconds) {
+        if (diffSeconds > expiredDaysInSeconds) {
           await token.destroy();
 
           throw new Error('Refresh token expired.');
@@ -48,7 +49,10 @@ async function refreshTokenController(req, res) {
       process.env.ACCESS_TOKEN_PRIVATE_KEY,
       {
         issuer: 'FitSync',
-        expiresIn: process.env.ENVIRONMENT === 'production' ? '15m' : '24h',
+        expiresIn:
+          process.env.ENVIRONMENT.toLowerCase() === 'development'
+            ? '24h'
+            : '30m',
       }
     );
 

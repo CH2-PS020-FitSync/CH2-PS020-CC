@@ -15,7 +15,7 @@ if (process.env.IS_LOCAL === 'true') {
   storage = new Storage();
 }
 
-const bucket = storage.bucket('fitsync-user-photos');
+const bucket = storage.bucket(process.env.USER_PHOTOS_BUCKET);
 
 const maxSize = 2 * 1024 * 1024; // 2MB
 const upload = multer({
@@ -84,14 +84,14 @@ async function photoPutController(req, res) {
       }
 
       await db.users.update({ photoUrl }, { where: { id: req.user.id } });
-      const newUser = await db.users.findByPk(req.user.id);
+      const user = await db.users.findByPk(req.user.id);
 
       return res.status(200).json({
         status: 'success',
-        message: 'User photo successfully changed.',
+        message: "User's photo successfully changed.",
         user: {
-          id: newUser.id,
-          photoUrl: newUser.photoUrl,
+          id: user.id,
+          photoUrl: user.photoUrl,
         },
       });
     });

@@ -1,23 +1,33 @@
 const nodemailer = require('nodemailer');
 
-function createEmailTransporter({ host, port, username, password }) {
-  const options = {
-    auth: {
-      user: username || process.env.EMAIL_TRANSPORTER_USERNAME,
-      pass: password || process.env.EMAIL_TRANSPORTER_PASSWORD,
-    },
-  };
+function createEmailTransporter(options) {
+  const isInDevelopment =
+    process.env.ENVIRONMENT.toLowerCase() === 'development';
 
-  const transporterService = process.env.EMAIL_TRANSPORTER_SERVICE;
+  let transporterOptions;
 
-  if (transporterService) {
-    options.service = transporterService;
+  if (isInDevelopment) {
+    const { host, port, username, password } = options;
+
+    transporterOptions = {
+      host: host || process.env.EMAIL_TRANSPORTER_HOST,
+      port: port || process.env.EMAIL_TRANSPORTER_PORT,
+      auth: {
+        user: username || process.env.EMAIL_TRANSPORTER_USERNAME,
+        pass: password || process.env.EMAIL_TRANSPORTER_PASSWORD,
+      },
+    };
   } else {
-    options.host = host || process.env.EMAIL_TRANSPORTER_HOST;
-    options.port = port || process.env.EMAIL_TRANSPORTER_PORT;
+    transporterOptions = {
+      service: process.env.EMAIL_TRANSPORTER_SERVICE,
+      auth: {
+        user: process.env.EMAIL_TRANSPORTER_USERNAME,
+        pass: process.env.EMAIL_TRANSPORTER_PASSWORD,
+      },
+    };
   }
 
-  const emailTransporter = nodemailer.createTransport(options);
+  const emailTransporter = nodemailer.createTransport(transporterOptions);
 
   return emailTransporter;
 }

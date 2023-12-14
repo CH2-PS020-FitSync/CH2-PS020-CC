@@ -15,33 +15,37 @@ Team members:
 
 - `ENVIRONMENT` [development, production]
 - `IS_LOCAL` [true, false]
-- `API_KEY`
+- `API_KEY` (🔐 Secret)
 - `PORT`
 
-### Other Services
+### URLs
 
 - `ML_BASE_URL`
+
+### Cloud Storage
+
+- `USER_PHOTOS_BUCKET`
 
 ### Database
 
 - `DB_HOST`
 - `DB_USERNAME`
-- `DB_PASSWORD`
+- `DB_PASSWORD` (🔐 Secret)
 - `DB_NAME`
 - `DB_DIALECT`
 
 ### JWT
 
-- `ACCESS_TOKEN_PRIVATE_KEY`
-- `REFRESH_TOKEN_PRIVATE_KEY`
+- `ACCESS_TOKEN_PRIVATE_KEY` (🔐 Secret)
+- `REFRESH_TOKEN_PRIVATE_KEY` (🔐 Secret)
 
 ### Email Transporter
 
-- `EMAIL_TRANSPORTER_HOST` (Development/Testing)
-- `EMAIL_TRANSPORTER_PORT` (Development/Testing)
-- `EMAIL_TRANSPORTER_SERVICE` (Production)
+- `EMAIL_TRANSPORTER_HOST` (🛠️ Development/Testing)
+- `EMAIL_TRANSPORTER_PORT` (🛠️ Development/Testing)
+- `EMAIL_TRANSPORTER_SERVICE` (🌏 Production)
 - `EMAIL_TRANSPORTER_USERNAME`
-- `EMAIL_TRANSPORTER_PASSWORD`
+- `EMAIL_TRANSPORTER_PASSWORD` (🔐 Secret)
 - `EMAIL_TRANSPORTER_NAME`
 
 ### Typesense
@@ -49,16 +53,19 @@ Team members:
 - `TYPESENSE_HOST`
 - `TYPESENSE_PORT`
 - `TYPESENSE_PROTOCOL`
-- `TYPESENSE_API_KEY`
+- `TYPESENSE_API_KEY` (🔐 Secret)
 
 ## 🔗 API Documentation
 
 **Base URL:**
 
-https://fitsync-main-api-k3bfbgtn5q-et.a.run.app/
+- 🛠️ Development: https://fitsync-main-api-k3bfbgtn5q-et.a.run.app
+- 🌏 Production: TBD
 
 **Global Headers:**
 
+- `Content-Type`: STRING - 🔸Required
+  - ['application/json', 'application/x-www-form-urlencoded']
 - `x-api-key`: STRING - 🔸Required
   - Value: [See API Key](https://console.cloud.google.com/security/secret-manager/secret/fitsync-main-api-API_KEY/versions?project=fitsync-406408)
 - `x-smtp-host`: STRING (required for development)
@@ -91,6 +98,7 @@ Data list:
 - workout
 - exercises
 - exercise
+- nutrition
 
 🔴 Fail
 
@@ -135,6 +143,15 @@ Data list:
 }
 ```
 
+🔴 **401** Unauthorized
+
+```json
+{
+  "status": "fail",
+  "message": "API key is invalid."
+}
+```
+
 🔴 **500** Internal Server Error
 
 ```json
@@ -150,11 +167,13 @@ Data list:
 
 #### 🟧 A.1 Register: `POST` - /auth/register
 
+**Endpoint:** `/auth/register`
+
 **Body:**
 
 - `email`: STRING - 🔸Required
   - Should be a valid format.
-  - Should be not already used and verified.
+  - Shouldn't have been used and verified.
 - `password`: STRING - 🔸Required
   - Min. length: 8.
 - `passwordConfirmation`: STRING - 🔸Required
@@ -190,10 +209,12 @@ Data list:
 
 #### 🟧 A.2 Register OTP: `POST`- /auth/register/otp
 
+**Endpoint:** `/auth/register/otp`
+
 **Body:**
 
 - `userId`: STRING - 🔸Required
-  - User should be existed.
+  - User should exist.
 - `code`: STRING - 🔸Required
   - Length: 4.
 
@@ -204,7 +225,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "User sucessfully verified.",
+  "message": "User successfully verified.",
   "user": {
     "id": "<string>"
   }
@@ -242,11 +263,13 @@ Data list:
 
 #### 🟧 A.3 Login: `POST` - /auth/login
 
+**Endpoint:** `/auth/login`
+
 **Body:**
 
 - `email`: STRING - 🔸Required
   - Should be a valid format.
-  - User should be existed.
+  - User should exist.
   - User should be verified.
 - `password`: STRING - 🔸Required
 
@@ -278,6 +301,8 @@ Data list:
 ---
 
 #### 🟧 A.4 Logout: `POST` - /auth/logout
+
+**Endpoint:** `/auth/logout`
 
 **Headers:**
 
@@ -321,10 +346,12 @@ Data list:
 
 #### 🟧 A.5 Refresh Token: `POST` - /auth/refresh-token
 
+**Endpoint:** `/auth/refresh-token`
+
 **Body:**
 
 - `refreshToken`: STRING - 🔸Required
-  - Should be existed.
+  - Should exist.
 
 **Possible Responses:**
 
@@ -356,11 +383,13 @@ Data list:
 
 #### 🟧 A.6 Forgot Password - Request: `POST` - /auth/forgot-password/request
 
+**Endpoint:** `/auth/forgot-password/request`
+
 **Body:**
 
 - `email`: STRING - 🔸Required
   - Should be a valid format.
-  - User should be existed.
+  - User should exist.
   - User should be verified.
 
 **Possible Responses:**
@@ -381,10 +410,12 @@ Data list:
 
 #### 🟧 A.7 Forgot Password - OTP: `POST` - /auth/forgot-password/otp
 
+**Endpoint:** `/auth/forgot-password/otp`
+
 **Body:**
 
 - `userId`: STRING - 🔸Required
-  - User should be existed.
+  - User should exist.
   - User should be verified.
 - `code`: STRING - 🔸Required
   - Length: 4.
@@ -434,10 +465,12 @@ Data list:
 
 #### 🟧 A.8 Forgot Password - Change: `POST` - /auth/forgot-password/change
 
+**Endpoint:** `/auth/forgot-password/change`
+
 **Body:**
 
 - `userId`: STRING - 🔸Required
-  - User should be existed.
+  - User should exist.
   - User should be verified.
 - `password`: STRING - 🔸Required
   - Min. length: 8.
@@ -451,7 +484,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "User password successfully changed.",
+  "message": "User's password successfully changed.",
   "user": {
     "id": "<string>"
   }
@@ -462,10 +495,12 @@ Data list:
 
 #### 🟧 A.9 Refresh OTP: `POST` - /auth/otp/refresh
 
+**Endpoint:** `/auth/otp/refresh`
+
 **Body:**
 
 - `userId`: STRING - 🔸Required
-  - User should be existed.
+  - User should exist .
 
 **Possible Responses:**
 
@@ -523,9 +558,11 @@ Data list:
 
 ---
 
-#### :page_with_curl: B.1 Personal Data
+#### 📃 B.1 Personal Data
 
 ##### 🟩 B.1.1 Get Me: `GET` - /me
+
+**Endpoint:** `/me`
 
 **Possible Responses:**
 
@@ -543,14 +580,15 @@ Data list:
     "gender": "<string>",
     "birthDate": "<string>",
     "level": "<string>",
-    "goalWeight": "<string>",
+    "goalWeight": "<float>",
     "photoUrl": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>",
     "latestBMI": {
       "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
+      "height": "<float>",
+      "weight": "<float>",
+      "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
     }
@@ -561,6 +599,8 @@ Data list:
 ---
 
 ##### 🟪 B.1.2 Patch Me: `PATCH` - /me
+
+**Endpoint:** `/me`
 
 **Body:**
 
@@ -593,14 +633,15 @@ Data list:
     "gender": "<string>",
     "birthDate": "<string>",
     "level": "<string>",
-    "goalWeight": "<string>",
+    "goalWeight": "<float>",
     "photoUrl": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>",
     "latestBMI": {
       "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
+      "height": "<float>",
+      "weight": "<float>",
+      "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
     }
@@ -615,6 +656,8 @@ Data list:
 > [!NOTE]
 > The image will be converted & compressed into JPG format with a size of 256×256 pixels.
 
+**Endpoint:** `/me/photo`
+
 **Body:**
 
 - `photo`: FILE - 🔸Required
@@ -628,7 +671,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "User photo successfully changed.",
+  "message": "User's photo successfully changed.",
   "user": {
     "id": "<string>",
     "photoUrl": "<string>"
@@ -674,18 +717,20 @@ Data list:
 
 ---
 
-#### :chart_with_upwards_trend: B.2 BMIs
+#### 📈 B.2 BMIs
 
 ##### 🟩 B.2.1 Get All BMIs: `GET` - /me/bmis
+
+**Endpoint:** `/me/bmis`
 
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `orderType`: STRING - 🔹Optional
-  - ['asc', 'desc'] (case-insensitive).
+  - ['asc', 'desc'] (case insensitive).
 - `limit`: INTEGER - 🔹Optional
   - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
@@ -698,12 +743,13 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "User BMIs successfully retrieved.",
+  "message": "User's BMIs successfully retrieved.",
   "bmis": [
     {
       "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
+      "height": "<float>",
+      "weight": "<float>",
+      "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
     }
@@ -715,11 +761,13 @@ Data list:
 
 ##### 🟩 B.2.2 Get One BMI: `GET` - /me/bmis/{id}
 
+**Endpoint:** `/me/bmis/{id}`
+
 **Path Parameters:**
 
 - `id`: STRING/INTEGER - 🔸Required
   - BMI's id.
-  - BMI should be existed.
+  - BMI should exist.
 
 **Possible Responses:**
 
@@ -728,11 +776,12 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "BMI successfully retrieved.",
+  "message": "User's BMI successfully retrieved.",
   "bmi": {
     "id": "<integer>",
-    "height": "<integer>/<float>/<string>",
-    "weight": "<integer>/<float>/<string>",
+    "height": "<float>",
+    "weight": "<float>",
+    "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
   }
@@ -750,14 +799,16 @@ Data list:
 
 ---
 
-##### 🟧 B.2.3 Add/Update One BMI: `PUT` - /me/bmis
+##### 🟦 B.2.3 Add/Update One BMI: `PUT` - /me/bmis
+
+**Endpoint:** `/me/bmis`
 
 **Body:**
 
 - `height`: FLOAT - 🔸Required
 - `weight`: FLOAT - 🔸Required
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
   - Default value: current date & time.
 
 **Possible Responses:**
@@ -767,11 +818,11 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "BMI succesfully added/updated.",
+  "message": "User's BMI succesfully added/updated.",
   "bmi": {
     "id": "<integer>",
-    "height": "<integer>/<float>/<string>",
-    "weight": "<integer>/<float>/<string>",
+    "height": "<float>",
+    "weight": "<float>",
     "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
@@ -781,7 +832,9 @@ Data list:
 
 ---
 
-##### 🟧 B.2.4 Add/Update Many BMIs: `PUT` - /me/bmis/many
+##### 🟦 B.2.4 Add/Update Many BMIs: `PUT` - /me/bmis/many
+
+**Endpoint:** `/me/bmis/many`
 
 **Body:**
 
@@ -789,7 +842,7 @@ Data list:
   - `height`: FLOAT - 🔸Required
   - `weight`: FLOAT - 🔸Required
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+    - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
     - Default value: current date & time.
 
 **Raw Body:**
@@ -813,12 +866,12 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "BMIs succesfully added.",
+  "message": "User's BMIs succesfully added.",
   "bmis": [
     {
       "id": "<integer>",
-      "height": "<integer>/<float>/<string>",
-      "weight": "<integer>/<float>/<string>",
+      "height": "<float>",
+      "weight": "<float>",
       "date": "<string>",
       "createdAt": "<string>",
       "updatedAt": "<string>"
@@ -833,12 +886,14 @@ Data list:
 
 ##### 🟩 B.3.1 Get All Workouts: `GET` - /me/workouts
 
+**Endpoint:** `/me/workouts`
+
 **Query Parameters:**
 
 - `dateFrom`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `dateTo`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `ratingFrom`: INTEGER - 🔹Optional
   - Range: 1-10.
   - Should be lesser than `ratingTo`.
@@ -846,7 +901,7 @@ Data list:
   - Range: 1-10.
   - Should be greater than `ratingFrom`.
 - `orderType`: STRING - 🔹Optional
-  - ['asc', 'desc'] (case-insensitive).
+  - ['asc', 'desc'] (case insensitive).
 - `limit`: INTEGER - 🔹Optional
   - Min. value: 1.
 - `offset`: INTEGER - 🔹Optional
@@ -859,7 +914,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "User workouts successfully retrieved.",
+  "message": "User's workouts successfully retrieved.",
   "workouts": [
     {
       "id": "<integer>",
@@ -877,11 +932,13 @@ Data list:
 
 ##### 🟩 B.3.2 Get One Workout: `GET` - /me/workouts/{id}
 
+**Endpoint:** `/me/workouts/{id}`
+
 **Path Parameters:**
 
 - `id`: STRING/INTEGER - 🔸Required
   - Workout's id.
-  - Workout should be existed.
+  - Workout should exist.
 
 **Possible Responses:**
 
@@ -890,7 +947,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "Workout successfully retrieved.",
+  "message": "User's workout successfully retrieved.",
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
@@ -915,14 +972,16 @@ Data list:
 
 ##### 🟧 B.3.3 Add One Workout: `POST` - /me/workouts
 
+**Endpoint:** `/me/workouts`
+
 **Body:**
 
 - `exerciseId`: STRING - 🔸Required
-  - Exercise should be existed.
+  - Exercise should exist.
 - `rating`: INTEGER - 🔹Optional
   - Range: 1-10.
 - `date`: STRING - 🔹Optional
-  - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+  - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
   - Default value: current date & time.
 
 **Possible Responses:**
@@ -932,7 +991,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "Workout successfully added.",
+  "message": "User's workout successfully added.",
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
@@ -948,15 +1007,17 @@ Data list:
 
 ##### 🟧 B.3.4 Add Many Workouts: `POST` - /me/workouts/many
 
+**Endpoint:** `/me/workouts/many`
+
 **Body:**
 
 - `workouts`: ARRAY - 🔸Required
   - `exerciseId`: STRING - 🔸Required
-    - Exercise should be existed.
+    - Exercise should exist.
   - `rating`: INTEGER - 🔹Optional
     - Range: 1-10.
   - `date`: STRING - 🔹Optional
-    - Format: ISO 8601: YYYY-MM-DDTHH:mm:ssZ (UTC+0).
+    - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
     - Default value: current date & time.
 
 **Raw Body:**
@@ -980,7 +1041,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "Workout successfully added.",
+  "message": "User's workout successfully added.",
   "workouts": [
     {
       "id": "<integer>",
@@ -1000,6 +1061,8 @@ Data list:
 
 ##### 🟩 B.4.1 Get Exercises Recommendation: `GET` - /me/recommendation/exercises
 
+**Endpoint:** `/me/recommendation/exercises`
+
 **Possible Responses:**
 
 🟢 **200** OK
@@ -1007,7 +1070,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "Exercises recommendation successfully retrieved.",
+  "message": "User's exercises recommendation successfully retrieved.",
   "exercises": [
     {
       "id": "<string>",
@@ -1045,6 +1108,8 @@ Data list:
 
 ##### 🟩 B.4.2 Get Nutrition Recommendation: `GET` - /me/recommendation/nutrition
 
+**Endpoint:** `/me/recommendation/nutrition`
+
 **Possible Responses:**
 
 🟢 **200** OK
@@ -1052,7 +1117,7 @@ Data list:
 ```json
 {
   "status": "success",
-  "message": "Nutrition recommendation successfully retrieved.",
+  "message": "User's nutrition recommendation successfully retrieved.",
   "nutrition": {
     "estimatedCalories": "<float>",
     "estimatedCarbohydrates": "<float>",
@@ -1077,6 +1142,8 @@ Data list:
 ### 💪 C. Exercises
 
 #### 🟩 C.1 Get All Exercises: `GET` - /exercises
+
+**Endpoint:** `/exercises`
 
 **Query Parameters:**
 
@@ -1128,11 +1195,13 @@ Data list:
 
 #### 🟩 C.2 Get One Exercise: `GET` - /exercises/{id}
 
+**Endpoint:** `/exercises/{id}`
+
 **Path Parameters:**
 
 - `id`: STRING - 🔸Required
   - Exercise's id.
-  - Exercise should be existed.
+  - Exercise should exist.
 
 **Possible Responses:**
 
@@ -1190,14 +1259,15 @@ Data list:
   "gender": "<string>",
   "birthDate": "<string>",
   "level": "<string>",
-  "goalWeight": "<string>",
+  "goalWeight": "<float>",
   "photoUrl": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>",
   "latestBMI": {
     "id": "<integer>",
-    "height": "<integer>/<float>/<string>",
-    "weight": "<integer>/<float>/<string>",
+    "height": "<float>",
+    "weight": "<float>",
+    "date": "<string>",
     "createdAt": "<string>",
     "updatedAt": "<string>"
   },
@@ -1211,8 +1281,8 @@ Data list:
 ```json
 {
   "id": "<integer>",
-  "height": "<integer>/<float>/<string>",
-  "weight": "<integer>/<float>/<string>",
+  "height": "<float>",
+  "weight": "<float>",
   "date": "<string>",
   "createdAt": "<string>",
   "updatedAt": "<string>"
@@ -1268,6 +1338,6 @@ Data list:
 
 ---
 
-[🔗 Back to Top API Documentation](#-api-documentation)
+[🔗 Back to The Top of API Documentation](#-api-documentation)
 
-[:top: Back to Very Top](#%EF%B8%8F-ch2-ps020-cc)
+[🔝 Back to Very Top](#%EF%B8%8F-ch2-ps020-cc)

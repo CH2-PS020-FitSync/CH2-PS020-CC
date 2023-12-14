@@ -20,7 +20,7 @@ async function recommendationGetNutrition(req, res) {
 
     return res.status(200).json({
       status: 'success',
-      message: 'Nutrition recommendation successfully retrieved.',
+      message: "User's nutrition recommendation successfully retrieved.",
       nutrition,
     });
   } catch (error) {

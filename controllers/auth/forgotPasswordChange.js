@@ -7,7 +7,7 @@ const validate = require('../../middlewares/validate');
 const validations = [
   body('userId')
     .exists()
-    .withMessage('User id is required.')
+    .withMessage("User's id is required.")
     .custom(async (id, { req }) => {
       const user = await db.users.findByPk(id);
 
@@ -30,7 +30,7 @@ const validations = [
     .withMessage('Password confirmation is required.')
     .custom((passwordConfirmation, { req }) => {
       if (passwordConfirmation !== req.body.password) {
-        throw new Error('Password confirmation is not matches.');
+        throw new Error('Password confirmation is not matched.');
       } else {
         return true;
       }
@@ -49,7 +49,7 @@ async function forgotPasswordChange(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'User password successfully changed.',
+    message: "User's password successfully changed.",
     user: {
       id: req.user.id,
     },

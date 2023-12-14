@@ -17,7 +17,7 @@ const validations = [
       if (!user) {
         throw new Error('Email not found.');
       } else if (!user?.isVerified) {
-        throw new Error('User not verified.');
+        throw new Error('User is not verified.');
       } else {
         req.user = user;
         return true;
@@ -50,7 +50,8 @@ async function loginController(req, res) {
     process.env.ACCESS_TOKEN_PRIVATE_KEY,
     {
       ...jwtOptions,
-      expiresIn: process.env.ENVIRONMENT === 'production' ? '15m' : '24h',
+      expiresIn:
+        process.env.ENVIRONMENT.toLowerCase() === 'development' ? '24h' : '30m',
     }
   );
   let refreshToken;
@@ -66,7 +67,7 @@ async function loginController(req, res) {
     await req.user.createRefreshToken({ token: refreshToken });
   }
 
-  return res.status(201).json({
+  return res.status(200).json({
     status: 'success',
     message:
       'User successfully logged in. Access token and refresh token created.',

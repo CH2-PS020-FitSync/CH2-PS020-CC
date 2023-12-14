@@ -12,7 +12,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(require('./middlewares/checkAPIKey'));
-app.use(require('./middlewares/storeSMTPOptions'));
+
+const storeSMTPOptionsMiddleware = require('./middlewares/storeSMTPOptions');
+
+if (process.env.ENVIRONMENT.toLowerCase() === 'development') {
+  app.use(storeSMTPOptionsMiddleware);
+}
 
 app.use('/auth', require('./routes/auth'));
 app.use('/me', require('./routes/me'));

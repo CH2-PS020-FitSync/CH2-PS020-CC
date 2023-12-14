@@ -12,7 +12,7 @@ const dbOptions = {
   dialectOptions: {},
 };
 
-if (process.env.IS_LOCAL === 'false') {
+if (process.env.IS_LOCAL.toLowerCase() === 'false') {
   dbOptions.dialectOptions.socketPath = dbHost;
 }
 

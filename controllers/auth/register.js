@@ -3,7 +3,11 @@ const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
-const { generateOTPCode, sendOTPToEmail } = require('../../helpers/otp');
+const {
+  generateOTPCode,
+  OTP_TYPES,
+  sendOTPToEmail,
+} = require('../../helpers/otp');
 
 const validations = [
   body('email')
@@ -98,7 +102,7 @@ async function registerController(req, res) {
 
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
   await sendOTPToEmail({
-    type: 'register',
+    type: OTP_TYPES.REGISTER,
     otpCode: plainOTPCode,
     to: userData.email,
     name: userData.name,

@@ -6,7 +6,7 @@ function storeSMTPOptions(req, res, next) {
     password: req.headers['x-smtp-password'],
   };
 
-  next();
+  return next();
 }
 
 module.exports = storeSMTPOptions;

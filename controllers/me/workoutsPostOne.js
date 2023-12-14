@@ -6,13 +6,13 @@ const validate = require('../../middlewares/validate');
 const validations = [
   body('exerciseId')
     .exists()
-    .withMessage('Exercise id is required.')
+    .withMessage("Exercise's id is required.")
     .custom(async (exerciseId) => {
-      const exerciseSnapshot = await db.firestore.exercises
-        .doc(exerciseId)
-        .get();
+      const exercise = await db.typesense.exercises
+        .documents(exerciseId)
+        .retrieve();
 
-      if (!exerciseSnapshot.exists) {
+      if (!exercise.id) {
         throw new Error('Exercise not found.');
       } else {
         return true;
@@ -41,7 +41,7 @@ async function workoutsPostOneController(req, res) {
 
   return res.status(201).json({
     status: 'success',
-    message: 'Workout successfully added.',
+    message: "User's workout successfully added.",
     workout: {
       id: newWorkout.id,
       exerciseId: newWorkout.ExerciseId,

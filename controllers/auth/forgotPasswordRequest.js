@@ -2,7 +2,11 @@ const { body } = require('express-validator');
 
 const db = require('../../models');
 const validate = require('../../middlewares/validate');
-const { generateOTPCode, sendOTPToEmail } = require('../../helpers/otp');
+const {
+  generateOTPCode,
+  OTP_TYPES,
+  sendOTPToEmail,
+} = require('../../helpers/otp');
 
 const validations = [
   body('email')
@@ -30,7 +34,7 @@ async function forgotPasswordRequest(req, res) {
   const [plainOTPCode, encryptedOTPCode] = await generateOTPCode();
 
   await sendOTPToEmail({
-    type: 'forgot-password',
+    type: OTP_TYPES.FORGOT_PASSWORD,
     otpCode: plainOTPCode,
     to: req.user.email,
     name: req.user.name,

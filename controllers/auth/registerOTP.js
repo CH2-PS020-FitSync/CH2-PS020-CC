@@ -8,7 +8,7 @@ const { isOTPCodeExpired } = require('../../helpers/otp');
 const validations = [
   body('userId')
     .exists()
-    .withMessage('User id is required.')
+    .withMessage("User's id is required.")
     .custom(async (id, { req }) => {
       const user = await db.users.findByPk(id);
 
@@ -25,7 +25,7 @@ const validations = [
     .exists()
     .withMessage('OTP code is required.')
     .isLength({ min: 4, max: 4 })
-    .withMessage('OTP code should be 4 characters.'),
+    .withMessage('OTP code should consist of 4 characters.'),
 ];
 
 async function registerOTPController(req, res) {
@@ -58,7 +58,7 @@ async function registerOTPController(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'User sucessfully verified.',
+    message: 'User successfully verified.',
     user: {
       id: req.user.id,
     },

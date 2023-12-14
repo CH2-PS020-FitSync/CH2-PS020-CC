@@ -61,7 +61,7 @@ async function bmisPutManyController(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'BMIs succesfully added.',
+    message: "User's BMIs succesfully added.",
     bmis,
   });
 }

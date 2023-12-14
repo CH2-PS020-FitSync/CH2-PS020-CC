@@ -38,7 +38,7 @@ const validations = [
 
 async function getAllController(req, res) {
   const {
-    title = '',
+    title = '*',
     type,
     level,
     gender,
@@ -53,15 +53,15 @@ async function getAllController(req, res) {
   searchParameters.query_by = 'title';
 
   if (type) {
-    filters.push(`type:=${type}`);
+    filters.push(`type:${type}`);
   }
 
   if (level) {
-    filters.push(`level:=${level}`);
+    filters.push(`level:${level}`);
   }
 
   if (gender) {
-    filters.push(`gender:=${gender}`);
+    filters.push(`gender:${gender}`);
   }
 
   if (filters.length > 0) {

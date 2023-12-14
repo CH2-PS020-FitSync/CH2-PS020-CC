@@ -30,7 +30,7 @@ async function bmisGetOneController(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'BMI successfully retrieved.',
+    message: "User's BMI successfully retrieved.",
     bmi: filteredBMI,
   });
 }

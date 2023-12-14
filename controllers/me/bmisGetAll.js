@@ -8,11 +8,11 @@ const validations = [
   query('dateFrom')
     .optional()
     .isISO8601()
-    .withMessage('Date should be in ISO 8601 format.'),
+    .withMessage('Date-from should be in ISO 8601 format.'),
   query('dateTo')
     .optional()
     .isISO8601()
-    .withMessage('Date should be in ISO 8601 format.'),
+    .withMessage('Date-to should be in ISO 8601 format.'),
   query('orderType')
     .optional()
     .toLowerCase()
@@ -81,7 +81,7 @@ async function bmisGetAll(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'User BMIs successfully retrieved.',
+    message: "User's BMIs successfully retrieved.",
     bmis: userBMIs,
   });
 }

@@ -20,80 +20,77 @@ async function generateOTPCode(length = 4, saltRounds = 10) {
 function isOTPCodeExpired(startDate, maxSeconds = 300) {
   const startSeconds = Math.round(startDate.getTime() / 1000);
   const currentSeconds = Math.round(new Date().getTime() / 1000);
-  const diffSecond = currentSeconds - startSeconds;
+  const diffSeconds = currentSeconds - startSeconds;
 
-  if (diffSecond > maxSeconds) {
+  if (diffSeconds > maxSeconds) {
     return true;
   }
 
   return false;
 }
 
-function generateHTMLEmail(type, otpCode, name) {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      let title;
-      let opening;
-      let closing;
+const OTP_TYPES = {
+  REGISTER: Symbol('register'),
+  FORGOT_PASSWORD: Symbol('forgot-password'),
+};
 
-      if (type === 'register') {
-        title = 'Registration OTP Code';
-        opening = `Thank you for registering at FitSync. Complete your registration process by inputting this OTP code in the app.`;
-        closing = `⚠️ If you feel you didn't register at FitSync, please ignore
-        this email letter.`;
-      } else {
-        title = 'Reset Password Request OTP Code';
-        opening = `You're attempting to reset your password. Please verify your action by inputting this OTP code in the app.`;
-        closing = `⚠️ If you feel you didn't request this action, please ignore this email letter and change your password immediately.`;
-      }
+async function generateHTMLEmail(type, otpCode, name) {
+  let title;
+  let opening;
+  let closing;
 
-      try {
-        const html = await ejs.renderFile('views/emails/otp.ejs', {
-          locals: {
-            title,
-            name,
-            opening,
-            closing,
-            otpCode,
-          },
-        });
+  if (type === OTP_TYPES.REGISTER) {
+    title = 'Registration OTP Code';
+    opening = `Thank you for registering at FitSync. Complete your registration process by inputting this OTP code in the app.`;
+    closing = `⚠️ If you feel you didn't register at FitSync, please ignore this email letter.`;
+  } else {
+    title = 'Reset Password Request OTP Code';
+    opening = `You're attempting to reset your password. Please verify your action by inputting this OTP code in the app.`;
+    closing = `⚠️ If you feel you didn't request this action, please ignore this email letter and change your password immediately.`;
+  }
 
-        resolve(html);
-      } catch (error) {
-        reject(error);
-      }
-    })();
-  });
+  try {
+    const html = await ejs.renderFile('views/emails/otp.ejs', {
+      locals: {
+        title,
+        name,
+        opening,
+        closing,
+        otpCode,
+      },
+    });
+
+    return html;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
-function sendOTPToEmail({ type, otpCode, to, name, smtpOptions }) {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        const html = await generateHTMLEmail(type, otpCode, name);
+async function sendOTPToEmail({ type, otpCode, to, name, smtpOptions }) {
+  try {
+    const html = await generateHTMLEmail(type, otpCode, name);
 
-        const emailTransporter = createEmailTransporter(smtpOptions);
+    const emailTransporter = createEmailTransporter(smtpOptions);
 
-        const info = await emailTransporter.sendMail({
-          from: `"${process.env.EMAIL_TRANSPORTER_NAME}" <${process.env.EMAIL_TRANSPORTER_USERNAME}>`,
-          to,
-          subject:
-            type === 'register'
-              ? 'Verify Your Account'
-              : 'Reset Password Request',
-          html,
-        });
+    const info = await emailTransporter.sendMail({
+      from: `"${process.env.EMAIL_TRANSPORTER_NAME}" <${process.env.EMAIL_TRANSPORTER_USERNAME}>`,
+      to,
+      subject:
+        type === OTP_TYPES.REGISTER
+          ? 'Verify Your Account'
+          : 'Reset Password Request',
+      html,
+    });
 
-        resolve(info);
-      } catch (error) {
-        reject(error);
-      }
-    })();
-  });
+    return info;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 module.exports = {
   generateOTPCode,
   isOTPCodeExpired,
+  OTP_TYPES,
   sendOTPToEmail,
 };

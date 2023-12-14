@@ -28,7 +28,7 @@ async function workoutsGetOneController(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'Workout successfully retrieved.',
+    message: "User's workout successfully retrieved.",
     workout: {
       id: req.workout.id,
       exerciseId: req.workout.ExerciseId,

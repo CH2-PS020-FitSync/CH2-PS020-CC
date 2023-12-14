@@ -7,13 +7,13 @@ const validations = [
   body('workouts').exists().withMessage('Workouts is required'),
   body('workouts.*.exerciseId')
     .exists()
-    .withMessage('Exercise id is required.')
+    .withMessage("Exercise's id is required.")
     .custom(async (exerciseId) => {
-      const exerciseSnapshot = await db.firestore.exercises
-        .doc(exerciseId)
-        .get();
+      const exercise = await db.typesense.exercises
+        .documents(exerciseId)
+        .retrieve();
 
-      if (!exerciseSnapshot.exists) {
+      if (!exercise.id) {
         throw new Error('Exercise not found.');
       } else {
         return true;
@@ -59,7 +59,7 @@ async function workoutsPostManyController(req, res) {
 
   return res.status(201).json({
     status: 'success',
-    message: 'Workouts successfully added.',
+    message: "User's workouts successfully added.",
     workouts: filteredNewWorkouts,
   });
 }

@@ -56,7 +56,7 @@ async function bmisPutOneController(req, res) {
 
   return res.status(isUpdate ? 200 : 201).json({
     status: 'success',
-    message: `BMI succesfully ${isUpdate ? 'updated' : 'added'}.`,
+    message: `User's BMI succesfully ${isUpdate ? 'updated' : 'added'}.`,
     bmi: filteredBMI,
   });
 }

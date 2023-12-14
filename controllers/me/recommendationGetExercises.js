@@ -49,7 +49,7 @@ async function recommendationGetExercises(req, res) {
 
       return res.status(200).json({
         status: 'success',
-        message: 'Exercises recommendation successfully retrieved.',
+        message: "User's exercises recommendation successfully retrieved.",
         exercises,
       });
     } catch (error) {

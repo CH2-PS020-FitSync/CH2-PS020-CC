@@ -1,0 +1,74 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/prod-fitsync-main-api:$COMMIT_SHA',
+        '.',
+      ]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/prod-fitsync-main-api:$COMMIT_SHA']
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'prod-fitsync-main-api'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/prod-fitsync-main-api:$COMMIT_SHA'
+      - '--region'
+      - 'asia-southeast2'
+      - '--service-account'
+      - 'main-api-cloud-run@fitsync-406408.iam.gserviceaccount.com'
+      - '--add-cloudsql-instances'
+      - 'fitsync-406408:asia-southeast2:prod-main-mysql'
+      - '--port'
+      - '8080'
+      - '--set-env-vars'
+      - 'ENVIRONMENT=production'
+      - '--set-env-vars'
+      - 'IS_LOCAL=false'
+      - '--set-secrets'
+      - 'API_KEY=fitsync-main-api-API_KEY:latest'
+      - '--set-env-vars'
+      - 'ML_BASE_URL=TODO'
+      - '--set-env-vars'
+      - 'USER_PHOTOS_BUCKET=prod-fitsync-user-photos'
+      - '--set-env-vars'
+      - 'DB_HOST=/cloudsql/fitsync-406408:asia-southeast2:prod-main-mysql'
+      - '--set-env-vars'
+      - 'DB_USERNAME=root'
+      - '--set-secrets'
+      - 'DB_PASSWORD=fitsync-main-api-PROD_DB_PASSWORD:latest'
+      - '--set-env-vars'
+      - 'DB_NAME=main_api'
+      - '--set-env-vars'
+      - 'DB_DIALECT=mysql'
+      - '--set-secrets'
+      - 'ACCESS_TOKEN_PRIVATE_KEY=fitsync-main-api-ACCESS_TOKEN_PRIVATE_KEY:latest'
+      - '--set-secrets'
+      - 'REFRESH_TOKEN_PRIVATE_KEY=fitsync-main-api-REFRESH_TOKEN_PRIVATE_KEY:latest'
+      - '--set-env-vars'
+      - 'EMAIL_TRANSPORTER_SERVICE=gmail'
+      - '--set-env-vars'
+      - 'EMAIL_TRANSPORTER_USERNAME=fitsync.bangkit@gmail.com'
+      - '--set-secrets'
+      - 'EMAIL_TRANSPORTER_PASSWORD=fitsync-main-api-PROD_EMAIL_TRANSPORTER_PASSWORD:latest'
+      - '--set-env-vars'
+      - 'EMAIL_TRANSPORTER_NAME=FitSync'
+      - '--set-env-vars'
+      - 'TYPESENSE_HOST=35.202.181.124'
+      - '--set-env-vars'
+      - 'TYPESENSE_PORT=443'
+      - '--set-env-vars'
+      - 'TYPESENSE_PROTOCOL=http'
+      - '--set-secrets'
+      - 'TYPESENSE_API_KEY=firestore-typesense-search-TYPESENSE_API_KEY:latest'
+images:
+  - 'gcr.io/$PROJECT_ID/prod-fitsync-main-api:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY

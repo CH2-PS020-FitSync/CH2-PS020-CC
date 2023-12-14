@@ -8,11 +8,11 @@ const validations = [
   query('dateFrom')
     .optional()
     .isISO8601()
-    .withMessage('Date should be in ISO 8601 format.'),
+    .withMessage('Date-from should be in ISO 8601 format.'),
   query('dateTo')
     .optional()
     .isISO8601()
-    .withMessage('Date should be in ISO 8601 format.'),
+    .withMessage('Date-to should be in ISO 8601 format.'),
   query('ratingFrom')
     .optional()
     .isInt({ min: 1, max: 10 })
@@ -130,7 +130,7 @@ async function workoutsGetAll(req, res) {
 
   return res.status(200).json({
     status: 'success',
-    message: 'User workouts successfully retrieved.',
+    message: "User's workouts successfully retrieved.",
     workouts: userWorkouts,
   });
 }

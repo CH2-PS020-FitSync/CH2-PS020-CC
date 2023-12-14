@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM('male', 'female'),
       },
       birthDate: {
-        type: DataTypes.DATEONLY(),
+        type: DataTypes.DATEONLY,
       },
       level: {
         type: DataTypes.ENUM('beginner', 'intermediate', 'expert'),
