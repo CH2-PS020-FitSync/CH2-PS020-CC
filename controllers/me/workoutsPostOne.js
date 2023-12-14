@@ -25,7 +25,7 @@ const validations = [
   body('rating')
     .optional()
     .isInt({ min: 1, max: 10 })
-    .withMessage('Rating should be in 1-10 range.')
+    .withMessage('Rating should be an integer and in 1-10 range.')
     .toInt(),
   body('date')
     .optional()
