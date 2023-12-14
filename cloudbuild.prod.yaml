@@ -18,6 +18,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'prod-fitsync-main-api'
+      - '--allow-unauthenticated'
       - '--image'
       - 'gcr.io/$PROJECT_ID/prod-fitsync-main-api:$COMMIT_SHA'
       - '--region'
