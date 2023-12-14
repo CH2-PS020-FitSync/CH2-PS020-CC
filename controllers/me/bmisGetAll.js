@@ -21,8 +21,8 @@ const validations = [
     .toUpperCase(),
   query('limit')
     .optional()
-    .isInt({ min: 1 })
-    .withMessage('Limit should be integer. Minimum: 1.')
+    .isInt({ min: 0 })
+    .withMessage('Limit should be integer. Minimum: 0.')
     .toInt(),
   query('offset')
     .optional()
@@ -69,8 +69,10 @@ async function bmisGetAll(req, res) {
     order: [['date', orderType]],
   };
 
-  if (limit) {
+  if (limit > 0) {
     queryOptions.limit = limit;
+  } else if (limit !== 0) {
+    queryOptions.limit = 10;
   }
 
   if (offset) {

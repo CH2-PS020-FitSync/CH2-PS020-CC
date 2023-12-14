@@ -15,7 +15,7 @@ async function getController(req, res) {
     message: 'User successfully retrieved.',
     user: {
       ...filteredUser,
-      latestBMI,
+      latestBMI: latestBMI || null,
     },
   });
 }

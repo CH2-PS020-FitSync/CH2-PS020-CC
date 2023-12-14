@@ -5,13 +5,17 @@ const validate = require('../../middlewares/validate');
 
 const validations = [
   param('id').custom(async (id, { req }) => {
-    const exercise = await db.typesense.exercises.documents(id).retrieve();
+    try {
+      const exercise = await db.typesense.exercises.documents(id).retrieve();
 
-    if (!exercise.id) {
+      if (!exercise.id) {
+        throw new Error('Exercise not found.');
+      } else {
+        req.exercise = exercise;
+        return true;
+      }
+    } catch (error) {
       throw new Error('Exercise not found.');
-    } else {
-      req.exercise = exercise;
-      return true;
     }
   }),
 ];

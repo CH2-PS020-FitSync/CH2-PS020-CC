@@ -5,6 +5,11 @@ const db = require('../../models');
 const validate = require('../../middlewares/validate');
 
 const validations = [
+  query('detail')
+    .optional()
+    .isBoolean()
+    .withMessage('Detail should be boolean [true, false, 0, 1].')
+    .toBoolean(true),
   query('dateFrom')
     .optional()
     .isISO8601()
@@ -49,8 +54,8 @@ const validations = [
     .toUpperCase(),
   query('limit')
     .optional()
-    .isInt({ min: 1 })
-    .withMessage('Limit should be integer. Minimum: 1.')
+    .isInt({ min: 0 })
+    .withMessage('Limit should be integer. Minimum: 0.')
     .toInt(),
   query('offset')
     .optional()
@@ -118,20 +123,41 @@ async function workoutsGetAll(req, res) {
     order: [['date', orderType]],
   };
 
-  if (limit) {
+  if (limit > 0) {
     queryOptions.limit = limit;
+  } else if (limit !== 0) {
+    queryOptions.limit = 10;
   }
 
   if (offset) {
     queryOptions.offset = offset;
   }
 
-  const userWorkouts = await db.workouts.findAll(queryOptions);
+  const workouts = await db.workouts.findAll(queryOptions);
+
+  let finalWorkouts = workouts;
+
+  if (req.matchedData.detail) {
+    finalWorkouts = [];
+
+    for (const workout of workouts) {
+      const { exerciseId, ...filteredWorkout } = workout.toJSON();
+
+      const exercise = await db.typesense.exercises
+        .documents(exerciseId)
+        .retrieve();
+
+      finalWorkouts.push({
+        ...filteredWorkout,
+        exercise,
+      });
+    }
+  }
 
   return res.status(200).json({
     status: 'success',
     message: "User's workouts successfully retrieved.",
-    workouts: userWorkouts,
+    workouts: finalWorkouts,
   });
 }
 

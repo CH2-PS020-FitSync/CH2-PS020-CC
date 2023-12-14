@@ -731,8 +731,12 @@ Data list:
   - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case insensitive).
+  - Order by `date`.
 - `limit`: INTEGER - 🔹Optional
-  - Min. value: 1.
+  - Min. value: 0.
+  - Default value: 10.
+  - Set 0 to disable limit.
+  - Set > 0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
@@ -890,6 +894,8 @@ Data list:
 
 **Query Parameters:**
 
+- `detail`: BOOLEAN - 🔹Optional
+  - [true, false, 0, 1].
 - `dateFrom`: STRING - 🔹Optional
   - Format: ISO 8601, YYYY-MM-DDTHH:mm:ssZ (UTC+0).
 - `dateTo`: STRING - 🔹Optional
@@ -902,8 +908,12 @@ Data list:
   - Should be greater than `ratingFrom`.
 - `orderType`: STRING - 🔹Optional
   - ['asc', 'desc'] (case insensitive).
+  - Order by `date`.
 - `limit`: INTEGER - 🔹Optional
-  - Min. value: 1.
+  - Min. value: 0.
+  - Default value: 10.
+  - Set 0 to disable limit.
+  - Set > 0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
@@ -928,6 +938,42 @@ Data list:
 }
 ```
 
+🟢 **200** OK (Detail)
+
+```json
+{
+  "status": "success",
+  "message": "User's workouts successfully retrieved.",
+  "workouts": [
+    {
+      "id": "<integer>",
+      "exercise": {
+        "id": "<string>",
+        "title": "<string>",
+        "type": "<string>",
+        "level": "<string>",
+        "gender": "<string>",
+        "bodyPart": "<string>",
+        "desc": "<string>",
+        "jpg": "<string>",
+        "gif": "<string>",
+        "duration": {
+          "sec": "<string>",
+          "rep": "<string>",
+          "set": "<string>",
+          "min": "<string>",
+          "desc": "<string>"
+        }
+      },
+      "rating": "<integer>",
+      "date": "<string>",
+      "createdAt": "<string>",
+      "updatedAt": "<string>"
+    }
+  ]
+}
+```
+
 ---
 
 ##### 🟩 B.3.2 Get One Workout: `GET` - /me/workouts/{id}
@@ -940,6 +986,11 @@ Data list:
   - Workout's id.
   - Workout should exist.
 
+**Query Parameters:**
+
+- `detail`: BOOLEAN - 🔹Optional
+  - [true, false, 0, 1].
+
 **Possible Responses:**
 
 🟢 **200** OK
@@ -951,6 +1002,40 @@ Data list:
   "workout": {
     "id": "<integer>",
     "exerciseId": "<string>",
+    "rating": "<integer>",
+    "date": "<string>",
+    "createdAt": "<string>",
+    "updatedAt": "<string>"
+  }
+}
+```
+
+🟢 **200** OK (Detail)
+
+```json
+{
+  "status": "success",
+  "message": "User's workout successfully retrieved.",
+  "workout": {
+    "id": "<integer>",
+    "exercise": {
+      "id": "<string>",
+      "title": "<string>",
+      "type": "<string>",
+      "level": "<string>",
+      "gender": "<string>",
+      "bodyPart": "<string>",
+      "desc": "<string>",
+      "jpg": "<string>",
+      "gif": "<string>",
+      "duration": {
+        "sec": "<string>",
+        "rep": "<string>",
+        "set": "<string>",
+        "min": "<string>",
+        "desc": "<string>"
+      }
+    },
     "rating": "<integer>",
     "date": "<string>",
     "createdAt": "<string>",
@@ -1154,9 +1239,14 @@ Data list:
   - ['beginner', 'intermediate', 'expert'] (case insensitive).
 - `gender`: STRING - 🔹Optional
   - ['male', 'female'] (case insensitive).
+- `orderType`: STRING - 🔹Optional
+  - ['asc', 'desc'] (case insensitive).
+  - Order by `title`.
 - `limit`: INTEGER - 🔹Optional
-  - Min. value: 1.
-  - Default: 10.
+  - Min. value: 0.
+  - Default value: 10.
+  - Set 0 to disable limit.
+  - Set > 0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 

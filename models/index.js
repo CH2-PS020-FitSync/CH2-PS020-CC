@@ -57,6 +57,8 @@ const exercisesSchema = require('./TypesenseExercise');
 
 db.firestore = require('./firestore')();
 
+db.firestore.typesenseSync = db.firestore.collection('typesense_sync');
+
 db.typesense = {};
 db.typesense.client = typesenseClient;
 
@@ -95,6 +97,14 @@ db.typesense.init = async () => {
         await typesenseClient
           .aliases()
           .upsert(schemaAliasName, { collection_name: schema.name });
+
+        await db.firestore.typesenseSync
+          .doc('backfill')
+          .update({ trigger: false });
+
+        await db.firestore.typesenseSync
+          .doc('backfill')
+          .update({ trigger: true });
       }
 
       db.firestore[schemaAliasName] = db.firestore.collection(schemaAliasName);

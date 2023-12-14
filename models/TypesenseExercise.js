@@ -5,6 +5,7 @@ module.exports = {
     {
       name: 'title',
       type: 'string',
+      sort: true,
     },
     {
       name: 'type',

@@ -24,10 +24,15 @@ const validations = [
     .toLowerCase()
     .isIn(['male', 'female'])
     .withMessage('Gender should be [male, female] (case insensitive).'),
+  query('orderType')
+    .optional()
+    .toLowerCase()
+    .isIn(['asc', 'desc'])
+    .withMessage('Order type should be [asc, desc] (case insensitive).'),
   query('limit')
     .optional()
-    .isInt({ min: 1 })
-    .withMessage('Limit should be integer. Minimum: 1.')
+    .isInt({ min: 0 })
+    .withMessage('Limit should be integer. Minimum: 0.')
     .toInt(),
   query('offset')
     .optional()
@@ -42,15 +47,17 @@ async function getAllController(req, res) {
     type,
     level,
     gender,
-    limit = 10,
+    orderType = 'asc',
+    limit,
     offset,
   } = req.matchedData;
 
-  const searchParameters = {};
+  const searchParameters = {
+    q: title,
+    query_by: 'title',
+    sort_by: `title:${orderType}`,
+  };
   const filters = [];
-
-  searchParameters.q = title;
-  searchParameters.query_by = 'title';
 
   if (type) {
     filters.push(`type:${type}`);
@@ -68,7 +75,11 @@ async function getAllController(req, res) {
     searchParameters.filter_by = filters.join(' && ');
   }
 
-  searchParameters.limit = limit;
+  if (limit > 0) {
+    searchParameters.limit = limit;
+  } else if (limit !== 0) {
+    searchParameters.limit = 10;
+  }
 
   if (offset) {
     searchParameters.offset = offset;

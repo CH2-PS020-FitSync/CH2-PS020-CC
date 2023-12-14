@@ -104,7 +104,7 @@ async function patchController(req, res) {
     message: 'User successfully patched.',
     user: {
       ...filteredPatchedUser,
-      latestBMI,
+      latestBMI: latestBMI || null,
     },
   });
 }

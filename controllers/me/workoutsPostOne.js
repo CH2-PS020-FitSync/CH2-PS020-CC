@@ -8,14 +8,18 @@ const validations = [
     .exists()
     .withMessage("Exercise's id is required.")
     .custom(async (exerciseId) => {
-      const exercise = await db.typesense.exercises
-        .documents(exerciseId)
-        .retrieve();
+      try {
+        const exercise = await db.typesense.exercises
+          .documents(exerciseId)
+          .retrieve();
 
-      if (!exercise.id) {
+        if (!exercise.id) {
+          throw new Error('Exercise not found.');
+        } else {
+          return true;
+        }
+      } catch (error) {
         throw new Error('Exercise not found.');
-      } else {
-        return true;
       }
     }),
   body('rating')
