@@ -6,12 +6,12 @@ const {
 } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
-const serviceAccount = require('../keys/main-api-cloud-run.json');
-
 module.exports = () => {
   let credential;
 
   if (process.env.IS_LOCAL.toLowerCase() === 'true') {
+    // eslint-disable-next-line global-require
+    const serviceAccount = require('../keys/main-api-cloud-run.json');
     credential = cert(serviceAccount);
   } else {
     credential = applicationDefault();
