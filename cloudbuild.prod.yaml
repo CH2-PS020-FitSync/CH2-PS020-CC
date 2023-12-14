@@ -35,7 +35,7 @@ steps:
       - '--set-secrets'
       - 'API_KEY=fitsync-main-api-API_KEY:latest'
       - '--set-env-vars'
-      - 'ML_BASE_URL=TODO'
+      - 'ML_BASE_URL=https://fitsync-ml-api-k3bfbgtn5q-et.a.run.app'
       - '--set-env-vars'
       - 'USER_PHOTOS_BUCKET=prod-fitsync-user-photos'
       - '--set-env-vars'
