@@ -28,9 +28,7 @@ async function recommendationGetExercises(req, res) {
         }
       );
 
-      const { data: resExercises } = response.data;
-
-      const exerciseIds = resExercises.map((exercise) => exercise.workout_id);
+      const { data: exerciseIds } = response.data;
 
       const searchParameter = {
         q: '*',
