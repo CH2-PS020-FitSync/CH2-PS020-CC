@@ -1,4 +1,4 @@
-# ☁️ CH2-PS020-CC
+# ☁️ CH2-PS020-CC &nbsp;<img src="assets/fitsync-logo.svg" alt="FitSync" height="30" />
 
 ![Development Version](https://img.shields.io/github/v/tag/CH2-PS020-FitSync/CH2-PS020-CC?filter=*-dev&style=flat-square&label=Development%20Version&color=3498db) ![Production Version](https://img.shields.io/github/v/tag/CH2-PS020-FitSync/CH2-PS020-CC?filter=!*-dev&style=flat-square&label=Production%20Version&color=2ecc71)
 
