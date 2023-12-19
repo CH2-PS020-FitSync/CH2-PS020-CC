@@ -380,8 +380,13 @@ You can host this project app on the Cloud Run because you only pay when the app
 
 Before creating a continuous deployment flow, you need to duplicate this repository to your repository. For the simple, you can fork this repository.
 
-1. Open the [Cloud Build](https://console.cloud.google.com/cloud-build/dashboard) dashboard page. Then, click the `SET UP BUILD TRIGGERS` button.
-2. You can specify how the Cloud Build will be triggered. For reference, you can follow these options:
+1. Enable the [Cloud Run API](https://console.cloud.google.com/apis/library/run.googleapis.com) and [Cloud SQL Admin API](https://console.cloud.google.com/apis/library/sqladmin.googleapis.com).
+2. Open the [Cloud Builds Service Account Settings](https://console.cloud.google.com/cloud-build/settings/service-account), then enable these GCP services:
+   - Cloud Run
+   - Service Accounts
+3. Please note/save the Cloud Build service account email that is stated on the Service Account Settings page.
+4. Move to the [Cloud Build](https://console.cloud.google.com/cloud-build/dashboard) dashboard page. Then, click the `SET UP BUILD TRIGGERS` button.
+5. You can specify how the Cloud Build will be triggered. For reference, you can follow these options:
    - **Name:** **[Fill in a unique name]**
    - **Region:** global (Global)
    - **Event:** Push new tag
@@ -391,9 +396,10 @@ Before creating a continuous deployment flow, you need to duplicate this reposit
    - **Configuration -> Location:** Repository
    - **Configuration -> Cloud build configuration file location:** `cloudbuild.dev.yaml` or `cloudbuild.prod.yaml`
    - **Build logs:** (Check) Send build logs to GitHub
-3. Now, you can push a new tag on your repository to trigger the build process.
-4. Once the build process is complete, you can open the [Cloud Run](https://console.cloud.google.com/run) page to see the deployed service.
-5. Click on the service. Now, you can see the service is running. You can use the app with the service URL.
+   - **Service account -> Service account email**: **[Put the Cloud Build service account email]**
+6. Now, you can push a new tag on your repository to trigger the build process.
+7. Once the build process is complete, you can open the [Cloud Run](https://console.cloud.google.com/run) page to see the deployed service.
+8. Click on the service. Now, you can see the service is running. You can use the app with the service URL.
 
 ## 🔗 API Documentation
 
