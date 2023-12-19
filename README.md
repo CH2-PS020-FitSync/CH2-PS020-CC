@@ -1,5 +1,9 @@
 # ☁️ CH2-PS020-CC
 
+![Development Version](https://img.shields.io/github/v/tag/CH2-PS020-FitSync/CH2-PS020-CC?filter=*-dev&style=flat-square&label=Development%20Version&color=3498db) ![Production Version](https://img.shields.io/github/v/tag/CH2-PS020-FitSync/CH2-PS020-CC?filter=!*-dev&style=flat-square&label=Production%20Version&color=2ecc71)
+
+![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
 Cloud Computing part of FitSync.
 
 Team members:
@@ -24,6 +28,7 @@ Team members:
 
 ### Cloud Storage
 
+- `STATIC_ASSETS_BUCKET`
 - `USER_PHOTOS_BUCKET`
 
 ### Database
@@ -54,6 +59,341 @@ Team members:
 - `TYPESENSE_PORT`
 - `TYPESENSE_PROTOCOL`
 - `TYPESENSE_API_KEY` (🔐 Secret)
+
+## 📝 Steps to Replicate This Project
+
+This project is used as a back-end app for the FitSync Android app.
+
+**Requirements:**
+
+- Code Editor (Recommendation: Visual Studio Code)
+- Node.js v20.10.0 & NPM
+- Postman
+- Google Cloud Project
+
+**Environments:**
+
+- Development environment on the local machine.
+- Development environment on the cloud machine (Cloud Run).
+- Production environment on the cloud machine (Cloud Run).
+
+### A. Create a Google Cloud project
+
+Create a Google Cloud project on the [Google Cloud Platform (GCP)](https://console.cloud.google.com/).
+
+### B. Create a Firestore Database
+
+Create a Firestore database on the [Firestore](https://console.cloud.google.com/firestore/databases) page. Make sure the mode should be **Native**.
+
+### C. Set Up a Typesense Server
+
+1. Create a VM instance on the [Compute Engine](https://console.cloud.google.com/compute/instances) page. If the Compute Engine API is not yet enabled, please enable it first. The VM will be used for the Typesense server. This project uses Typesense to easily index data on the Firestore. Follow the required options below.
+   - **Boot disk -> Image:** Debian GNU/Linux 11 (bullseye)
+   - **Firewall:**
+     - Allow HTTP traffic
+     - Allow HTTPS traffic
+   - **Advanced Options -> Networking -> Network interfaces -> Edit default network -> External IPv4 address -> RESERVE STATIC EXTERNAL IP ADDRESS**. After that, please note/save the static external IP address.
+   - **Advanced Options -> Management -> Metadata:**
+     - enable-config = TRUE
+     - enable-guest-attributes = TRUE
+2. Open the VM's terminal via SSH. Run this command to install the Typesense server.
+   ```sh
+   curl -O https://dl.typesense.org/releases/0.25.1/typesense-server-0.25.1-amd64.deb
+   sudo apt install ./typesense-server-0.25.1-amd64.deb
+   ```
+3. Open the Typesense config by running this command.
+   ```sh
+   sudo nano /etc/typesense/typesense-server.ini
+   ```
+4. Change the `api-port` to `443` and note/save the `api-key` value.
+5. Restart the Typesense service by running this command.
+   ```sh
+   sudo systemctl restart typesense-server.service
+   ```
+6. Check the server status by running this command.
+   ```sh
+   curl http://localhost:443/health
+   ```
+7. Make sure the response is like this to show the server is running well.
+   ```json
+   { "ok": true }
+   ```
+8. Set up the `exercises` Typesense collection schema. To define the collection schema, you can make this request using Postman.
+   - **Method:** POST
+   - **URL:** http://**[YOUR_TYPESENSE_IP_ADDRESS]**:443/collections
+   - **Headers:**
+     - `x-typesense-api-key`: **[YOUR_TYPESENSE_API_KEY]**
+   - **Body (JSON):**
+     ```json
+     {
+       "name": "exercises",
+       "enable_nested_fields": true,
+       "fields": [
+         {
+           "name": "title",
+           "type": "string",
+           "sort": true
+         },
+         {
+           "name": "type",
+           "type": "string"
+         },
+         {
+           "name": "level",
+           "type": "string"
+         },
+         {
+           "name": "gender",
+           "type": "string"
+         },
+         {
+           "name": "bodyPart",
+           "type": "string"
+         },
+         {
+           "name": "desc",
+           "type": "string"
+         },
+         {
+           "name": "jpg",
+           "type": "string"
+         },
+         {
+           "name": "gif",
+           "type": "string"
+         },
+         {
+           "name": "duration.sec",
+           "type": "string",
+           "optional": true
+         },
+         {
+           "name": "duration.rep",
+           "type": "string",
+           "optional": true
+         },
+         {
+           "name": "duration.set",
+           "type": "string",
+           "optional": true
+         },
+         {
+           "name": "duration.min",
+           "type": "string",
+           "optional": true
+         },
+         {
+           "name": "duration.desc",
+           "type": "string",
+           "optional": true
+         }
+       ]
+     }
+     ```
+9. The next step is integrating the Typesense with the Firestore database. Open the [Firebase](https://console.firebase.google.com) site and add the GCP project as a Firebase project.
+10. Add the Firestore/Firebase Typesense Search Extension by opening this [link](https://console.firebase.google.com/project/_/extensions/install?ref=typesense/firestore-typesense-search). After that, choose the project. Then, follow all the installation instructions until the extension is installed successfully. For the extension configuration, you can follow these options:
+    - **Firestore Collection Path:** exercises
+    - **Typesense Hosts:** **[YOUR_TYPESENSE_IP_ADDRESS]**
+    - **Typesense API Key:** **[YOUR_TYPESENSE_API_KEY]** (Then, click the `CREATE SECRET` button)
+    - **Typesense Collection Name:** exercises
+    - **Flatten Nested Documents:** No
+    - **Cloud Functions Location:** Jakarta (asia-southeast2)
+11. Open the [Cloud Functions](https://console.cloud.google.com/functions/list) page. Click the `ext-firestore-typesense-search-backfillToTypesenseFromFirestore` function. After that, click the `EDIT` button. Add this new environment variable and deploy the new version:
+    - TYPESENSE_PROTOCOL = http
+12. Do the same for the `ext-firestore-typesense-search-indexToTypesenseOnFirestoreWrite` function.
+
+### D. Set Up a MySQL Database
+
+**Local Machine**
+
+You can create a MySQL database on the local machine using any stacks, such as XAMPP, LAMP, Laragon, etc. Create a database with the name `main_api` or anything.
+
+**Cloud Machine**
+
+You can create a MySQL database on GCP using [Cloud SQL](https://console.cloud.google.com/sql).
+
+1. Open the [Cloud SQL](https://console.cloud.google.com/sql) page.
+2. Click the `CREATE INSTANCE` button.
+3. Choose MySQL.
+4. Set up the database configuration as you need. Make sure to note/save the `root`'s password.
+5. After finishing the installation, you can note/save the instance's **Connection name**.
+6. Finally, you need to create a database on that instance. Open the **Databases** tab and click the `CREATE DATABASE` button. Create a database with the name `main_api` or anything.
+
+### E. Set Up Cloud Storage Buckets
+
+1. Open the [Cloud Storage](https://console.cloud.google.com/storage/browser) page.
+2. Create two buckets with these required options:
+   - First bucket (for storing static assets)
+     - **Name:** **[Fill in the unique global name]**
+     - **Class:** Standard
+     - **(Uncheck) Enforce public access prevention on this bucket**
+     - **Access Control:** Fine-grained
+   - Second bucket (for storing user photos)
+     - **Name:** **[Fill in the unique global name]**
+     - **Class:** Standard
+     - **(Uncheck) Enforce public access prevention on this bucket**
+     - **Access Control:** Uniform
+3. Please note/save all the buckets' name.
+4. Upload this [file](assets/fitsync-logo.png) on the first bucket. Make the file accessible to the public by adding `allUsers` as a `Reader` on the access.
+5. Make the second bucket accessible to the public by adding `allUsers` as a new principal with the `Storage Object Viewer` role.
+
+### F. Deploy & Run The Project
+
+#### F.1 Prepare The Environment Variables
+
+**Local Machine**
+
+> [!IMPORTANT]
+> Before you follow the next steps, you need to clone this repository first. Run the command below on your local machine to clone this project repository.
+
+```sh
+git clone https://github.com/CH2-PS020-FitSync/CH2-PS020-CC.git
+```
+
+You can define the environment variables by creating the `.env` file on the project root directory. The list of the variables can be found in this [section](https://github.com/CH2-PS020-FitSync/CH2-PS020-CC#-environment-variables). For reference, you can follow this example.
+
+```
+# General
+ENVIRONMENT='development'
+IS_LOCAL='true'
+API_KEY='[CREATE_YOUR_CUSTOM_API_KEY]'
+PORT='8080'
+
+# URLs
+ML_BASE_URL='[SEE_ML_TEAM_API_DOCUMENTATION]'
+
+# Cloud Storage
+STATIC_ASSETS_BUCKET='[FIRST_BUCKET_NAME]'
+USER_PHOTOS_BUCKET='[SECOND_BUCKET_NAME]'
+
+# Database
+DB_HOST='localhost'
+DB_USERNAME='root'
+DB_PASSWORD=''
+DB_NAME='main_api'
+DB_DIALECT='mysql'
+
+# JWT
+ACCESS_TOKEN_PRIVATE_KEY='[CREATE_YOUR_CUSTOM_PRIVATE_KEY]'
+REFRESH_TOKEN_PRIVATE_KEY='[CREATE_YOUR_CUSTOM_PRIVATE_KEY]'
+
+# Email Transporter
+EMAIL_TRANSPORTER_HOST='smtp.ethereal.email'
+EMAIL_TRANSPORTER_PORT='587'
+EMAIL_TRANSPORTER_USERNAME='someone@ethereal.email'
+EMAIL_TRANSPORTER_PASSWORD='strongest_password'
+EMAIL_TRANSPORTER_NAME='FitSync'
+
+# Typesense
+TYPESENSE_HOST='[PUT_YOUR_TYPESENSE_EXTERNAL_IP_ADDRESS]'
+TYPESENSE_PORT='443'
+TYPESENSE_PROTOCOL='http'
+TYPESENSE_API_KEY='[PUT_YOUR_TYPESENSE_API_KEY]'
+```
+
+You can get the `ML_BASE_URL` value by visiting the [Machine Learning team repository](https://github.com/CH2-PS020-FitSync/CH2-PS020-ML).
+
+**Cloud Machine**
+
+Basically, setting up the environment variables on the cloud machine is the same as on the local machine. However, for the secret variables, you need to store them first in the [Secret Manager](https://console.cloud.google.com/security/secret-manager). You are free to define the secret variables' name. But, if you want to keep everything by default as stated in the [cloudbuild.dev.yaml](cloudbuild.dev.yaml) or [cloudbuild.prod.yaml](cloudbuild.prod.yaml) files, you can follow these variables' name.
+
+```
+# Development
+API_KEY=fitsync-main-api-API_KEY
+DB_PASSWORD=fitsync-main-api-DB_PASSWORD
+ACCESS_TOKEN_PRIVATE_KEY=fitsync-main-api-ACCESS_TOKEN_PRIVATE_KEY
+REFRESH_TOKEN_PRIVATE_KEY=fitsync-main-api-REFRESH_TOKEN_PRIVATE_KEY
+EMAIL_TRANSPORTER_PASSWORD=fitsync-main-api-EMAIL_TRANSPORTER_PASSWORD
+TYPESENSE_API_KEY=firestore-typesense-search-TYPESENSE_API_KEY
+
+# Production
+API_KEY=fitsync-main-api-API_KEY
+DB_PASSWORD=fitsync-main-api-PROD_DB_PASSWORD
+ACCESS_TOKEN_PRIVATE_KEY=fitsync-main-api-ACCESS_TOKEN_PRIVATE_KEY
+REFRESH_TOKEN_PRIVATE_KEY=fitsync-main-api-REFRESH_TOKEN_PRIVATE_KEY
+EMAIL_TRANSPORTER_PASSWORD=fitsync-main-api-PROD_EMAIL_TRANSPORTER_PASSWORD
+TYPESENSE_API_KEY=firestore-typesense-search-TYPESENSE_API_KEY
+```
+
+For the non-secret variables, you can store them on the [env.dev.yaml](env.dev.yaml) for the development environment and [env.prod.yaml](env.prod.yaml) for the production environment.
+
+#### F.2 Prepare The Service Account
+
+Before you run the application in the development or production environment, you must create the service account first. To create the service account, you can follow these steps.
+
+1. Open the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) page, then click the `CREATE SERVICE ACCOUNT` button.
+2. Fill in the service account name and ID, then click the `CREATE AND CONTINUE` button.
+3. Add these roles to the service account.
+   - Cloud SQL Client
+   - Firebase Admin SDK Administrator Service Agent
+   - Secret Manager Secret Accessor
+   - Storage Object Admin
+4. After that, please note/save the service account email.
+
+**Local Machine**
+
+To use the service account, you need to download the key first.
+
+1. Open the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) page, then find the service account email.
+2. Click the three-dots action button on the right of the service account, then click the `Manage keys` button.
+3. After that, you can click the `ADD KEY` button, then click the `Create new key` button to download the key. Choose the JSON key type.
+4. After downloading the service account key, you can rename the file to `main-api-cloud-run.json`, and then place it in the `keys` folder on the root directory. The key location should be `keys/main-api-cloud-run.json`.
+
+**Cloud Machine**
+
+You can use the service account by updating the `--service-account` argument value in the [cloudbuild.dev.yaml](cloudbuild.dev.yaml) or [cloudbuild.prod.yaml](cloudbuild.prod.yaml) files.
+
+#### F.3 Run the App
+
+**Local Machine**
+
+Run this command in the project root directory to run the app.
+
+```sh
+npm run start
+```
+
+If you're actively developing the app and need a hot reload, you can run this command.
+
+```sh
+npm run start-dev
+```
+
+Since this project uses Sequelize as an ORM, we provide the model synchronization options.
+
+1. **Default:** Creates the table if it doesn't exist (and does nothing if it already exists).
+   ```sh
+   npm run start-dev
+   ```
+2. **Force the database:** Creates the table, dropping it first if it already existed.
+   ```sh
+   npm run start-dev-force
+   ```
+3. **Alter the database:** Checks what is the current state of the table in the database (which columns it has, what are their data types, etc), and then performs the necessary changes in the table to make it match the model.
+   ```sh
+   npm run start-dev-alter
+   ```
+
+**Cloud Machine**
+
+You can host this project app on the Cloud Run because you only pay when the app serves requests. To easily deploy and run the app, you can set up a continuous deployment flow first.
+
+Before creating a continuous deployment flow, you need to duplicate this repository to your repository. For the simple, you can fork this repository.
+
+1. Open the [Cloud Build](https://console.cloud.google.com/cloud-build/dashboard) dashboard page. Then, click the `SET UP BUILD TRIGGERS` button.
+2. You can specify how the Cloud Build will be triggered. For reference, you can follow these options:
+   - **Name:** **[Fill in a unique name]**
+   - **Region:** global (Global)
+   - **Event:** Push new tag
+   - **Source -> Repository:** **[Connect it to your repository]**
+   - **Source -> Tag:** **[Define your RegEx rule]**
+   - **Configuration -> Type:** Cloud Build configuration file (yaml or json)
+   - **Configuration -> Location:** Repository
+   - **Configuration -> Cloud build configuration file location:** `cloudbuild.dev.yaml` or `cloudbuild.prod.yaml`
+   - **Build logs:** (Check) Send build logs to GitHub
+3. Now, you can push a new tag on your repository to trigger the build process.
+4. Once the build process is complete, you can open the [Cloud Run](https://console.cloud.google.com/run) page to see the deployed service.
+5. Click on the service. Now, you can see the service is running. You can use the app with the service URL.
 
 ## 🔗 API Documentation
 
