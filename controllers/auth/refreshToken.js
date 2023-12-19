@@ -44,15 +44,20 @@ async function refreshTokenController(req, res) {
       process.env.REFRESH_TOKEN_PRIVATE_KEY
     );
 
+    const jwtOptions = {
+      issuer: 'FitSync',
+    };
+
     const newAccessToken = jwt.sign(
       { userId: decodedRefreshToken.userId },
       process.env.ACCESS_TOKEN_PRIVATE_KEY,
       {
-        issuer: 'FitSync',
-        expiresIn:
-          process.env.ENVIRONMENT.toLowerCase() === 'development'
-            ? '24h'
-            : '30m',
+        ...jwtOptions,
+        // Disabled by MD request
+        // expiresIn:
+        //   process.env.ENVIRONMENT.toLowerCase() === 'development'
+        //     ? '24h'
+        //     : '30m',
       }
     );
 

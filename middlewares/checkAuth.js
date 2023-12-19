@@ -10,6 +10,7 @@ async function checkAuth(req, res, next) {
     });
   }
 
+  // Disabled by MD request
   // const accessToken = req.headers.authorization.trim().split(' ')[1];
   const accessToken = req.headers.authorization
     .replaceAll(/,?((B|b)earer)/g, '')

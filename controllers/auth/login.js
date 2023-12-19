@@ -50,8 +50,9 @@ async function loginController(req, res) {
     process.env.ACCESS_TOKEN_PRIVATE_KEY,
     {
       ...jwtOptions,
-      expiresIn:
-        process.env.ENVIRONMENT.toLowerCase() === 'development' ? '24h' : '30m',
+      // Disabled by MD request
+      // expiresIn:
+      //   process.env.ENVIRONMENT.toLowerCase() === 'development' ? '24h' : '30m',
     }
   );
   let refreshToken;
