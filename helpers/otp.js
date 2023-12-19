@@ -53,6 +53,7 @@ async function generateHTMLEmail(type, otpCode, name) {
     const html = await ejs.renderFile('views/emails/otp.ejs', {
       locals: {
         title,
+        logoSrc: `https://storage.googleapis.com/${process.env.STATIC_ASSETS_BUCKET}/fitsync-logo.png`,
         name,
         opening,
         closing,
