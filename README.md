@@ -250,7 +250,7 @@ You can create a MySQL database on GCP using [Cloud SQL](https://console.cloud.g
 git clone https://github.com/CH2-PS020-FitSync/CH2-PS020-CC.git
 ```
 
-You can define the environment variables by creating the `.env` file on the project root directory. The list of the variables can be found in this [section](https://github.com/CH2-PS020-FitSync/CH2-PS020-CC#-environment-variables). For reference, you can follow this example.
+You can define the environment variables by creating the `.env` file on the project root directory. The list of the variables can be found in this [section](#-environment-variables). For reference, you can follow this example.
 
 ```
 # General
