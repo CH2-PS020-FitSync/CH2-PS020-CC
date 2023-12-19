@@ -337,7 +337,7 @@ To use the service account, you need to download the key first.
 1. Open the [Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) page, then find the service account email.
 2. Click the three-dots action button on the right of the service account, then click the `Manage keys` button.
 3. After that, you can click the `ADD KEY` button, then click the `Create new key` button to download the key. Choose the JSON key type.
-4. After downloading the service account key, you can rename the file to `main-api-cloud-run.json`, and then place it in the `keys` folder on the root directory. The key location should be `keys/main-api-cloud-run.json`.
+4. After downloading the service account key, you can rename the file to `main-api-cloud-run.json`, and then place it in the `keys` folder on the project root directory. The key location should be `keys/main-api-cloud-run.json`.
 
 **Cloud Machine**
 
@@ -381,7 +381,7 @@ You can host this project app on the Cloud Run because you only pay when the app
 Before creating a continuous deployment flow, you need to duplicate this repository to your repository. For the simple, you can fork this repository.
 
 1. Enable the [Cloud Run API](https://console.cloud.google.com/apis/library/run.googleapis.com) and [Cloud SQL Admin API](https://console.cloud.google.com/apis/library/sqladmin.googleapis.com).
-2. Open the [Cloud Builds Service Account Settings](https://console.cloud.google.com/cloud-build/settings/service-account), then enable these GCP services:
+2. Open the [Cloud Build Service Account Settings](https://console.cloud.google.com/cloud-build/settings/service-account), then enable these GCP services:
    - Cloud Run
    - Service Accounts
 3. Please note/save the Cloud Build service account email that is stated on the Service Account Settings page.
