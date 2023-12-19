@@ -52,11 +52,14 @@ db.users.hasMany(db.workouts, {
 });
 db.workouts.belongsTo(db.users);
 
+const rawExercises = require('../assets/exercises.json');
+
 const typesenseClient = require('./typesense');
 const exercisesSchema = require('./TypesenseExercise');
 
 db.firestore = require('./firestore')();
 
+db.firestore.exercises = db.firestore.collection('exercises');
 db.firestore.typesenseSync = db.firestore.collection('typesense_sync');
 
 db.typesense = {};
@@ -66,6 +69,21 @@ const typesenseSchemas = [exercisesSchema];
 
 db.typesense.init = async () => {
   try {
+    const exercisesSize = (await db.firestore.exercises.get()).size;
+    const typesenseSyncSize = (await db.firestore.typesenseSync.get()).size;
+
+    if (exercisesSize < 1) {
+      for (const exercise of rawExercises) {
+        await db.firestore.exercises.add(exercise);
+      }
+    }
+
+    if (typesenseSyncSize < 1) {
+      await db.firestore.typesenseSync.doc('backfill').set({
+        trigger: true,
+      });
+    }
+
     const collections = await typesenseClient.collections().retrieve();
 
     for (const schema of typesenseSchemas) {
@@ -107,7 +125,6 @@ db.typesense.init = async () => {
           .update({ trigger: true });
       }
 
-      db.firestore[schemaAliasName] = db.firestore.collection(schemaAliasName);
       db.typesense[schemaAliasName] =
         typesenseClient.collections(schemaAliasName);
     }
