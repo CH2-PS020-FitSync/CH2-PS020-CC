@@ -43,9 +43,6 @@ async function checkAuth(req, res, next) {
     return res.status(401).json({
       status: 'fail',
       message,
-      error: error.message,
-      fullToken: req.headers.authorization,
-      accessToken,
     });
   }
 }
