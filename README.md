@@ -237,14 +237,14 @@ You can create a MySQL database on GCP using [Cloud SQL](https://console.cloud.g
 4. Upload this [file](assets/fitsync-logo.png) on the first bucket. Make the file accessible to the public by adding `allUsers` as a `Reader` on the access.
 5. Make the second bucket accessible to the public by adding `allUsers` as a new principal with the `Storage Object Viewer` role.
 
-### F. Deploy & Run The Project
+### F. Deploy & Run the Project
 
-#### F.1 Prepare The Environment Variables
+#### F.1 Prepare the Environment Variables
 
 **Local Machine**
 
 > [!IMPORTANT]
-> Before you follow the next steps, you need to clone this repository first. Run the command below on your local machine to clone this project repository.
+> Before configuring on the local machine, you need to clone this repository first. Run the command below on your local machine to clone this project repository.
 
 ```sh
 git clone https://github.com/CH2-PS020-FitSync/CH2-PS020-CC.git
@@ -295,6 +295,9 @@ You can get the `ML_BASE_URL` value by visiting the [Machine Learning team repos
 
 **Cloud Machine**
 
+> [!IMPORTANT]
+> Before configuring on the cloud machine, you need to duplicate this repository to your repository first. For the simple, you can fork this repository.
+
 Basically, setting up the environment variables on the cloud machine is the same as on the local machine. However, for the secret variables, you need to store them first in the [Secret Manager](https://console.cloud.google.com/security/secret-manager). You are free to define the secret variables' name. But, if you want to keep everything by default as stated in the [cloudbuild.dev.yaml](cloudbuild.dev.yaml) or [cloudbuild.prod.yaml](cloudbuild.prod.yaml) files, you can follow these variables' name.
 
 ```
@@ -317,7 +320,9 @@ TYPESENSE_API_KEY=firestore-typesense-search-TYPESENSE_API_KEY
 
 For the non-secret variables, you can store them on the [env.dev.yaml](env.dev.yaml) for the development environment and [env.prod.yaml](env.prod.yaml) for the production environment.
 
-#### F.2 Prepare The Service Account
+To setup the SQL connection, you need to change the `--add-cloudsql-instances` argument value in the [cloudbuild.dev.yaml](cloudbuild.dev.yaml) or [cloudbuild.prod.yaml](cloudbuild.prod.yaml) files. After that, you need to change the `DB_HOST` variable value in the [env.dev.yaml](env.dev.yaml) or [env.prod.yaml](env.prod.yaml) files with the `/cloudsql/YOUR_SQL_CONNECTION_NAME` format.
+
+#### F.2 Prepare the Service Account
 
 Before you run the application in the development or production environment, you must create the service account first. To create the service account, you can follow these steps.
 
@@ -377,8 +382,6 @@ Since this project uses Sequelize as an ORM, we provide the model synchronizatio
 **Cloud Machine**
 
 You can host this project app on the Cloud Run because you only pay when the app serves requests. To easily deploy and run the app, you can set up a continuous deployment flow first.
-
-Before creating a continuous deployment flow, you need to duplicate this repository to your repository. For the simple, you can fork this repository.
 
 1. Enable the [Cloud Run API](https://console.cloud.google.com/apis/library/run.googleapis.com) and [Cloud SQL Admin API](https://console.cloud.google.com/apis/library/sqladmin.googleapis.com).
 2. Open the [Cloud Build Service Account Settings](https://console.cloud.google.com/cloud-build/settings/service-account), then enable these GCP services:
@@ -1082,7 +1085,7 @@ Data list:
   - Min. value: 0.
   - Default value: 10.
   - Set 0 to disable limit.
-  - Set > 0 to enable limit.
+  - Set >0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
@@ -1259,7 +1262,7 @@ Data list:
   - Min. value: 0.
   - Default value: 10.
   - Set 0 to disable limit.
-  - Set > 0 to enable limit.
+  - Set >0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
@@ -1592,7 +1595,7 @@ Data list:
   - Min. value: 0.
   - Default value: 10.
   - Set 0 to disable limit.
-  - Set > 0 to enable limit.
+  - Set >0 to enable limit.
 - `offset`: INTEGER - 🔹Optional
   - Min. value: 1.
 
@@ -1774,6 +1777,6 @@ Data list:
 
 ---
 
-[🔗 Back to The Top of API Documentation](#-api-documentation)
+[🔗 Back to the Top of API Documentation](#-api-documentation)
 
 [🔝 Back to Very Top](#%EF%B8%8F-ch2-ps020-cc)
